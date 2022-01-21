@@ -1,0 +1,81 @@
+div.container {
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  overflow: hidden;
+}
+.blob {
+  position: absolute; z-index: 0; width: 10vw; height: 10vw;
+  min-width: 8em; min-height: 8em;
+  animation: rotate (random(2) + 5)+s linear infinite;
+  background-color: var(--accent-color);
+  opacity: 0.7;
+
+  @keyframes rotate {
+    from { transform: rotate(0deg);}
+    to { transform: rotate(360deg);}
+  }
+}
+div.main {
+  width: calc(100% - 7em);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  z-index: 1;
+  overflow: hidden;
+  background-color: var(--indexComponent);
+  justify-content: space-between;
+  align-items: center;
+  section {
+    &.title {
+      color: black;
+      display: flex;
+      min-width: 45%;
+      padding: 2% 7%;
+      margin-left: -3.5%;
+      border-radius: 0% 100% 47% 53% / 61% 59% 50% 39%;
+      box-shadow: 0 0 10em 15vw var(--primary-color);
+      flex-flow: column;
+      justify-content: space-evenly;
+      button {
+        &::after {
+          display: inline;
+          content: "  >";
+          margin-left: 5px;
+          position: absolute;
+          transform: translateX(200%);
+          transition: transform 0.2s ease;
+        }
+        &:hover {&::after {transform: translateX(0%);}}
+      }
+      div.introduction {
+        span:first-child {
+          font-size: 1.3em;
+          display: block;
+          &::after {
+            content: " !";
+            font-size: 1.2em;
+            color: var(--colorSecondary);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and(max-width: 1000px) {
+  section {
+    &.image { flex-shrink: 1.5;}
+    &.title { margin-left: -5% !important; min-width: 55% !important;}
+  }
+}
+@media only screen and(max-width: 800px) {
+  section {
+    &.title { margin-left: -6% !important; min-width: 100% !important;}
+  }
+}
+@media only screen and(max-width: 600px) {
+  section {
+    &.title { margin-left: -8% !important; font-size: 2.5vw;}
+  }
+}
