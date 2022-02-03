@@ -8,7 +8,7 @@ interface Color {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class WebglBoilerPlateService {
 

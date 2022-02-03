@@ -1,12 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon'
+import { MatRippleModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const modules = [
-  MatProgressSpinnerModule,
-  MatButtonModule
+  MatButtonModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatRippleModule,
+  MatTooltipModule,
+  MatDialogModule
 ]
 
 @NgModule({

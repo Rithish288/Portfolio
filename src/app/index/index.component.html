@@ -6,14 +6,14 @@
     <section class="title" [ngStyle]="{'height': sectionHeight}">
       <div class="myName">
         <svg [ngStyle]="{'display': titleDisplay}" width="144" height="35" viewBox="0 0 144 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path [ngStyle]="{'will-change': 'auto'}" [attr.d]="mainContent.svgPath" stroke-width="1" stroke="black"/>
+          <path [ngStyle]="{'will-change': 'auto'}" [@writeName]="pathState" [attr.d]="mainContent.svgPath" stroke-width="1"/>
         </svg>
         </div>
       <div class="introduction" [ngStyle]="{'font-size': '1.2em'}">
-        <span appTypeAnimation content="{{mainContent.subHead}}"></span> <br />
-        <span appTypeAnimation content="{{mainContent.content}}"></span>
+        <span appTypeAnimation="{{mainContent.subHead}}"></span> <br />
+        <span appTypeAnimation="{{mainContent.content}}"></span>
       </div>
-      <button mat-raised-button [ngStyle]="{'margin': margin}" color="accent" (click)="goToHome()">{{'Dive in' | titlecase}}</button>
+      <button mat-raised-button [ngStyle]="{'margin': margin}" (click)="goToHome()" color="accent">{{'Dive in' | titlecase}}</button>
     </section>
     <section class="image" *ngIf="!noImage">
       <img

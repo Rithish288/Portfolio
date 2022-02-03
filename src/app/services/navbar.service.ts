@@ -8,12 +8,6 @@ export class NavbarService {
   constructor() {
     this.present = true;
   }
-
-  hide() {
-    this.present = false;
-  }
-
-  show() {
-    this.present = true;
-  }
+  hide = () => this.present = false;
+  show = () => this.present = true;
 }

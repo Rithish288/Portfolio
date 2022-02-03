@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
 import { add, lusolve, chain } from 'mathjs';
-import { MATH } from 'math-extended';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +26,7 @@ export class PendulumService {
     for (let i = 0; i < this.n; i++) {
       let row: number[] = [];
       for (let j = 0; j < this.n; j++) {
-        row.push((this.n - MATH.max(i, j)) * MATH.trig.cos(thetas[i] - thetas[j]));
+        row.push((this.n - Math.max(i, j)) * Math.cos(thetas[i] - thetas[j]));
       }
       M.push(row)
     }
@@ -39,9 +38,9 @@ export class PendulumService {
     for (let i = 0; i < this.n; i++) {
       let b_i: number = 0;
       for (let j = 0; j < this.n; j++) {
-        b_i -= (this.n - MATH.max(i, j)) * MATH.trig.sin(thetas[i] - thetas[j]) * thetaDots[j] ** 2;
+        b_i -= (this.n - Math.max(i, j)) * Math.sin(thetas[i] - thetas[j]) * thetaDots[j] ** 2;
       }
-      b_i -= this.g * (this.n - i) * MATH.trig.sin(thetas[i]);
+      b_i -= this.g * (this.n - i) * Math.sin(thetas[i]);
       v.push(b_i);
     }
     return v;
@@ -76,8 +75,8 @@ export class PendulumService {
     let coords = [];
     for (let i = 0; i < this.thetas.length; i++) {
       let theta = this.thetas[i]
-      x += MATH.trig.sin(theta);
-      y += MATH.trig.cos(theta);
+      x += Math.sin(theta);
+      y += Math.cos(theta);
       coords.push({x:x, y:y})
     }
     return coords;

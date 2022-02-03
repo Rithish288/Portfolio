@@ -1,0 +1,51 @@
+mat-sidenav-container {
+  mat-sidenav {
+    max-width: 200px;
+    mat-nav-list {
+      .mat-list-item {
+        height: 40px
+      }
+      a {
+        display: block;
+        &:hover, &:focus-visible {
+          background-color: lighten($color: rgb(78, 78, 78, 0.3), $amount: 30%);
+        }
+        &.active-project {
+          color: darken($color: #1a66e7, $amount: 10%);
+          background-color: var(--primary-lighter-color);
+        }
+      }
+      cdk-accordion {
+        cdk-accordion-item {
+          & > mat-list-item {
+            mat-icon {
+              transition: transform 0.3s ease-out;
+              margin-left: auto;
+            }
+            &:hover {
+              background-color: lighten($color: rgb(78, 78, 78, 0.7), $amount: 30%);
+            }
+          }
+          div.expansion-panel {
+            overflow: hidden;
+            a {
+              white-space: nowrap;
+            }
+            span.spacer {
+              width: 1rem;
+              height: inherit;
+            }
+          }
+        }
+      }
+    }
+  }
+  mat-sidenav-content {
+    button {
+      margin-right: 15px;
+      &:hover {
+        background-color: var(--primary-lighter-color);
+      }
+    }
+  }
+}

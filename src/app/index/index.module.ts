@@ -2,20 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { IndexRoutingModule } from './index-routing.module';
-import { IndexComponent } from './index.component';
 import { DirectivesModule } from '../directives/directives.module';
-import { MatButtonModule } from '@angular/material/button';
+import { IndexComponent } from './index.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
-  declarations: [
-    IndexComponent
-  ],
+  declarations: [IndexComponent],
   imports: [
     CommonModule,
     IndexRoutingModule,
     DirectivesModule,
-    MatButtonModule
-  ]
+    MaterialModule
+  ],
+  exports: [IndexComponent]
 })
 export class IndexModule { }

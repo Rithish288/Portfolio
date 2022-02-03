@@ -24,8 +24,8 @@ import { Subscription } from 'rxjs';
     ]),
     trigger('writeName', [
       state('empty', style({
-        strokeDasharray: 776.5869750976562/7,
-        strokeDashoffset: 776.5869750976562/7,
+        strokeDasharray: 776.5869750976562 / 7,
+        strokeDashoffset: 776.5869750976562 / 7,
       })),
       state('written', style({
         strokeDasharray: 0,
@@ -42,16 +42,16 @@ export class IndexComponent implements OnInit, OnDestroy {
     subHead: 'Hello there',
     content: "My name's Rithish and I'm a front-end developer from India."
   }
-  imageState: string = 'hidden';
-  pathState: string = 'empty';
-  margin: string;
-  contentHeight: string;
-  noImage: boolean = true;
-  contentPadding: string;
-  sectionHeight: string;
-  titleDisplay: string;
+  public imageState: string = 'hidden';
+  public pathState: string = 'empty';
+  public margin: string;
+  public contentHeight: string;
+  public noImage: boolean = true;
+  public contentPadding: string;
+  public sectionHeight: string;
+  public titleDisplay: string;
   private subs: Subscription[] = [];
-  constructor(private router: Router, public nav: NavbarService, private observer: BreakpointObserver, private detector: ChangeDetectorRef) { }
+  constructor(private router: Router, public nav: NavbarService, private observer: BreakpointObserver, private detector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.nav.hide();
@@ -59,13 +59,11 @@ export class IndexComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.pathState = 'written';
       this.detector.detectChanges();
-    }, 1)
+    }, 0)
   }
 
   goToHome() {
-    setTimeout(() => {
-      this.router.navigateByUrl("/home");
-    }, 10);
+    this.router.navigateByUrl("/landing-page");
   }
 
   onLoad() {

@@ -1,0 +1,28 @@
+:host {
+  position: relative;
+  width: 100%;
+  display: block;
+  padding: 5vh 5vw;
+
+  section {
+    display: block;
+    &.libraries, &.languages {
+      gap: 5vmin;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      mat-card {
+        img {
+          width: 40%;
+          float: right;
+          margin: -1em 0 0 0.5rem;
+        }
+        mat-card-content {
+          opacity: 0.8;
+        }
+        mat-card-header {
+          margin: 0.5rem 0px;
+        }
+      }
+    }
+  }
+}

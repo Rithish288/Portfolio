@@ -29,11 +29,4 @@ export class ShaderService {
       fragment: this.http.get('assets/shaders/attractor/fragment.frag', {responseType: 'text'}).pipe(shareReplay())
     }
   }
-
-  public getDemo2Shaders():Shaders {
-    return {
-      vertex: this.http.get('assets/shaders/demo2/vertex.vert', {responseType: 'text'}),
-      fragment: this.http.get('assets/shaders/demo2/fragment.frag', {responseType: 'text'})
-    };
-  }
 }

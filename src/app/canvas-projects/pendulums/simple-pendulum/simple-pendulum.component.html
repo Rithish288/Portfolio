@@ -1,0 +1,11 @@
+<div class="full-functionality-canvas" style="overflow: hidden;">
+  <canvas (window:resize)="onResize()" #canvas appCanvasResize></canvas>
+  <button
+    mat-mini-fab
+    color="accent"
+    matTooltip="View in fullscreen"
+    matTooltipPosition="left"
+    [appFullScreen]="canvas"
+    aria-label="fullscreen"
+  ><mat-icon>fullscreen</mat-icon></button>
+</div>

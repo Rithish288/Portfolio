@@ -1,0 +1,54 @@
+$toolbar-height: 55.927px;
+svg {
+  [nofill] {
+    fill: none;
+  }
+  [nostroke] {
+    stroke: none;
+  }
+}
+mat-toolbar {
+  min-height: $toolbar-height;
+  box-shadow: 0 -1px 12px rgba(0, 0, 0, 0.75);
+  z-index: 2;
+  top: 0px;
+  position: sticky;
+  mat-toolbar-row {
+    &:first-of-type {
+      min-height: $toolbar-height;
+      max-height: $toolbar-height;
+    }
+    div.links {
+      display: inline-flex;
+      a {
+        cursor: pointer;
+        text-decoration: none;
+        flex-grow: 1;
+        text-align: center;
+        color: black;
+        display: inline-block;
+        font-size: medium;
+        letter-spacing: 1px;
+        padding: 0px 0.75em;
+        border-right: 1px solid var(--accent-color);
+        transition: background-color 0.1s;
+        &:last-of-type {
+          border: none;
+        }
+        &:hover:not(.active) {
+          background-color: var(--primary-darker-color);
+          color: white;
+        }
+        &.active {
+          background-color: var(--primary-lighter-color);
+        }
+      }
+    }
+    button.toggle {
+      transition: background-color 0.1s;
+      &:hover {
+        background-color: var(--primary-lighter-color);
+      }
+    }
+  }
+}
