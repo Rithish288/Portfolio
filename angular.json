@@ -32,12 +32,21 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/app/breakpoints.scss"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
+              "allowedCommonJsDependencies": [
+                "math-extended",
+                "mathjs"
+              ],
+              "aot": true,
+              "commonChunk": true,
+              "inlineStyleLanguage": "scss",
+              "optimization": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -48,6 +57,11 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "5kb",
                   "maximumError": "7kb"
+                },
+                {
+                  "type": "bundle",
+                  "maximumWarning": "600kb",
+                  "maximumError": "1000kb"
                 }
               ],
               "fileReplacements": [
@@ -72,7 +86,7 @@
               ]
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -81,10 +95,12 @@
               "browserTarget": "Portfolio:build:production"
             },
             "development": {
-              "browserTarget": "Portfolio:build:development"
+              "browserTarget": "Portfolio:build:development",
+              "host": "localhost",
+              "port": 5050
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "production"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

@@ -1,3 +1,5 @@
+@use "../breakpoints.scss" as break;
+
 :host {
   position: relative;
   width: 100%;
@@ -10,6 +12,12 @@
       gap: 5vmin;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      @include break.tablet-lg-landscape {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @include break.mobile-lg-landscape {
+        grid-template-columns: 1fr;
+      }
       mat-card {
         img {
           width: 40%;

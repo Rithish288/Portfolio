@@ -4,31 +4,32 @@
 }">
   <mat-sidenav autoFocus="false" #sidenav mode="over" autoFocus="false" fixedInViewport="true" [fixedTopGap]="window.innerWidth > 650? 55.927 : 55.927+32">
     <mat-nav-list>
+      <mat-list-item routerLink="main-content" routerLinkActive="active-project">Main</mat-list-item>
       <cdk-accordion>
         <cdk-accordion-item #attractorAccordionItem="cdkAccordionItem">
           <mat-list-item (click)="attractorAccordionItem.toggle()">
             Attractors
-            <mat-icon [ngStyle]="{'transform': attractorAccordionItem.expanded? 'rotate(0deg)' : 'rotate(180deg)'}">
-              expand_less</mat-icon>
+            <mat-icon [ngStyle]="{'transform': attractorAccordionItem.expanded? 'rotate(0deg)' : 'rotate(180deg)'}" [style.transition]="'transform '+attractors.length/10+'s'">
+            expand_less</mat-icon>
           </mat-list-item>
-          <div class="expansion-panel" [attr.aria-expanded]="attractorAccordionItem.expanded" [style.transition]="'height ' + attractors.length / 10 + 's'" [style.height]="attractorAccordionItem.expanded ? attractors.length * 40 + 'px' : '0px'">
-            <a mat-list-item *ngFor="let attractor of attractors" role="link" routerLinkActive="active-project" routerLink="{{attractor.path}}">
+          <div class="expansion-panel" [attr.aria-expanded]="attractorAccordionItem.expanded" [style.transition]="'height '+attractors.length/10+'s'" [style.height]="attractorAccordionItem.expanded ? attractors.length * 40 + 'px' : '0px'">
+            <mat-list-item *ngFor="let attractor of attractors" role="link" routerLinkActive="active-project" routerLink="{{attractor.path}}">
               <span class="spacer"></span>
               {{attractor.name | truncate: attractor.name.length - attractor.truncateLength}}
-            </a>
+            </mat-list-item>
           </div>
         </cdk-accordion-item>
         <cdk-accordion-item #pendulumAccordionItem="cdkAccordionItem">
           <mat-list-item (click)="pendulumAccordionItem.toggle()">
             Pendulums
-            <mat-icon [ngStyle]="{'transform': pendulumAccordionItem.expanded? 'rotate(0deg)' : 'rotate(180deg)'}">
+            <mat-icon [ngStyle]="{'transform': pendulumAccordionItem.expanded? 'rotate(0deg)' : 'rotate(180deg)'}" [style.transition]="'transform '+pendulums.length/10+'s'">
             expand_less</mat-icon>
           </mat-list-item>
-          <div class="expansion-panel" [attr.aria-expanded]="pendulumAccordionItem.expanded" [style.transition]="'height ' + pendulums.length / 10 + 's'" [style.height]="pendulumAccordionItem.expanded ? pendulums.length * 40 + 'px' : '0px'">
-            <a mat-list-item *ngFor="let pendulum of pendulums" role="link" routerLinkActive="active-project" routerLink="{{pendulum.path}}">
+          <div class="expansion-panel" [attr.aria-expanded]="pendulumAccordionItem.expanded" [style.transition]="'height '+pendulums.length/10+'s'" [style.height]="pendulumAccordionItem.expanded ? pendulums.length * 40 + 'px' : '0px'">
+            <mat-list-item *ngFor="let pendulum of pendulums" role="link" routerLinkActive="active-project" routerLink="{{pendulum.path}}">
               <span class="spacer"></span>
               {{pendulum.name | truncate: pendulum.name.length - pendulum.truncateLength}}
-            </a>
+            </mat-list-item>
           </div>
         </cdk-accordion-item>
       </cdk-accordion>
@@ -37,7 +38,7 @@
   <mat-sidenav-content>
     <mat-toolbar color="primary" [ngStyle]="{height: '55.927px'}">
       <button mat-icon-button aria-label="open menu" (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-      <h4 class="mat-typography-h4">Canvas Projects</h4>
+      <h2 class="mat-h2">Canvas Projects</h2>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

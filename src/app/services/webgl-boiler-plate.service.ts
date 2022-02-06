@@ -14,18 +14,6 @@ export class WebglBoilerPlateService {
 
   constructor() { }
 
-  public static primaryColor: Color = {
-    r: 115,
-    g: 151,
-    b: 228
-  }
-
-  public static primaryMappedColor: Color = {
-    r: MATH.map(115, 0, 255, 0, 1),
-    g: MATH.map(151, 0, 255, 0, 1),
-    b: MATH.map(228, 0, 255, 0, 1),
-  }
-
   /**
    * Creates a program from 2 shaders.
    *

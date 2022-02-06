@@ -5,16 +5,18 @@ import { CanvasProjectsRoutingModule } from './canvas-projects-routing.module';
 import { Material2Module } from '../material/material-2.module';
 import { MaterialModule } from '../material/material.module';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { PipesModule } from '../pipes/pipes.module';
+import { DirectivesModule } from '../directives/directives.module';
 
 //Components
 import { CanvasProjectsComponent } from './canvas-projects.component';
-import { PipesModule } from '../pipes/pipes.module';
-import { DirectivesModule } from '../directives/directives.module';
+import { MainContentComponent } from './main-content/main-content.component';
 
 
 @NgModule({
   declarations: [
-    CanvasProjectsComponent
+    CanvasProjectsComponent,
+    MainContentComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { DirectivesModule } from '../directives/directives.module';
     PipesModule
   ],
   exports: [
-    CanvasProjectsComponent
+    CanvasProjectsComponent,
+    MainContentComponent
   ]
 })
 export class CanvasProjectsModule { }

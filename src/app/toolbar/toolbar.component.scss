@@ -31,7 +31,6 @@ mat-toolbar {
         letter-spacing: 1px;
         padding: 0px 0.75em;
         border-right: 1px solid var(--accent-color);
-        transition: background-color 0.1s;
         &:last-of-type {
           border: none;
         }
@@ -45,7 +44,6 @@ mat-toolbar {
       }
     }
     button.toggle {
-      transition: background-color 0.1s;
       &:hover {
         background-color: var(--primary-lighter-color);
       }

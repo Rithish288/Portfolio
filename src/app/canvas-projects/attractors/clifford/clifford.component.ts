@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { WebglBoilerPlateService } from 'src/app/services/webgl-boiler-plate.service';
 import { MATH } from 'math-extended';
+import { primaryColor } from 'src/app/colors';
 
 @Component({
   selector: 'app-clifford',
@@ -30,7 +31,7 @@ export class CliffordComponent implements AfterViewInit, OnDestroy {
     this.c = this.canvas.nativeElement.getContext('2d');
     this.c.canvas.width = window.innerWidth;
     this.c.canvas.height = window.innerHeight;
-    this.c.fillStyle = `rgb(${WebglBoilerPlateService.primaryColor.r}, ${WebglBoilerPlateService.primaryColor.g}, ${WebglBoilerPlateService.primaryColor.b})`
+    this.c.fillStyle = primaryColor
     this.x[this.i] = 0;
     this.y[this.i] = 0;
     this.increment();
@@ -39,7 +40,7 @@ export class CliffordComponent implements AfterViewInit, OnDestroy {
   onResize() {
     this.canvas.nativeElement.width = window.innerWidth;
     this.canvas.nativeElement.height = window.innerHeight;
-    this.c.fillStyle = `rgb(${WebglBoilerPlateService.primaryColor.r}, ${WebglBoilerPlateService.primaryColor.g}, ${WebglBoilerPlateService.primaryColor.b})`
+    this.c.fillStyle = primaryColor
   }
 
   ngOnDestroy(): void {

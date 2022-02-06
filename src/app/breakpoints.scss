@@ -1,0 +1,15 @@
+@mixin tablet-lg-landscape {
+  @media (max-width: 1000px)  {@content;}
+}
+
+@mixin tablet-landscape {
+  @media (max-width: 800px)  {@content;}
+}
+
+@mixin mobile-lg-landscape {
+  @media (max-width: 660px)  {@content;}
+}
+
+@mixin mobile-portrait {
+  @media (max-width: 375px)  {@content;}
+}

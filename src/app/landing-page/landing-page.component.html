@@ -1,18 +1,17 @@
 <app-space></app-space>
 <h1
-  class="mat-display-1"
-  [@fadeIn]
+  class="mat-display-1" [@fadeIn]
   style="position: absolute; top: 40vh; background-image: linear-gradient(90deg, #75AFFF, #FFC95F); background-size: 100% 3px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 0.2em; left: 50%; transform: translate(-50%, -50%);"
 >WELCOME</h1>
 <section>
-  <h1 class="mat-title" [ngStyle]="{'text-align': 'left'}">Hey! I'm Rithish K R.</h1><br/><br/>
-  <p [ngStyle]="{'font-size': 'clamp(0.8em, 1.25em, 1.5vw)'}">
+  <h1 class="mat-title" >Hey! I'm Rithish K R.</h1><br/><br/>
+  <p [style.font-size]="'clamp(0.8em, 1.25em, 1.5vw)'">
     I'm an experienced self-taught front-end developer from India, Tamil Nadu.<br/>
     I have upto {{calcHTMLCSSexp()}} years of experience with HTML and CSS
     and {{calcJSexp()}} years of experience with JavaScript.
   </p>
   <br/>
-  <p [ngStyle]="{'font-size': 'clamp(0.8em, 1.25em, 1.5vw)'}">
+  <p [style.font-size]="'clamp(0.8em, 1.25em, 1.5vw)'">
     I chose to learn web development because I was fascinated when I was first introduced to html5.
     I was given a chance to be part of the web. Where my friends saw only 'code', I saw opportunity.
     Since then I've been practicing a lot and have become proficient in web development.
@@ -43,7 +42,7 @@
   <mat-card *ngFor="let language of languages">
     <mat-card-header>
       <mat-card-title>
-        <h1 class="mat-h2">{{language.title | titlecase}}</h1>
+        <h3 class="mat-h3">{{language.title | titlecase}}</h3>
       </mat-card-title>
     </mat-card-header>
     <img mat-card-image [src]="language.imageUrl" [alt]="language.imageUrl">

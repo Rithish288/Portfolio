@@ -14,6 +14,7 @@ import { MaterialModule } from './material/material.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 import { SpinnerHttpInterceptorService } from './services/spinner-http-interceptor.service';
+import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SpinnerHttpInterceptorService } from './services/spinner-http-intercept
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    DirectivesModule
   ],
   bootstrap: [AppComponent],
   providers: [

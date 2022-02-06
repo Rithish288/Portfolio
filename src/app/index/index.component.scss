@@ -1,3 +1,5 @@
+@use "../breakpoints.scss" as break;
+
 div.container {
   height: 100vh;
   width: 100%;
@@ -50,22 +52,24 @@ div.main {
         }
       }
     }
-  }
-}
-
-@media only screen and(max-width: 1000px) {
-  section {
-    &.image { flex-shrink: 1.5;}
-    &.title { margin-left: -5% !important; min-width: 55% !important;}
-  }
-}
-@media only screen and(max-width: 800px) {
-  section {
-    &.title { margin-left: -6% !important; min-width: 100% !important;}
-  }
-}
-@media only screen and(max-width: 600px) {
-  section {
-    &.title { margin-left: -8% !important; font-size: 2.5vw;}
+    @include break.tablet-lg-landscape {
+      &.image { flex-shrink: 1.5;}
+      &.title { margin-left: -5%; min-width: 55%;}
+    }
+    @include break.tablet-landscape {
+      &.title { margin-left: -6%; min-width: 100%;}
+    }
+    @include break.mobile-lg-landscape {
+      &.title {
+        margin-left: -8%; font-size: 2.5vw;
+      }
+    }
+    @include break.mobile-portrait {
+      &.title {
+        button {
+          transform: scale(0.8);
+        }
+      }
+    }
   }
 }

@@ -63,8 +63,6 @@ export class DoublePendulumComponent implements AfterViewInit, OnDestroy {
   }
 
   onResize() {
-    this.canvas.nativeElement.width = window.innerWidth;
-    this.canvas.nativeElement.height = window.innerHeight;
     this.c.translate(0, this.canvas.nativeElement.height/4);
     this.pendulum.length.bob1 = this.length.one = this.canvas.nativeElement.width / 6.5;
     this.pendulum.length.bob2 = this.length.two = this.canvas.nativeElement.width / 6.5;

@@ -1,6 +1,8 @@
 import { Inject, Injectable, OnDestroy } from "@angular/core";
 import { glMatrix, mat4 } from "gl-matrix";
 import { MATH } from "math-extended";
+import { lastValueFrom } from "rxjs";
+import { primaryMappedArr } from "src/app/colors";
 import { ShaderService } from "src/app/services/shader.service";
 import { WebglBoilerPlateService } from "src/app/services/webgl-boiler-plate.service";
 
@@ -76,8 +78,8 @@ export class Attractor implements OnDestroy {
   }
 
   private async getShaders(): Promise<void> {
-    this.fragShader = await this.shader.getAttractorShaders().fragment.toPromise();
-    this.vertShader = await this.shader.getAttractorShaders().vertex.toPromise();
+    this.fragShader = await lastValueFrom(this.shader.getAttractorShaders().fragment);
+    this.vertShader = await lastValueFrom(this.shader.getAttractorShaders().vertex);
   }
 
   private initProgram(): void {
@@ -101,7 +103,7 @@ export class Attractor implements OnDestroy {
     if(this.color) {
     this.gl.uniform3fv(this.unifs.color, this.color, 0);
     } else {
-      this.gl.uniform3fv(this.unifs.color, [WebglBoilerPlateService.primaryMappedColor.r, WebglBoilerPlateService.primaryMappedColor.g, WebglBoilerPlateService.primaryMappedColor.b], 0);
+      this.gl.uniform3fv(this.unifs.color, primaryMappedArr, 0);
     }
     this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix)
     this.gl.uniformMatrix4fv(this.unifs.matView, false, this.matrices.viewMatrix)

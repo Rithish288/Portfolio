@@ -1,11 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
+import { fadeIn } from '../animations';
 import { NavbarService } from '../services/navbar.service';
 
 @Component({
   selector: 'app-canvas-projects',
   templateUrl: './canvas-projects.component.html',
   styleUrls: ['./canvas-projects.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeIn]
 })
 export class CanvasProjectsComponent implements OnInit {
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;

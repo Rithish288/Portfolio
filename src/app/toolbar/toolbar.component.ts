@@ -27,7 +27,6 @@ export class ToolbarComponent implements OnInit {
   ]
 
   @Output() toggleEvent = new EventEmitter<string>();
-
   constructor(public nav: NavbarService, private observer: BreakpointObserver, private detector: ChangeDetectorRef) {}
 
   ngOnInit(): void {

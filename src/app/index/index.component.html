@@ -4,14 +4,12 @@
   <div class="blob" [ngStyle]="{'right': 0, 'top': 0, 'margin': '30vh 1em 0 0', 'border-radius': '78% 22% 73% 27% / 61% 59% 41% 39%'}"></div>
   <div class="main" [ngStyle]="{'height': contentHeight,'padding': contentPadding}">
     <section class="title" [ngStyle]="{'height': sectionHeight}">
-      <div class="myName">
-        <svg [ngStyle]="{'display': titleDisplay}" width="144" height="35" viewBox="0 0 144 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path [ngStyle]="{'will-change': 'auto'}" [@writeName]="pathState" [attr.d]="mainContent.svgPath" stroke-width="1"/>
-        </svg>
-        </div>
+      <div class="myName" [ngStyle]="{'display': titleDisplay, fontSize: '2em'}">
+        Rithish
+      </div>
       <div class="introduction" [ngStyle]="{'font-size': '1.2em'}">
-        <span appTypeAnimation="{{mainContent.subHead}}"></span> <br />
-        <span appTypeAnimation="{{mainContent.content}}"></span>
+        <span [appTypeAnimation]="mainContent.subHead"></span> <br />
+        <span [appTypeAnimation]="mainContent.content"></span>
       </div>
       <button mat-raised-button [ngStyle]="{'margin': margin}" (click)="goToHome()" color="accent">{{'Dive in' | titlecase}}</button>
     </section>
