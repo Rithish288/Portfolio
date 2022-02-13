@@ -1,34 +1,41 @@
-@use "../breakpoints.scss" as break;
+@use "../breakpoints.scss";
+@use "../common-styles.scss";
 
 :host {
   position: relative;
-  width: 100%;
-  display: block;
-  padding: 5vh 5vw;
-
-  section {
-    display: block;
-    &.libraries, &.languages {
-      gap: 5vmin;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      @include break.tablet-lg-landscape {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      @include break.mobile-lg-landscape {
-        grid-template-columns: 1fr;
-      }
-      mat-card {
-        img {
-          width: 40%;
-          float: right;
-          margin: -1em 0 0 0.5rem;
-        }
-        mat-card-content {
-          opacity: 0.8;
-        }
-        mat-card-header {
-          margin: 0.5rem 0px;
+  @include common-styles.content-container-styles;
+  padding: 0px;
+  div.main-content {
+    @include common-styles.content-container-styles;
+    section {
+      display: block;
+      &.libraries, &.languages {
+        div.mat-card-container {
+          gap: 5vmin;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          @include breakpoints.tablet-lg-landscape {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          @include breakpoints.mobile-lg-landscape {
+            grid-template-columns: 1fr;
+          }
+          mat-card {
+            img {
+              width: 40%;
+              shape-margin: 5%;
+              float: right;
+              margin: -1em 0 0 0rem;
+              @include breakpoints.mobile-lg-landscape {
+                width: 30%;
+                margin: -0.8em 0 0 0rem;
+                shape-margin: 2%;
+              }
+            }
+            mat-card-content {
+              opacity: 0.9;
+            }
+          }
         }
       }
     }

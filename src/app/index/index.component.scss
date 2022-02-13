@@ -1,4 +1,4 @@
-@use "../breakpoints.scss" as break;
+@use "../breakpoints.scss";
 
 div.container {
   height: 100vh;
@@ -41,9 +41,11 @@ div.main {
       flex-flow: column;
       justify-content: space-evenly;
       div.introduction {
+        span {
+          display: block;
+        }
         span:first-child {
           font-size: 1.3em;
-          display: block;
           &::after {
             content: " !";
             font-size: 1.2em;
@@ -52,19 +54,19 @@ div.main {
         }
       }
     }
-    @include break.tablet-lg-landscape {
+    @include breakpoints.tablet-lg-landscape {
       &.image { flex-shrink: 1.5;}
       &.title { margin-left: -5%; min-width: 55%;}
     }
-    @include break.tablet-landscape {
+    @include breakpoints.tablet-landscape {
       &.title { margin-left: -6%; min-width: 100%;}
     }
-    @include break.mobile-lg-landscape {
+    @include breakpoints.mobile-lg-landscape {
       &.title {
         margin-left: -8%; font-size: 2.5vw;
       }
     }
-    @include break.mobile-portrait {
+    @include breakpoints.mobile-portrait {
       &.title {
         button {
           transform: scale(0.8);

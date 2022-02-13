@@ -14,9 +14,6 @@ export class DoublePendulumComponent implements AfterViewInit, OnDestroy {
   private c: CanvasRenderingContext2D;
   private animation: number;
   private pendulum: DoublePendulum;
-  private audio: AudioContext = new AudioContext();
-  private osc: OscillatorNode;
-  private gain: GainNode;
   private length = {
     one: 10,
     two: 10
@@ -33,24 +30,6 @@ export class DoublePendulumComponent implements AfterViewInit, OnDestroy {
       this.length.two
     );
     this.animate();
-    this.gain = this.audio.createGain();
-    this.gain.connect(this.audio.destination);
-    // this.gain.connect(this.audio.destination);
-  }
-
-  start() {
-    this.audio.resume()
-    this.osc = this.audio.createOscillator();
-    this.osc.connect(this.gain);
-    // this.osc.type = 'sine';
-    this.osc.start(0);
-    // this.gain.gain.exponentialRampToValueAtTime(0.00001, this.audio.currentTime + 3);
-    // this.osc.disconnect(this.audio.destination)
-  }
-
-  stop() {
-    this.gain.gain.exponentialRampToValueAtTime(0.00001, this.audio.currentTime + 3);
-    this.osc = null;
   }
 
   private setup() {
@@ -66,6 +45,7 @@ export class DoublePendulumComponent implements AfterViewInit, OnDestroy {
     this.c.translate(0, this.canvas.nativeElement.height/4);
     this.pendulum.length.bob1 = this.length.one = this.canvas.nativeElement.width / 6.5;
     this.pendulum.length.bob2 = this.length.two = this.canvas.nativeElement.width / 6.5;
+    this.pendulum.radius = this.canvas.nativeElement.width / 95;
   }
 
   private animate() {

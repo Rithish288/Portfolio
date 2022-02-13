@@ -15,10 +15,12 @@ import { libraries, languages } from './libraries';
 export class LandingPageComponent implements OnInit {
   public libraries = libraries;
   public languages = languages;
+  public libraryImageWidth: string = '';
   constructor(private nav: NavbarService) { }
 
   ngOnInit(): void {
     this.nav.show();
+    console.log(this.validAnagram('niswisonc', 'wisconsin'));
   }
 
 
@@ -34,4 +36,24 @@ export class LandingPageComponent implements OnInit {
     return now - started_js;
   }
 
+  public scrollToMainContent() {
+    document.querySelector('div.wrapper').scroll({
+      behavior: 'smooth',
+      top: window.innerHeight
+    })
+  }
+
+  public calculateLibraryImgWidth(): number {
+    const width = (10/100)*window.innerHeight;
+    return width;
+  }
+
+  public setDimensions(el: any) {
+    console.log(el)
+  }
+
+  private validAnagram(str1: string, str2: string): boolean {
+    if(str1.length !== str2.length) return false;
+    return str1.trim().split('').sort().join('') === str2.trim().split('').sort().join('');
+  }
 }

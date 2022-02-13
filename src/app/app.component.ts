@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
 import { SpinnerService } from './services/spinner.service';
 
@@ -12,7 +12,7 @@ export class AppComponent implements AfterViewInit {
   public defaultTheme: string;
 
   @ViewChild('div') div: ElementRef<HTMLDivElement>;
-  constructor(private router: Router, private spinnerOverlay: SpinnerService) {
+  constructor(private router: Router, private spinnerOverlay: SpinnerService, private detector: ChangeDetectorRef) {
     this.router.events.subscribe((e: RouterEvent) => {
       switch (true) {
         case e instanceof NavigationStart: {
@@ -29,7 +29,7 @@ export class AppComponent implements AfterViewInit {
     })
   }
   ngAfterViewInit(): void {
-    // this.detector.detectChanges();
+    this.detector.detectChanges();
     this.positionScroll();
   }
 

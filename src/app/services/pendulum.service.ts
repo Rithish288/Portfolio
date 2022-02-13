@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { add, lusolve, chain } from 'mathjs';
+import { add, lusolve, chain, MathType, Matrix } from 'mathjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,7 @@ import { add, lusolve, chain } from 'mathjs';
 export class PendulumService {
   public n: number = 15;
   public thetas: any = [];
-  public velocities: any = [];
+  public velocities: MathType = [];
   public g: number = 9.8
   constructor(
     @Inject(Number) n: number,
@@ -21,7 +21,7 @@ export class PendulumService {
     this.g = -gravity;
   }
 
-  public A(thetas: number[]) {
+  public A(thetas: MathType): number[][] {
     let M: Array<number[]> = [];
     for (let i = 0; i < this.n; i++) {
       let row: number[] = [];
@@ -33,7 +33,7 @@ export class PendulumService {
     return M;
   }
 
-  public b(thetas: number[], thetaDots: number[]) {
+  public b(thetas: MathType, thetaDots: MathType): number[] {
     let v: number[] = [];
     for (let i = 0; i < this.n; i++) {
       let b_i: number = 0;
@@ -46,25 +46,37 @@ export class PendulumService {
     return v;
   }
 
-  f(thetas: any, thetaDots: any) {
-    let A = this.A(thetas);
-    let b = this.b(thetas, thetaDots);
+  f(thetas: MathType, thetaDots: MathType): number[] | any[] | Matrix[] {
+    let A: number[][] = this.A(thetas);
+    let b: number[] = this.b(thetas, thetaDots);
     return [thetaDots, lusolve(A, b).map((x: any) => x[0])];
   }
 
-  RK4(dt: number, thetas: number[], thetaDots) {
-    let k1: any = this.f(thetas, thetaDots);
-    let k2: any = this.f(add(thetas, k1[0].map((x: number) => 0.5*dt*x)), add(thetaDots, k1[1].map((x: number) => 0.5*dt*x)));
-    let k3: any = this.f(add(thetas, k2[0].map((x: number) => 0.5*dt*x)), add(thetaDots, k2[1].map((x: number) => 0.5*dt*x)));
-    let k4: any = this.f(add(thetas, k3[0].map((x: number) => 1.0*dt*x)), add(thetaDots, k3[1].map((x: number) => 1.0*dt*x)));
+  RK4(dt: number, thetas: MathType, thetaDots: MathType): MathType[] {
+    let k1: number[] | any[] | Matrix[] = this.f(thetas, thetaDots);
+    let k2: number[] | any[] | Matrix[] = this.f(
+      add(thetas, k1[0].map((x: number) => 0.5*dt*x)),
+      add(thetaDots, k1[1].map((x: number) => 0.5*dt*x))
+    );
+
+    let k3: number[] | any[] | Matrix[] = this.f(
+      add(thetas, k2[0].map((x: number) => 0.5*dt*x)),
+      add(thetaDots, k2[1].map((x: number) => 0.5*dt*x))
+    );
+
+    let k4: number[] | any[] | Matrix[] = this.f(
+      add(thetas, k3[0].map((x: number) => 1.0*dt*x)),
+      add(thetaDots, k3[1].map((x: number) => 1.0*dt*x))
+    );
+
     let thetaDeltas    = Array.from(chain(k1[0]).add(k2[0].map((x: number) => 2 * x)).add(k3[0].map((x: number) => 2 * x)).add(k4[0]).done()).map((x: number) => x * dt/6);
     let thetaDotDeltas = Array.from(chain(k1[1]).add(k2[1].map((x: number) => 2 * x)).add(k3[1].map((x: number) => 2 * x)).add(k4[1]).done()).map((x: number) => x * dt/6);
 
     return [add(thetas, thetaDeltas), thetaDots = add(thetaDots, thetaDotDeltas)]
   }
 
-  tick(dt) {
-    let newState = this.RK4(dt, this.thetas, this.velocities);
+  tick(dt: number) {
+    let newState: MathType[] = this.RK4(dt, this.thetas, this.velocities);
     this.thetas = newState[0];
     this.velocities = newState[1];
   }
@@ -72,7 +84,7 @@ export class PendulumService {
   get Coordinates() {
     let x = 0;
     let y = 0;
-    let coords = [];
+    let coords: {x: number, y: number}[] = [];
     for (let i = 0; i < this.thetas.length; i++) {
       let theta = this.thetas[i]
       x += Math.sin(theta);

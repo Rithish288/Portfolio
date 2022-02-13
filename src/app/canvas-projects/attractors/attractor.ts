@@ -1,5 +1,5 @@
 import { Inject, Injectable, OnDestroy } from "@angular/core";
-import { glMatrix, mat4 } from "gl-matrix";
+import { mat4 } from "gl-matrix";
 import { MATH } from "math-extended";
 import { lastValueFrom } from "rxjs";
 import { primaryMappedArr } from "src/app/colors";
@@ -38,6 +38,7 @@ export class Attractor implements OnDestroy {
   private vertShader: string = '';
   private fragShader: string = '';
   private touch: boolean;
+  private previousTouch: Touch;
 
   constructor(
     private canvas: HTMLCanvasElement,
@@ -67,6 +68,8 @@ export class Attractor implements OnDestroy {
   public start(): void {
     this.getShaders().then(this.initGL.bind(this)).then(() => {
       this.canvas.onmousemove = this.onMouseMove.bind(this);
+      this.canvas.ontouchmove = this.onTouchMove.bind(this);
+      this.canvas.ontouchend = () => this.previousTouch = null;
     });
   }
 
@@ -111,7 +114,7 @@ export class Attractor implements OnDestroy {
     this.gl.uniform2fv(this.unifs.resolution, [this.canvas.width, this.canvas.height], 0);
   }
 
-  public setBuffers(): void {
+  private setBuffers(): void {
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.buffer);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.vertices), this.gl.STATIC_DRAW);
   }
@@ -129,7 +132,7 @@ export class Attractor implements OnDestroy {
   private matrixMults() {
     mat4.identity(this.matrices.worldMatrix);
     mat4.lookAt(this.matrices.viewMatrix, [0, 0, this.zScale], [0, 0, 0], [0, 1, 0]);
-    mat4.perspective(this.matrices.projMatrix, glMatrix.toRadian(45), this.aspect, 0.1, MATH.arithmetics.pow(10, 100));
+    mat4.perspective(this.matrices.projMatrix, MATH.degToRad(45), this.aspect, 0.1, MATH.arithmetics.pow(10, 100));
     mat4.identity(this.matrices.identityMatrix);
   }
 
@@ -149,6 +152,18 @@ export class Attractor implements OnDestroy {
       this.angleX += e.movementX;
       this.angleY -= e.movementY;
     }
+  }
+
+  private onTouchMove(e: TouchEvent) {
+    let touch = e.touches[0];
+    this.touch = true;
+    if(this.previousTouch) {
+      e["movementX"] = touch.pageX - this.previousTouch.pageX;
+      e["movementY"] = touch.pageY - this.previousTouch.pageY;
+      this.angleX += e["movementX"]
+      this.angleY -= e["movementY"]
+    }
+    this.previousTouch = touch;
   }
 
   private animate(time?: number): void {

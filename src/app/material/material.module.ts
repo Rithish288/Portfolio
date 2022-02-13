@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 const modules = [
   MatButtonModule,
@@ -14,7 +15,8 @@ const modules = [
   MatIconModule,
   MatRippleModule,
   MatTooltipModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCardModule
 ]
 
 @NgModule({

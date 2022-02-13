@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 //Modules
 import { LandingPageRoutingModule } from './landing-page-routing.module';
 import { DirectivesModule } from '../directives/directives.module';
-import { MatCardModule } from '@angular/material/card';
 
 //Components
 import { LandingPageComponent } from './landing-page.component';
 import { SpaceComponent } from './space/space.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { SpaceComponent } from './space/space.component';
     CommonModule,
     LandingPageRoutingModule,
     DirectivesModule,
-    MatCardModule,
+    MaterialModule
   ],
   exports: [
     LandingPageComponent,

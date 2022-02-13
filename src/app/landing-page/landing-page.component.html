@@ -1,53 +1,76 @@
 <app-space></app-space>
 <h1
   class="mat-display-1" [@fadeIn]
-  style="position: absolute; top: 40vh; background-image: linear-gradient(90deg, #75AFFF, #FFC95F); background-size: 100% 3px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 0.2em; left: 50%; transform: translate(-50%, -50%);"
+  style="position: absolute; top: 40vh; background-image: linear-gradient(90deg, var(--primary-color), var(--accent-color)); background-size: 100% 3px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 0.2em; left: 50%; transform: translate(-50%, -50%);"
 >WELCOME</h1>
-<section>
-  <h1 class="mat-title" >Hey! I'm Rithish K R.</h1><br/><br/>
-  <p [style.font-size]="'clamp(0.8em, 1.25em, 1.5vw)'">
-    I'm an experienced self-taught front-end developer from India, Tamil Nadu.<br/>
-    I have upto {{calcHTMLCSSexp()}} years of experience with HTML and CSS
-    and {{calcJSexp()}} years of experience with JavaScript.
-  </p>
+<button
+  aria-label="Scroll to main content"
+  accesskey="arrow_down"
+  (click)="scrollToMainContent()"
+  style="position: absolute; top: 50vh; left: 50%; transform: translate(-50%, -50%);"
+  mat-icon-button
+><mat-icon>south</mat-icon></button>
+<div class="main-content">
+
+  <section>
+    <h1 class="mat-title" >Hey! I'm Rithish K R.</h1><br/><br/>
+    <p [style.font-size]="'1.1em'">
+      I'm an experienced self-taught front-end developer from India, Tamil Nadu.<br/>
+      I have upto {{calcHTMLCSSexp()}} years of experience with HTML and CSS
+      and {{calcJSexp()}} years of experience with JavaScript.
+    </p>
+    <br/>
+    <p [style.font-size]="'1.1em'">
+      I chose to learn web development because I was fascinated when I was first introduced to html5.
+      I was given a chance to be part of the web. Where my friends saw only 'code', I saw opportunity.
+      Since then I've been practicing a lot and have become proficient in web development.
+    </p>
+  </section>
   <br/>
-  <p [style.font-size]="'clamp(0.8em, 1.25em, 1.5vw)'">
-    I chose to learn web development because I was fascinated when I was first introduced to html5.
-    I was given a chance to be part of the web. Where my friends saw only 'code', I saw opportunity.
-    Since then I've been practicing a lot and have become proficient in web development.
-  </p>
-</section>
-<br/>
-<br/>
-<h2 class="mat-h2">
-  Frameworks and libraries that I'm proficient in:
-</h2>
-<section class="libraries">
-  <mat-card *ngFor="let library of libraries" ngClass="mat-elevation-z3">
-    <mat-card-header>
-      <mat-card-title><h1 class="mat-h2">{{library.title | titlecase}}</h1></mat-card-title>
-    </mat-card-header>
-    <img mat-card-image [src]="library.imageUrl" [alt]="library.imageUrl">
-    <mat-card-content>
-      {{library.description}}
-    </mat-card-content>
-  </mat-card>
-</section>
-<br/>
-<br/>
-<h2 class="mat-h2">
-  Programming and coding languages that I know:
-</h2>
-<section class="languages">
-  <mat-card *ngFor="let language of languages">
-    <mat-card-header>
-      <mat-card-title>
-        <h3 class="mat-h3">{{language.title | titlecase}}</h3>
-      </mat-card-title>
-    </mat-card-header>
-    <img mat-card-image [src]="language.imageUrl" [alt]="language.imageUrl">
-    <mat-card-content>
-      {{language.description}}
-    </mat-card-content>
-  </mat-card>
-</section>
+  <br/>
+  <section class="libraries">
+    <h2 class="mat-h2">
+      Frameworks and libraries that I'm proficient in:
+    </h2>
+    <div class="mat-card-container">
+      <mat-card *ngFor="let library of libraries" ngClass="mat-elevation-z3">
+        <mat-card-header>
+          <mat-card-title>
+            <h3 mat-card-title>{{library.title | titlecase}}</h3>
+          </mat-card-title>
+        </mat-card-header>
+        <img
+          [@fadeIn]
+          [width]="calculateLibraryImgWidth()"
+          mat-card-image
+          loading="lazy"
+          (load)="setDimensions(this)"
+          [src]="library.imageUrl"
+          [alt]="library.imageUrl"
+          [style.shape-outside]="'url('+library.imageUrl+')'"
+        >
+        <mat-card-content>{{library.description}}</mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+  <br/>
+  <br/>
+  <section class="languages">
+    <h2 class="mat-h2">
+      Programming and coding languages that I know:
+    </h2>
+    <div class="mat-card-container">
+      <mat-card *ngFor="let language of languages">
+        <mat-card-header>
+          <mat-card-title>
+            <h3 class="mat-h3">{{language.title | titlecase}}</h3>
+          </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image loading="lazy" [src]="language.imageUrl" [alt]="language.imageUrl">
+        <mat-card-content>
+          {{language.description}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+</div>

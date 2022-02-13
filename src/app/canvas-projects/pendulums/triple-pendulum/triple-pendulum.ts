@@ -61,7 +61,10 @@ export class Pendulum {
   constructor(canvas: HTMLCanvasElement, color: string, radius: number, length1: number, length2: number, length3: number) {
     this.canvas = canvas;
     this.c = this.canvas.getContext('2d');
-    this.radius = radius
+    this.radius = radius;
+    this.bob1.length = length1;
+    this.bob2.length = length2;
+    this.bob3.length = length3;
   };
 
   line(x1: number, y1: number, x2: number, y2: number, color: string) {
@@ -114,7 +117,7 @@ export class Pendulum {
       4*i1*pow(l2,2)*pow(l3,2)*m2*m3+16*i2*pow(l1,2)*pow(l3,2)*m2*m3+48*i3*pow(l1,2)*pow(l2,2)*m2*m3-8*i1*pow(l2,2)*pow(l3,2)*pow(m3,2)*cos(2*a2-2*a3)-2*pow(l1,2)*pow(l2,2)*cos(2*a1-2*a2)*(m2+
       2*m3)*(m2*m3*pow(l3,2)+4*i3*(m2+2*m3))-2*pow(l1,2)*pow(l3,2)*pow(m3,2)*cos(2*a1-2*a3)*(-m2*pow(l2,2)+4*i2)+2*pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*pow(m3,2)+6*pow(l1,2)*pow(l2,2)*pow(l3,2)*m2*pow(m3,2)+
       2*pow(l1,2)*pow(l2,2)*pow(l3,2)*pow(m2,2)*m3+pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*m2*m3-2*pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*pow(m3,2)*cos(2*a2-2*a3)-4*pow(l1,2)*pow(l2,2)*pow(l3,2)*m2*pow(m3,2)*cos(2*a2-2*a3));
-    return formula;
+    return 4;
   }
 
   theta2DotDot(
@@ -137,7 +140,7 @@ export class Pendulum {
       64*i2*i3*pow(l1,2)*m2+16*i1*i2*pow(l3,2)*m3+64*i1*i1*pow(l2,2)*m3+64*i2*i3*pow(l1,2)*m3+4*i3*pow(l1,2)*pow(l2,2)*m1*m2+4*i2*pow(l1,2)*pow(l3,2)*m1*m3+16*i3*pow(l1,2)*pow(l2,2)*m1*m3+
       4*i1*pow(l2,2)*pow(l3,2)*m2*m3+16*i2*pow(l1,2)*pow(l3,2)*m2*m3+48*i3*pow(l1,2)*pow(l2,2)*m2*m3-8*i1*pow(l2,2)*pow(l3,2)*pow(m3,2)*cos(2*a2-2*a3)-2*pow(l1,2)*pow(l2,2)*cos(2*a1-2*a2)*(m2+
       2*m3)*(m2*m3*pow(l3,2)+4*i3*(m2+2*m3))-2*pow(l1,2)*pow(l3,2)*pow(m3,2)*cos(2*a1-2*a3)*(-m2*pow(l2,2)+4*i2)+2*pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*pow(m3,2)+6*pow(l1,2)*pow(l2,2)*pow(l3,2)*m2*pow(m3,2)+
-      2*pow(l1,2)*pow(l2,2)*pow(l3,2)*pow(m2,2)*m3+pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*m2*m3-2*pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*pow(m3,2)*cos(2*a2-2*a3)-4*pow(l1,2)*pow(l2,2)*pow(l3,2)*m2*pow(m3,2)*cos(2*a2-2*a3));;
+      2*pow(l1,2)*pow(l2,2)*pow(l3,2)*pow(m2,2)*m3+pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*m2*m3-2*pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*pow(m3,2)*cos(2*a2-2*a3)-4*pow(l1,2)*pow(l2,2)*pow(l3,2)*m2*pow(m3,2)*cos(2*a2-2*a3));
     return formula;
   }
 
@@ -159,11 +162,39 @@ export class Pendulum {
       2*a2)-16*k3*pow(l1,2)*pow(l2,2)*pow(m3,2)*v3*cos(2*a1-2*a2)-8*i2*g*pow(l1,2)*l3*m2*m3*sin(a3)-16*k3*pow(l1,2)*pow(l2,2)*m2*m3*v3*cos(2*a1-2*a2)-
       pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*pow(m3,2)*pow(v3,2)*sin(2*a2-2*a3)+pow(l1,2)*pow(l2,2)*pow(l3,2)*m2*pow(m3,2)*pow(v3,2)*sin(2*a1-2*a3)-2*pow(l1,2)*pow(l2,2)*pow(l3,2)*m2*pow(m3,2)*pow(v3,2)*sin(2*a2-
       2*a3)+2*g*pow(l1,2)*pow(l2,2)*l3*m1*pow(m3,2)*sin(2*a1-a3)-g*pow(l1,2)*pow(l2,2)*l3*pow(m2,2)*m3*sin(2*a1-a3)+2*g*pow(l1,2)*pow(l2,2)*l3*m2*pow(m3,2)*sin(2*a2-
-      a3)))));
-    return formula;
+      a3)+g*pow(l1,2)*pow(l2,2)*l3*pow(m2,2)*m3*sin(2*a1-2*a2+a3)+g*pow(l1,2)*pow(l2,2)*l3*pow(m2,2)*m3*sin(a3)-g*pow(l1,2)*pow(l2,2)*l3*m1*m2*m3*sin(2*a1-2*a2+
+      a3)))))/(64*i1*i2*i3+8*i3*pow(l1,2)*pow(l2,2)*pow(m2,2)+8*i1*pow(l2,2)*pow(l3,2)*pow(m3,2) +8*i2*pow(l1,2)*pow(l3,2)*pow(m3,2)+32*i3*pow(l1,2)*pow(l2,2)*pow(l3,2)+16*i2*i3*pow(l1,2)*m1+16*i1*i3*pow(l2,2)*m2+
+      64*i2*i3*pow(l1,2)*m2+16*i1*i2*pow(l3,2)*m3+64*i1*i1*pow(l2,2)*m3+64*i2*i3*pow(l1,2)*m3+4*i3*pow(l1,2)*pow(l2,2)*m1*m2+4*i2*pow(l1,2)*pow(l3,2)*m1*m3+16*i3*pow(l1,2)*pow(l2,2)*m1*m3+
+      4*i1*pow(l2,2)*pow(l3,2)*m2*m3+16*i2*pow(l1,2)*pow(l3,2)*m2*m3+48*i3*pow(l1,2)*pow(l2,2)*m2*m3-8*i1*pow(l2,2)*pow(l3,2)*pow(m3,2)*cos(2*a2-2*a3)-2*pow(l1,2)*pow(l2,2)*cos(2*a1-2*a2)*(m2+
+      2*m3)*(m2*m3*pow(l3,2)+4*i3*(m2+2*m3))-2*pow(l1,2)*pow(l3,2)*pow(m3,2)*cos(2*a1-2*a3)*(-m2*pow(l2,2)+4*i2)+2*pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*pow(m3,2)+6*pow(l1,2)*pow(l2,2)*pow(l3,2)*m2*pow(m3,2)+
+      2*pow(l1,2)*pow(l2,2)*pow(l3,2)*pow(m2,2)*m3+pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*m2*m3-2*pow(l1,2)*pow(l2,2)*pow(l3,2)*m1*pow(m3,2)*cos(2*a2-2*a3)-4*pow(l1,2)*pow(l2,2)*pow(l3,2)*m2*pow(m3,2)*cos(2*a2-2*a3));
+    return 5;
   }
 
   update() {
+    this.bob1.acc = this.theta1DotDot(
+      this.bob1.angle, this.bob2.angle, this.bob3.angle, this.bob1.velocity, this.bob2.velocity, this.bob3.velocity,
+      this.bob1.mass, this.bob2.mass, this.bob3.mass, this.bob1.length, this.bob2.length, this.bob3.length,
+      this.bob1.inertia, this.bob2.inertia, this.bob3.inertia, this.bob1.damping, this.bob2.damping, this.bob3.damping,
+    );
+    this.bob2.acc = this.theta2DotDot(
+      this.bob1.angle, this.bob2.angle, this.bob3.angle, this.bob1.velocity, this.bob2.velocity, this.bob3.velocity,
+      this.bob1.mass, this.bob2.mass, this.bob3.mass, this.bob1.length, this.bob2.length, this.bob3.length,
+      this.bob1.inertia, this.bob2.inertia, this.bob3.inertia, this.bob1.damping, this.bob2.damping, this.bob3.damping,
+    );
+    this.bob3.acc = this.theta3DotDot(
+      this.bob1.angle, this.bob2.angle, this.bob3.angle, this.bob1.velocity, this.bob2.velocity, this.bob3.velocity,
+      this.bob1.mass, this.bob2.mass, this.bob3.mass, this.bob1.length, this.bob2.length, this.bob3.length,
+      this.bob1.inertia, this.bob2.inertia, this.bob3.inertia, this.bob1.damping, this.bob2.damping, this.bob3.damping,
+    );
+    this.bob1.velocity += this.bob1.acc;
+    this.bob2.velocity += this.bob2.acc;
+    this.bob3.velocity += this.bob3.acc;
+
+    this.bob1.angle += this.bob1.velocity;
+    this.bob2.angle += this.bob2.velocity;
+    this.bob3.angle += this.bob3.velocity;
+
     this.bob1.x = this.bob1.length * Math.sin(this.bob1.angle) + this.canvas.width/2;
     this.bob1.y = this.bob1.length * Math.cos(this.bob1.angle);
 

@@ -19,7 +19,7 @@ export class CliffordComponent implements AfterViewInit, OnDestroy {
   private radius: number = 1.2;
   private i: number = 0;
   animation: number = 0;
-  steps: number = 5000;
+  steps: number = 3500;
   x: Array<number> = [];
   y: Array<number> = [];
   variables = {
@@ -35,12 +35,15 @@ export class CliffordComponent implements AfterViewInit, OnDestroy {
     this.x[this.i] = 0;
     this.y[this.i] = 0;
     this.increment();
+    this.onResize()
   }
 
   onResize() {
-    this.canvas.nativeElement.width = window.innerWidth;
-    this.canvas.nativeElement.height = window.innerHeight;
-    this.c.fillStyle = primaryColor
+    window.onresize = () => {
+      this.canvas.nativeElement.width = window.innerWidth;
+      this.canvas.nativeElement.height = window.innerHeight;
+      this.c.fillStyle = primaryColor;
+    }
   }
 
   ngOnDestroy(): void {

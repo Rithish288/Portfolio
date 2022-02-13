@@ -1,0 +1,13 @@
+@use "/src/app/common-styles.scss";
+
+:host {
+  @include common-styles.content-container-styles;
+  section {
+    margin-block: 5%;
+    position: relative;
+    #parchment {
+      background-image: url(http://api.thumbr.it/whitenoise-361x370.png?);
+      // background: f0f0f0ff&noise=9e989e&density=96&opacity=27
+    }
+  }
+}

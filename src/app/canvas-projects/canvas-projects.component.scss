@@ -1,3 +1,5 @@
+@use "../breakpoints.scss";
+
 mat-sidenav-container {
   mat-sidenav {
     max-width: 200px;
@@ -38,10 +40,22 @@ mat-sidenav-container {
     }
   }
   mat-sidenav-content {
-    button {
-      margin-right: 15px;
-      &:hover {
-        background-color: var(--primary-lighter-color);
+    mat-toolbar {
+      button {
+        margin-right: 15px;
+        &:hover {
+          background-color: var(--primary-lighter-color);
+        }
+      }
+      h2 {
+        text-overflow: ellipsis;
+        width: calc(100vw - 32px - 40px - 15px);
+        height: fit-content;
+        overflow: hidden;
+        font-size: large;
+        @include breakpoints.mobile-lg-landscape {
+          font-size: medium;
+        }
       }
     }
   }

@@ -7,7 +7,7 @@
 }
 
 @mixin mobile-lg-landscape {
-  @media (max-width: 660px)  {@content;}
+  @media (max-width: 650px)  {@content;}
 }
 
 @mixin mobile-portrait {

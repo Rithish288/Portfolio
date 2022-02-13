@@ -36,6 +36,12 @@ import { CliffordComponent } from './clifford/clifford.component';
     ThomasComponent,
     RabinovichFabrikantComponent
   ],
-  providers: [Attractor]
+  providers: [
+    {
+      provide: Attractor,
+      multi: true,
+      useClass: Attractor
+    }
+  ]
 })
 export class AttractorsModule { }
