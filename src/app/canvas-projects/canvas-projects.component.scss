@@ -1,13 +1,13 @@
-@use "../breakpoints.scss";
+@use "../abstracts";
 
-mat-sidenav-container {
-  mat-sidenav {
+mat-sidenav-container.mat-sidenav-container {
+  mat-sidenav.mat-sidenav {
     max-width: 200px;
-    mat-nav-list {
+    mat-nav-list.mat-nav-list {
       .mat-list-item {
         height: 40px
       }
-      mat-list-item{
+      mat-list-item.mat-list-item {
         display: block;
         &:hover, &:focus-visible {
           background-color: lighten($color: rgb(78, 78, 78, 0.3), $amount: 30%);
@@ -39,9 +39,9 @@ mat-sidenav-container {
       }
     }
   }
-  mat-sidenav-content {
-    mat-toolbar {
-      button {
+  mat-sidenav-content.mat-sidenav-content {
+    mat-toolbar.mat-toolbar {
+      button.mat-button {
         margin-right: 15px;
         &:hover {
           background-color: var(--primary-lighter-color);
@@ -53,7 +53,7 @@ mat-sidenav-container {
         height: fit-content;
         overflow: hidden;
         font-size: large;
-        @include breakpoints.mobile-lg-landscape {
+        @include abstracts.mobile-lg-landscape {
           font-size: medium;
         }
       }

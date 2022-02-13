@@ -1,4 +1,4 @@
-@use "../breakpoints.scss";
+@use "../abstracts";
 
 div.container {
   height: 100vh;
@@ -54,19 +54,19 @@ div.main {
         }
       }
     }
-    @include breakpoints.tablet-lg-landscape {
+    @include abstracts.tablet-lg-landscape {
       &.image { flex-shrink: 1.5;}
       &.title { margin-left: -5%; min-width: 55%;}
     }
-    @include breakpoints.tablet-landscape {
+    @include abstracts.tablet-landscape {
       &.title { margin-left: -6%; min-width: 100%;}
     }
-    @include breakpoints.mobile-lg-landscape {
+    @include abstracts.mobile-lg-landscape {
       &.title {
         margin-left: -8%; font-size: 2.5vw;
       }
     }
-    @include breakpoints.mobile-portrait {
+    @include abstracts.mobile-portrait {
       &.title {
         button {
           transform: scale(0.8);

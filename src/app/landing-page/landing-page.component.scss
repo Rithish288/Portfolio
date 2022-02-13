@@ -1,12 +1,11 @@
-@use "../breakpoints.scss";
-@use "../common-styles.scss";
+@use "../abstracts";
 
 :host {
   position: relative;
-  @include common-styles.content-container-styles;
+  @include abstracts.content-container-styles;
   padding: 0px;
   div.main-content {
-    @include common-styles.content-container-styles;
+    @include abstracts.content-container-styles;
     section {
       display: block;
       &.libraries, &.languages {
@@ -14,10 +13,10 @@
           gap: 5vmin;
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          @include breakpoints.tablet-lg-landscape {
+          @include abstracts.tablet-lg-landscape {
             grid-template-columns: repeat(2, 1fr);
           }
-          @include breakpoints.mobile-lg-landscape {
+          @include abstracts.mobile-lg-landscape {
             grid-template-columns: 1fr;
           }
           mat-card {
@@ -26,7 +25,7 @@
               shape-margin: 5%;
               float: right;
               margin: -1em 0 0 0rem;
-              @include breakpoints.mobile-lg-landscape {
+              @include abstracts.mobile-lg-landscape {
                 width: 30%;
                 margin: -0.8em 0 0 0rem;
                 shape-margin: 2%;

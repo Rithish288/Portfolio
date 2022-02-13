@@ -33,7 +33,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/app/breakpoints.scss"
+              "src/app/abstracts/_index.scss"
             ],
             "scripts": []
           },
