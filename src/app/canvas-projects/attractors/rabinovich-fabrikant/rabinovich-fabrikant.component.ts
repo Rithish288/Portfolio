@@ -3,7 +3,7 @@ import { ShaderService } from 'src/app/services/shader.service';
 import { Attractor } from '../attractor';
 
 @Component({
-  selector: 'app-rabinovich-fabrikant',
+  selector: 'rabinovich-fabrikant-attractor',
   templateUrl: './rabinovich-fabrikant.component.html',
   styleUrls: ['./rabinovich-fabrikant.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,9 +22,10 @@ export class RabinovichFabrikantComponent implements AfterViewInit {
   public title: string = '';
   public attractor: Attractor;
   constructor(private shader: ShaderService) { }
+
   ngAfterViewInit(): void {
     this.pushVertices();
-    this.attractor = new Attractor(this.canvas.nativeElement, this.vertices, -20, WebGL2RenderingContext.LINE_STRIP, this.shader);
+    this.attractor = new Attractor(this.canvas.nativeElement, this.vertices, -25, WebGL2RenderingContext.LINE_STRIP, this.shader);
     this.attractor.setCanvas();
     this.attractor.start();
   }
@@ -32,7 +33,7 @@ export class RabinovichFabrikantComponent implements AfterViewInit {
   pushVertices() {
     let x: number = this.coords.x, y: number = this.coords.y, z: number = this.coords.z;
     let dx: number, dy: number, dz: number, dt = 0.00035;
-    for (let i = 0; i < 50000; i++) {
+    for (let i = 50000; 1 < i; i--) {
       dx = y * (z - 1 + x ** 2) + this.variables.gamma * x;
       dy = x * (3 * z + 1 - x ** 2) + this.variables.gamma * y;
       dz = -2 * z * (this.variables.alpha + x * y);

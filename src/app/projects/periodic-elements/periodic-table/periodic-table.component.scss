@@ -1,0 +1,128 @@
+@use "../../../abstracts";
+
+$med-bg-color: #8080800d;
+$zoom-scale: 2;
+
+$element-category-colors: (
+  alkali: #ffc670cc,
+  alkali-earth: #ff6161,
+  halogens: #fff175cc,
+  transition-metals: #12fd7ccc,
+  lanthanides: #798dffcc,
+  actinides: #4c4d8dcc,
+  noble-gases: #e474facc,
+  post-transition: #00978acc,
+  metalloids: #ff64d0,
+  other: #39f2ff
+);
+
+
+:host {
+  div.periodic-table {
+    display: grid;
+    max-width: inherit;
+    width: auto;
+    grid-template-columns: repeat(18, 4.4vw);
+    grid-template-rows: repeat(10, 4.4vw);
+    margin: 3vmax 2vmin;
+    justify-content: center;
+    overflow: auto hidden;
+    gap: 0.2em;
+
+    //Responsiveness
+    @include abstracts.tablet-lg-landscape {
+      grid-template-columns: repeat(18, 5vw);
+      grid-template-rows: repeat(10, 5vw);
+    }
+
+    div.element {
+      //Regular styles
+      background-color: $med-bg-color;
+      transition: box-shadow 0.2s ease-in;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      flex-direction: column;
+      padding: 3px 2px;
+
+      //Positioning
+      &:nth-child(n+60):nth-child(-n+71) {grid-row: 9}
+      &:nth-child(n+89):nth-child(-n+103) {grid-row: 10}
+      &.element.noble-gases {grid-column: 18}
+      &.n-5, &.n-13 {grid-column: 13}
+      &.n-72, &.n-104 {grid-column: 4}
+      &:nth-child(n+57):nth-child(-n+59) {grid-row: 9;}
+      @for $i from 57 through 71 {
+        &.n-#{$i} {
+          grid-column: $i - 54;
+        }
+      }
+      @for $j from 89 through 103 {
+        &.n-#{$j} {
+          grid-column: $j - 86;
+        }
+      }
+
+      //Borders
+      &.noble-gases {border-bottom: 2px solid map-get($element-category-colors, "noble-gases");}
+      &.alkali-metals {border-bottom: 2px solid map-get($element-category-colors, "alkali");}
+      &.alkaline-earth-metals {border-bottom: 2px solid map-get($element-category-colors, "alkali-earth");}
+      &.transition-metals {border-bottom: 2px solid map-get($element-category-colors, "transition-metals");}
+      &.lanthanides {border-bottom: 2px solid map-get($element-category-colors, "lanthanides");}
+      &.actinides {border-bottom: 2px solid map-get($element-category-colors, "actinides");}
+      &.other-non-metals {border-bottom: 2px solid map-get($element-category-colors, "other");}
+      &.halogens {border-bottom: 2px solid map-get($element-category-colors, "halogens");}
+      &.post-transition-metals {border-bottom: 2px solid map-get($element-category-colors, "post-transition");}
+      &.metalloids {border-bottom: 2px solid map-get($element-category-colors, "metalloids");}
+
+      //Span blocks: atomic-number, symbol and name of the element
+      span {
+        display: block;
+        line-height: 9px;
+        &.atomic-number {
+          font-size: 0.6em;
+        }
+        &.symbol {
+          font-size: large;
+          font-weight: 500;
+          text-align: center;
+        }
+        &.name {
+          font-size: 0.5em;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+          vertical-align: baseline;
+          text-align: center;
+        }
+      }
+      @media (max-width: 900px) {
+        justify-content: space-evenly;
+        span.name {
+          display: none;
+        }
+        span.atomic-number {
+          font-size: 0.4em;
+        }
+      }
+    }
+    @include abstracts.mobile-lg-landscape {
+      & {
+        grid-template-columns: repeat(18, calc(3.5em));
+        grid-template-rows: repeat(10, calc(3.5em));
+        justify-content: unset;
+        div.element {
+          padding: 1px 2px;
+          justify-content: space-evenly;
+          span.atomic-number {
+            font-size: 0.4em;
+          }
+          span.name {
+            display: block;
+            font-size: .25em;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 //Modules
 import { CanvasProjectsRoutingModule } from './canvas-projects-routing.module';
@@ -11,6 +11,7 @@ import { DirectivesModule } from '../directives/directives.module';
 //Components
 import { CanvasProjectsComponent } from './canvas-projects.component';
 import { MainContentComponent } from './main-content/main-content.component';
+import { Attractor } from './attractors/attractor';
 
 
 @NgModule({
@@ -30,6 +31,9 @@ import { MainContentComponent } from './main-content/main-content.component';
   exports: [
     CanvasProjectsComponent,
     MainContentComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
   ]
 })
 export class CanvasProjectsModule { }

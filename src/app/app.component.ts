@@ -1,18 +1,22 @@
+import { Overlay } from '@angular/cdk/overlay';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
+import { CommonVariablesService } from './services/common-variables.service';
 import { SpinnerService } from './services/spinner.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [Overlay, SpinnerService]
+
 })
 export class AppComponent implements AfterViewInit {
   public title = 'Portfolio';
-  public defaultTheme: string;
+  public defaultTheme: string = 'lightTheme' || 'darkTheme';
 
   @ViewChild('div') div: ElementRef<HTMLDivElement>;
-  constructor(private router: Router, private spinnerOverlay: SpinnerService, private detector: ChangeDetectorRef) {
+  constructor(private common: CommonVariablesService, private router: Router, private spinnerOverlay: SpinnerService, private detector: ChangeDetectorRef) {
     this.router.events.subscribe((e: RouterEvent) => {
       switch (true) {
         case e instanceof NavigationStart: {
@@ -28,12 +32,14 @@ export class AppComponent implements AfterViewInit {
       }
     })
   }
+
   ngAfterViewInit(): void {
     this.detector.detectChanges();
     this.positionScroll();
+    this.setParentDiv()
   }
 
-  private positionScroll(): void {
+  public positionScroll(): void {
     window.onload = () => {
       let scrollY = sessionStorage.getItem('scrollY');
       if(!scrollY) return
@@ -46,6 +52,10 @@ export class AppComponent implements AfterViewInit {
     window.onbeforeunload = () => {
       sessionStorage.setItem('scrollY', this.div.nativeElement.scrollTop.toString());
     }
+  }
+
+  private setParentDiv() {
+    this.common.parentDiv = this.div;
   }
 
   receiveEvent($event: string) {

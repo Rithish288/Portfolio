@@ -20,7 +20,6 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.nav.show();
-    console.log(this.validAnagram('niswisonc', 'wisconsin'));
   }
 
 
@@ -46,14 +45,5 @@ export class LandingPageComponent implements OnInit {
   public calculateLibraryImgWidth(): number {
     const width = (10/100)*window.innerHeight;
     return width;
-  }
-
-  public setDimensions(el: any) {
-    console.log(el)
-  }
-
-  private validAnagram(str1: string, str2: string): boolean {
-    if(str1.length !== str2.length) return false;
-    return str1.trim().split('').sort().join('') === str2.trim().split('').sort().join('');
   }
 }

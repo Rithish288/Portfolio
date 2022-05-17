@@ -4,20 +4,20 @@
   <div class="blob" [ngStyle]="{'right': 0, 'top': 0, 'margin': '30vh 1em 0 0', 'border-radius': '78% 22% 73% 27% / 61% 59% 41% 39%'}"></div>
   <div class="main" [ngStyle]="{'height': contentHeight,'padding': contentPadding}">
     <section class="title" [ngStyle]="{'height': sectionHeight}">
-      <div class="myName" [ngStyle]="{'display': titleDisplay, fontSize: '2em'}">
+      <div class="myName" [ngStyle]="{display: titleDisplay, fontSize: '2em'}">
         Rithish
       </div>
       <div class="introduction">
         <span [appTypeAnimation]="mainContent.subHead"></span> <br />
         <span [appTypeAnimation]="mainContent.content" [style.min-height]="'51px'"></span>
       </div>
-      <button mat-raised-button [ngStyle]="{'margin': margin}" (click)="goToHome()" color="accent">{{'Dive in' | titlecase}}</button>
+      <button mat-raised-button [ngStyle]="{'margin': margin}" (keyup.enter)="goToHome()" (click)="goToHome()" color="accent">{{'Dive in' | titlecase}}</button>
     </section>
     <section class="image" *ngIf="!noImage">
       <img
        (load)="onLoad()"
        [@fadeIn]="imageState"
-       src="../../assets/laptop.jpg"
+       src="assets/laptop.jpg"
        alt="Laptop"
        [ngStyle]="{
          'filter': 'hue-rotate(30deg) contrast(80%)',

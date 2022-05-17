@@ -3,7 +3,7 @@ import { ShaderService } from 'src/app/services/shader.service';
 import { Attractor } from '../attractor';
 
 @Component({
-  selector: 'app-aizawa',
+  selector: 'aizawa-attractor',
   templateUrl: './aizawa.component.html',
   styleUrls: ['./aizawa.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,8 +32,8 @@ export class AizawaComponent implements AfterViewInit, OnDestroy {
 
   pushVertices() {
     let x: number = this.coords.x, y: number = this.coords.y, z: number = this.coords.z;
-    let dx: number, dy: number, dz: number, dt = 0.009;
-    for (let i = 0; i < 100000; i++) {
+    let dx: number, dy: number, dz: number, dt = 0.01;
+    for (let i = 100000; i >= 0 ; i--) {
       dx = (z - this.variables.b) * x - this.variables.d * y;
       dy = this.variables.d * x + (z - this.variables.b) * y;
       dz = this.variables.c + this.variables.a * z - z**3 / 3 - (x**2 + y**2) * (1 + this.variables.e * z) + this.variables.f * z * x**3;

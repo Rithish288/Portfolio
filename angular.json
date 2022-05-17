@@ -8,10 +8,17 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "changeDetection": "OnPush"
+          "changeDetection": "OnPush",
+          "displayBlock": true
         },
         "@schematics/angular:application": {
           "strict": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
         }
       },
       "root": "",
@@ -32,10 +39,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "src/app/abstracts/_index.scss"
+              "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/@google/model-viewer/dist/model-viewer-umd.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -50,8 +58,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "600kb",
-                  "maximumError": "1000kb"
+                  "maximumWarning": "1000kb",
+                  "maximumError": "1500kb"
                 },
                 {
                   "type": "anyComponentStyle",

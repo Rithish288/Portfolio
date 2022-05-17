@@ -1,19 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MATH } from 'math-extended';
-
-interface Color {
-  r: number;
-  g: number;
-  b: number;
-}
 
 @Injectable({
   providedIn: 'any'
 })
 export class WebglBoilerPlateService {
-
-  constructor() { }
-
   /**
    * Creates a program from 2 shaders.
    *
@@ -33,6 +23,13 @@ export class WebglBoilerPlateService {
       console.error("program failed to link:" + gl.getProgramInfoLog (program));
     }
 
+    gl.validateProgram(program);
+    if(!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
+        console.error("Error validating program");
+        gl.deleteProgram(program);
+        return null;
+    }
+
     return program;
   }
 
@@ -44,7 +41,7 @@ export class WebglBoilerPlateService {
    * @param {number} type The type of shader, VERTEX_SHADER or FRAGMENT_SHADER.
    * @return {WebGLShader} The shader.
    */
-  public static createShader(gl: WebGL2RenderingContext, source: string, type: "fragment" | "vertex"): WebGLShader {
+  public static createShader(gl: WebGL2RenderingContext, source: string, type: "fragment" | "vertex" | WebGL2RenderingContext["VERTEX_SHADER" | "FRAGMENT_SHADER"]): WebGLShader {
     let shader: WebGLShader;
     if(type == "fragment") shader = gl.createShader(gl.FRAGMENT_SHADER);
     if(type == "vertex") shader = gl.createShader(gl.VERTEX_SHADER);

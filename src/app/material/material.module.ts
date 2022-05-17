@@ -8,15 +8,18 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSliderModule } from '@angular/material/slider';
 
 const modules = [
   MatButtonModule,
-  MatToolbarModule,
   MatIconModule,
   MatRippleModule,
   MatTooltipModule,
   MatDialogModule,
-  MatCardModule
+  MatCardModule,
+  MatDividerModule,
+  MatSliderModule
 ]
 
 @NgModule({

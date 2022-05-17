@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 import { fadeIn } from '../animations';
 import { NavbarService } from '../services/navbar.service';
@@ -13,21 +14,9 @@ import { NavbarService } from '../services/navbar.service';
 })
 export class CanvasProjectsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+  public offsetTop: number = 55.927;
   public breadcrumb: string = '';
   public projectHeading: string= '';
-  public attractors = [
-    {path: "attractors/aizawa", name: 'Aizawa Attractor', truncateLength: 0},
-    {path: "attractors/clifford", name: 'Clifford Attractor', truncateLength: 0},
-    {path: "attractors/four-wing", name: 'Four Wing Attractor', truncateLength: 0},
-    {path: "attractors/lorenz", name: 'Lorenz Attractor', truncateLength: 0},
-    {path: "attractors/rabinovich-fabrikant", name: 'Rabinovich Fabrikant Attractor', truncateLength: 13},
-    {path: "attractors/thomas", name: 'Thomas Attractor', truncateLength: 0}
-  ]
-  public pendulums = [
-    {path: "pendulums/simple-pendulum", name: 'Simple Pendulum', truncateLength: 0},
-    {path: "pendulums/double-pendulum", name: 'Double Pendulum', truncateLength: 0},
-    {path: "pendulums/triple-pendulum", name: 'Triple Pendulum', truncateLength: 0},
-  ]
   public dropdowns = [
     [
       {path: "attractors/aizawa", name: 'Aizawa Attractor', truncateLength: 0},
@@ -44,12 +33,14 @@ export class CanvasProjectsComponent implements OnInit, OnDestroy {
     ]
   ]
   public window: Window & typeof globalThis = window;
-  constructor(private nav: NavbarService, private router: Router, private actRoute: ActivatedRoute) { }
+  constructor(private nav: NavbarService, private router: Router, private actRoute: ActivatedRoute, private observer: BreakpointObserver, private detector: ChangeDetectorRef) {
+    this.nav.show();
+  }
 
   ngOnInit(): void {
-    this.nav.show();
     this.breadCrumb();
     this.setProjectHeading();
+    this.setOffsetTop();
   }
 
   private setProjectHeading() {
@@ -82,5 +73,15 @@ export class CanvasProjectsComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.subscriptions.length; i++) {
       this.subscriptions[i].unsubscribe();
     }
+  }
+
+  setOffsetTop(): number {
+    return this.subscriptions.push(
+      this.observer.observe(['(max-width: 650px)']).subscribe(state => {
+        if(state.matches) this.offsetTop = 55.927 + 25.0;
+        else this.offsetTop = 55.927;
+        this.detector.detectChanges();
+      })
+    )
   }
 }

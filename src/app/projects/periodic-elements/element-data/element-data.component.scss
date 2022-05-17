@@ -1,0 +1,138 @@
+@use "../../../abstracts";
+$flex-direction: row-reverse;
+
+:host {
+  display: block;
+  @include abstracts.content-container-styles();
+
+  h2.mat-display-1.mat-elevation-z4 {
+    display: block;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+  section {
+    padding-inline: 8vmin;
+    margin-block: 2.5vmax;
+
+    h1 {
+      padding: 8px 12px;
+      border: 2px solid transparent;
+    }
+
+    &.element-general-properties {
+      div.semi-container {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-bottom: 2vmax;
+        @include abstracts.mobile-lg-landscape() {flex-direction: column;}
+        mat-card.element-notation {
+          margin-inline: 5vw;
+          margin-left: auto;
+          display: flex;
+          flex-direction: column;
+          padding-inline: 2vmax;
+          min-width: 200px;
+          margin-top: -28px;
+          @include abstracts.mobile-lg-landscape() {
+            margin-top: 0px;
+            margin-inline: auto;
+          }
+          span {
+            font-family: sans-serif;
+            width: 100%;
+            display: block;
+            margin-block: 0.5rem;
+            &.atomic-number {text-align: left}
+            &.atomic-mass {text-align: right}
+            &.symbol {text-align: center;}
+          }
+        }
+      }
+      p::first-letter {
+        font-size: 3em;
+        line-height: 1;
+      }
+    }
+    &.image.discovery-physicals {
+      display: flex;
+      justify-content: space-between;
+      img {
+        width: 40%;
+      };
+      mat-list {
+        width: 50%;
+      }
+      @include abstracts.mobile-lg-landscape() {
+        display: block;
+        img {
+          width: 60%;
+          margin-inline: auto;
+          display: block
+        };
+        mat-list {
+          width: 100%;
+        }
+      }
+    }
+    &.bohr-model.particle-details {
+      display: flex;
+      justify-content: space-between;
+      canvas {
+        margin-inline-end: 10vmin;
+        @include abstracts.tablet-landscape() {
+          margin-inline-end: 0px;
+        }
+      }
+      @include abstracts.mobile-lg-landscape() {
+        flex-direction: column-reverse;
+        canvas {margin-inline: auto}
+      }
+    }
+    &.model-3d.position-details {
+      display: flex;
+      justify-content: space-between;
+      $small-dim: 300px;
+      model-viewer {
+        $dimension: 30vw;
+        --poster-color: transparent;
+        margin-top: -1em;
+        width: $dimension;
+        height: $dimension;
+      }
+      @include abstracts.mobile-lg-landscape() {
+        model-viewer {
+          width: $small-dim;
+          height: $small-dim;
+          margin-inline: auto;
+        }
+        flex-direction: column;
+      }
+    }
+    &.history, &.applications {
+      mat-list {
+        mat-list-item.mat-list-item {
+          min-height: 48px;
+          height: auto;
+          margin-block: 8px;
+        }
+      }
+    }
+    @include abstracts.tablet-portrait() {
+      padding-inline: 3vmin;
+    }
+    @include abstracts.mobile-lg-landscape() {
+      padding-inline: 1vmin;
+    }
+  }
+  mat-list {
+    mat-list-item {
+      span.LHS {
+        opacity: 0.7;
+        font-weight: 500;
+      }
+      height: auto;
+      min-height: 40px;
+    }
+  }
+}

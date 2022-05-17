@@ -43,18 +43,19 @@ export class DoublePendulum {
 
   path: Array<any> = [];
 
-  constructor(canvas:HTMLCanvasElement, radius: number, color: string, length1: number, length2: number) {
+  constructor(canvas:HTMLCanvasElement, radius: number, color: string, bob1: {length: number, angle: number, mass?: number}, bob2: {length: number, angle: number, mass?: number}) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
 
     this.radius = radius;
     this.color = color;
 
-    this.length.bob1 = length1;
-    this.length.bob2 = length2;
-
-    this.bob1.rad = this.length.bob1;
-    this.bob2.rad = this.length.bob2;
+    this.bob1.rad = this.length.bob1 = bob1.length;
+    this.bob2.rad = this.length.bob2 = bob1.length;
+    this.bob1.angle = bob1.angle;
+    this.bob2.angle = bob2.angle;
+    this.bob1.mass = bob1.mass;
+    this.bob2.mass = bob2.mass;
   }
 
   line(x1: number, y1: number, x2: number, y2: number, color: string, thickness?: number) {
@@ -81,6 +82,7 @@ export class DoublePendulum {
     this.bob(this.bob1.x, this.bob1.y, this.radius, this.color);
     this.bob(this.bob2.x, this.bob2.y, this.radius, this.color);
     //second string and bob ^^
+
     //hanger
     this.ctx.beginPath();
     this.ctx.fillStyle = accentColor;
@@ -114,19 +116,21 @@ export class DoublePendulum {
     this.bob1.angle += this.bob1.velocity;
     this.bob2.angle += this.bob2.velocity;
 
-    this.bob1.x = this.length.bob1 * (Math.sin( this.bob1.angle)) + this.canvas.width/2;
-    this.bob1.y = this.length.bob2 * (Math.cos( this.bob1.angle));
-    this.bob2.x = this.bob1.x + this.length.bob2 * Math.sin( this.bob2.angle);
-    this.bob2.y = this.bob1.y + this.length.bob2 * Math.cos( this.bob2.angle);
+    if(this.bob1.acc && this.bob2.acc !== NaN) {
+      this.bob1.x = this.length.bob1 * (Math.sin( this.bob1.angle)) + this.canvas.width/2;
+      this.bob1.y = this.length.bob2 * (Math.cos( this.bob1.angle));
+      this.bob2.x = this.bob1.x + this.length.bob2 * Math.sin( this.bob2.angle);
+      this.bob2.y = this.bob1.y + this.length.bob2 * Math.cos( this.bob2.angle);
+    }
 
     this.path.unshift({x: this.bob2.x, y: this.bob2.y});
 
     //Tracing the path of the pendulum
     for (let i = 1; i < this.path.length; i++) {
-      this.line(this.path[i].x, this.path[i].y, this.path[i - 1].x, this.path[i - 1].y, `hsl(${i}, 100%, 50%)`)
+      this.line(this.path[i].x, this.path[i].y, this.path[i - 1].x, this.path[i - 1].y, `hsl(${i}, 100%, 50%)`);
     }
 
-    if(this.path.length > 750) {
+    if(this.path.length > 700) {
       this.path.pop();
     }
     this.draw()

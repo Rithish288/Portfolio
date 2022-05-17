@@ -20,23 +20,25 @@
             grid-template-columns: 1fr;
           }
           mat-card {
-            img {
-              width: 40%;
-              shape-margin: 5%;
-              float: right;
-              margin: -1em 0 0 0rem;
-              @include abstracts.mobile-lg-landscape {
-                width: 30%;
-                margin: -0.8em 0 0 0rem;
-                shape-margin: 2%;
+            height: auto;
+            padding-top: 16px;
+              mat-card-header {
+                img {
+                  display: inline-block;
+                  margin: 0;
+                  margin-left: auto;
+                  width: 52px;
+                  aspect-ratio: auto;
+                  margin-top: -8px;
+                }
               }
             }
             mat-card-content {
+              padding-block: 0px;
               opacity: 0.9;
             }
           }
         }
       }
-    }
   }
 }

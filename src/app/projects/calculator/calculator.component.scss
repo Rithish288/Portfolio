@@ -1,0 +1,61 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin-inline: auto;
+  div.calculator-input-container {
+    height: 5rem;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    div.calculator-input {
+      height: 50%;
+      outline: none;
+      text-align: right;
+    }
+    div.calculator-quick-operation {
+      opacity: 70%;
+      height: 50%;
+    }
+  }
+  div.calculator-buttons {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    button {
+      cursor: pointer;
+      padding: 2vh 3vw;
+      border: 1px solid rgba(128, 128, 128, 0.5);
+      min-width: 30px;
+      font-size: large;
+      min-height: 24px;
+      border-radius: 0px;
+    }
+    div.operations {
+      display: grid;
+      grid-column: 4 / span 1;
+      grid-row: 1 / span 6;
+      grid-template-columns: 1 1fr;
+      grid-template-rows: repeat(6, 1fr);
+      &::ng-deep {
+        button.mat-focus-indicator.button.operation.mat-button.mat-button-base.ng-star-inserted:first-of-type span.mat-button-wrapper {
+          font-weight: bolder;
+          display: block;
+          transform: rotate(180deg);
+        }
+      }
+    }
+    div.numbers {
+      display: grid;
+      grid-column: 1 / span 3;
+      grid-row: 3 / span 4;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+    }
+    div.more-operations {
+      display: grid;
+      grid-column: 1 / span 3;
+      grid-row: 1 / span 2;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+
+    }
+  }
+}

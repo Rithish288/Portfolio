@@ -11,6 +11,7 @@ interface Shaders {
 })
 export class ShaderService {
   private attractor: Shaders;
+  private cliffordAttractor: Shaders;
   private space: Shaders;
   constructor(private http: HttpClient) { }
 
@@ -27,6 +28,14 @@ export class ShaderService {
     else return this.attractor = {
       vertex: this.http.get('assets/shaders/attractor/vertex.vert', {responseType: 'text'}).pipe(shareReplay()),
       fragment: this.http.get('assets/shaders/attractor/fragment.frag', {responseType: 'text'}).pipe(shareReplay())
+    }
+  }
+
+  public getCliffordAttractorShaders(): Shaders {
+    if(this.cliffordAttractor) return this.cliffordAttractor
+    else return this.cliffordAttractor = {
+      vertex: this.http.get('assets/shaders/clifford-attractor/vertex.vert', {responseType: 'text'}).pipe(shareReplay()),
+      fragment: this.http.get('assets/shaders/clifford-attractor/fragment.frag', {responseType: 'text'}).pipe(shareReplay())
     }
   }
 }

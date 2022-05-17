@@ -3,7 +3,7 @@ import { ShaderService } from 'src/app/services/shader.service';
 import { Attractor } from '../attractor';
 
 @Component({
-  selector: 'app-four-wing',
+  selector: 'four-wing-attractor',
   templateUrl: './four-wing.component.html',
   styleUrls: ['./four-wing.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

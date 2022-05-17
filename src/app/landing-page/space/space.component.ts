@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { glMatrix, mat4 } from 'gl-matrix';
 import { MATH } from 'math-extended';
 import { WebglBoilerPlateService } from 'src/app/services/webgl-boiler-plate.service';
 import { lastValueFrom } from 'rxjs';
 import { ShaderService } from 'src/app/services/shader.service';
+import { CommonVariablesService } from 'src/app/services/common-variables.service';
 
 interface Uniforms {
   matWorld?: WebGLUniformLocation
@@ -16,12 +17,13 @@ interface Uniforms {
 @Component({
   selector: 'app-space',
   template: `
-    <canvas #canvas (mousemove)="onMouseMove($event)" (window:resize)="onResize()"></canvas>
+    <canvas #canvas (touchend)="previousTouch = null" (touchmove)="onTouchMove($event)" (mousemove)="onMouseMove($event)" (window:resize)="onResize()"></canvas>
   `,
   styles: [
     ':host {display: block}',
     ':host {width: auto}',
-    ':host {height: auto}'
+    ':host {height: auto}',
+    ':host {box-shadow: inset 0 0 10px -5px black}'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -47,8 +49,10 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
   private vertShader: string = '';
   private fragShader: string = '';
   private animation: number = 0;
+  private runAnimation: boolean = true;
+  public previousTouch: Touch;
 
-  constructor(private shader: ShaderService) { }
+  constructor(private shader: ShaderService, private common: CommonVariablesService, private detector: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     this.gl = this.canvas.nativeElement.getContext('webgl2');
@@ -56,9 +60,19 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
     this.canvas.nativeElement.height = window.innerHeight;
     this.aspect = this.canvas.nativeElement.width / this.canvas.nativeElement.height;
     this.gl.viewport(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+    this.gl.enable(this.gl.CULL_FACE);
+    this.gl.frontFace(this.gl.CCW);
+    this.gl.cullFace(this.gl.BACK);
     this.buffer = this.gl.createBuffer();
-
     this.getShaders().then(this.initGL.bind(this));
+    this.common.parentDiv.nativeElement.onscroll = () => this.stopAnimationOffScreen();
+  }
+
+  private stopAnimationOffScreen() {
+    this.runAnimation = this.common.isInViewport(this.canvas.nativeElement, {
+      top: -100, bottom: window.innerHeight + window.innerWidth
+    }).visible;
+    this.detector.detectChanges();
   }
 
   private async getShaders(): Promise<void> {
@@ -66,8 +80,19 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
     this.fragShader = await lastValueFrom(this.shader.getSpaceShaders().fragment);
   }
 
+  public onTouchMove(e: TouchEvent) {
+    let touch = e.touches[0];
+    if(this.previousTouch) {
+      e["movementX"] = touch.pageX - this.previousTouch.pageX;
+      e["movementY"] = touch.pageY - this.previousTouch.pageY;
+      this.angleX += e["movementX"]
+      this.angleY -= e["movementY"]
+    }
+    this.previousTouch = touch;
+  }
+
   private pushVerts(): void {
-    for (let i = 10000; 1 < i; i--) {
+    for (let i = 10000; i >= 1; i--) {
       this.vertices.push(MATH.randomIntFromRange(-6, 6));
       this.vertices.push(MATH.randomIntFromRange(-6, 6));
       this.vertices.push(MATH.randomIntFromRange(-6, 6));
@@ -123,7 +148,6 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
 
   initGL() {
     this.pushVerts();
-
     this.program = WebglBoilerPlateService.createProgram(
       this.gl,
       WebglBoilerPlateService.createShader(this.gl, this.vertShader, "vertex"),
@@ -140,11 +164,13 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
 
   onMouseMove($event: MouseEvent) {
     if (!$event.buttons) return
-    this.angleX += $event.movementX;
+    this.angleX -= $event.movementX;
     this.angleY -= $event.movementY;
   }
 
   animate(time?: number) {
+    this.animation = requestAnimationFrame(this.animate.bind(this));
+    if(!this.runAnimation) return
     mat4.rotate(this.matrices.yrotation, this.matrices.identityMatrix, this.angleX / 500, [0, 1, 0]);
     mat4.rotate(this.matrices.xrotation, this.matrices.identityMatrix, this.angleY / 500, [1, 0, 0]);
     mat4.mul(this.matrices.worldMatrix, this.matrices.xrotation, this.matrices.yrotation);
@@ -152,7 +178,6 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
     this.gl.uniform1f(this.unifs.timePeriod, time / 1000.0);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
     this.gl.drawArrays(this.gl.POINTS, 0, this.vertices.length/2);
-    this.animation = requestAnimationFrame(this.animate.bind(this));
   }
 
   ngOnDestroy(): void {

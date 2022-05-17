@@ -1,0 +1,25 @@
+<mat-sidenav-container>
+  <mat-sidenav autoFocus="false" #sidenav mode="over" autoFocus="false" fixedInViewport="true" [fixedTopGap]="window.innerWidth > 650? 55.927 : 55.927+25">
+    <mat-nav-list>
+      <mat-list-item role="link" routerLink="periodic-elements/periodic-table" routerLinkActive="active-project">Periodic Table</mat-list-item>
+      <mat-list-item role="link" routerLink="calculator" routerLinkActive="active-project">Calculator</mat-list-item>
+      <mat-list-item role="link" routerLink="prime-numbers" routerLinkActive="active-project">Prime Numbers</mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" [ngStyle]="{height: '55.927px'}">
+      <button mat-icon-button aria-label="open menu" (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+      <h2 [style.margin-left]="'16px'" [style.font-weight]="400">Projects {{breadcrumb | removeHyphen | titlecase}}</h2>
+    </mat-toolbar>
+    <h1
+      class="mat-h1"
+      *ngIf="window.innerWidth < 400"
+      [ngStyle]="{
+        width: '100%',
+        'text-align': 'center',
+        'margin-block': '1rem'
+      }"
+    >{{projectHeading | titlecase}}</h1>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -9,3 +9,13 @@
     aria-label="fullscreen"
   ><mat-icon>fullscreen</mat-icon></button>
 </div>
+<div class="controls">
+  a: {{variables.a}}
+  <mat-slider (input)="onValueChange($event, 'a')" [ngModel]="variables.a" aria-label="unit(s)" color="primary" min="-3" max="3" step="0.01" [value]="variables.a"></mat-slider>
+  b: {{variables.b}}
+  <mat-slider (input)="onValueChange($event, 'b')" [ngModel]="variables.b" aria-label="unit(s)" color="primary" min="-3" max="3" step="0.01" [value]="variables.b"></mat-slider>
+  c: {{variables.c}}
+  <mat-slider (input)="onValueChange($event, 'c')" [ngModel]="variables.c" aria-label="unit(s)" color="primary" min="-1" max="1.5" step="0.01" [value]="variables.c"></mat-slider>
+  d: {{variables.d}}
+  <mat-slider (input)="onValueChange($event, 'd')" [ngModel]="variables.d" aria-label="unit(s)" color="primary" min="-1" max="1.5" step="0.01" [value]="variables.d"></mat-slider>
+</div>

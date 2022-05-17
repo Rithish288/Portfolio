@@ -1,19 +1,24 @@
 @use "@angular/material" as mat;
 
+$font-family: 'Roboto';
+$font-400: 400;
+$sub-2: clamp(12px, 2vw, 16px);
+$body-1: clamp(12px, 1.18vw, 20px);
+
 $font-config: (
-  display-4: mat.define-typography-level(112px, 112px, 300, 'Roboto', -0.0134em),
-  display-3: mat.define-typography-level(56px, 56px, 400, 'Roboto', -0.0089em),
-  display-2: mat.define-typography-level(45px, 48px, 400, 'Roboto', 0.0000em),
-  display-1: mat.define-typography-level(34px, 20px, 500, 'Roboto', 0.0074em),
-  headline: mat.define-typography-level(28px, 30px, 400, 'Roboto', 0.0000em),
-  title: mat.define-typography-level(24px, 25px, 500, 'Roboto', 0.0075em),
-  subheading-2: mat.define-typography-level(16px, 28px, 400, 'Roboto', 0.0094em),
-  subheading-1: mat.define-typography-level(15px, 24px, 500, 'Roboto', 0.0067em),
-  body-2: mat.define-typography-level(14px, 20px, 400, 'Roboto', 0.0179em),
-  body-1: mat.define-typography-level(clamp(13px, 1.18vw, 20px), 1.6, 400, 'Roboto', 0.0179em),
-  button: mat.define-typography-level(14px, 14px, 500, 'Roboto', 0.0893em),
-  caption: mat.define-typography-level(12px, 20px, 400, 'Roboto', 0.0333em),
-  input: mat.define-typography-level(inherit, 1.125, 400, 'Roboto', 1.5px)
+  display-4:    mat.define-typography-level(112px, 112px, 300, $font-family, -0.0134em),
+  display-3:    mat.define-typography-level(56px, 56px, $font-400, $font-family, -0.0089em),
+  display-2:    mat.define-typography-level(45px, 48px, $font-400, $font-family, 0.0000em),
+  display-1:    mat.define-typography-level(34px, 20px, 500, $font-family, 0.0074em),
+  headline:     mat.define-typography-level(28px, 30px, $font-400, $font-family, 0.0000em),
+  title:        mat.define-typography-level(24px, 25px, 500, $font-family, 0.0075em),
+  subheading-2: mat.define-typography-level(16px, 28px, $font-400, $font-family, 0.0094em),
+  subheading-1: mat.define-typography-level(15px, 24px, 500, $font-family, 0.0067em),
+  body-2:       mat.define-typography-level(14px, 20px, $font-400, $font-family, 0.0179em),
+  body-1:       mat.define-typography-level($body-1, 1.6, $font-400, $font-family, 0.0179em),
+  button:       mat.define-typography-level(14px, 14px, 500, $font-family, 0.0893em),
+  caption:      mat.define-typography-level(12px, 20px, $font-400, $font-family, 0.0333em),
+  input:        mat.define-typography-level(inherit, 1.125, $font-400, $font-family, 1.5px)
 );
 
 // Compute font config

@@ -1,0 +1,27 @@
+<!-- <mat-tab-group color="primary">
+  <mat-tab label="Periodic table"> -->
+    <div class="periodic-table">
+      <div
+        appHoverClass="mat-elevation-z4"
+        role="link"
+        *ngFor="let elem of elements"
+        [class]="
+          'element '+
+          'n-'+ elem.atomicNumber +
+          ' ' + elem.category
+          | lowercase"
+        (click)="this.getElementDetails(elem.atomicNumber)"
+        #periodicElement
+        mat-ripple>
+        <span class="atomic-number">{{elem.atomicNumber}}</span>
+        <span class="symbol">{{elem.symbol}}</span>
+        <span class="name">{{elem.name}}</span>
+      </div>
+    </div>
+  <!-- </mat-tab>
+  <mat-tab label="Lists">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, error?</mat-tab>
+</mat-tab-group> -->
+
+<!-- <div class="timeline-link">
+  <a routerLink="/projects/periodic-elements/periodic-timeline">Timeline</a>
+</div> -->

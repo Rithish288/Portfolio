@@ -1,62 +1,8 @@
 @use "../abstracts";
 
 mat-sidenav-container.mat-sidenav-container {
-  mat-sidenav.mat-sidenav {
-    max-width: 200px;
-    mat-nav-list.mat-nav-list {
-      .mat-list-item {
-        height: 40px
-      }
-      mat-list-item.mat-list-item {
-        display: block;
-        &:hover, &:focus-visible {
-          background-color: lighten($color: rgb(78, 78, 78, 0.3), $amount: 30%);
-        }
-        &.active-project {
-          color: darken($color: #1a66e7, $amount: 10%);
-          background-color: var(--primary-lighter-color);
-        }
-      }
-      cdk-accordion {
-        cdk-accordion-item {
-          & > mat-list-item {
-            mat-icon {
-              margin-left: auto;
-            }
-          }
-          div.expansion-panel {
-            overflow: hidden;
-            will-change: height;
-            a {
-              white-space: nowrap;
-            }
-            span.spacer {
-              width: 1rem;
-              height: inherit;
-            }
-          }
-        }
-      }
-    }
-  }
+  @include abstracts.mat-sidenav();
   mat-sidenav-content.mat-sidenav-content {
-    mat-toolbar.mat-toolbar {
-      button.mat-button {
-        margin-right: 15px;
-        &:hover {
-          background-color: var(--primary-lighter-color);
-        }
-      }
-      h2 {
-        text-overflow: ellipsis;
-        width: calc(100vw - 32px - 40px - 15px);
-        height: fit-content;
-        overflow: hidden;
-        font-size: large;
-        @include abstracts.mobile-lg-landscape {
-          font-size: medium;
-        }
-      }
-    }
+    @include abstracts.mat-toolbar();
   }
 }

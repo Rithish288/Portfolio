@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AttractorsRoutingModule } from './attractors-routing.module';
@@ -42,6 +42,7 @@ import { CliffordComponent } from './clifford/clifford.component';
       multi: true,
       useClass: Attractor
     }
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AttractorsModule { }

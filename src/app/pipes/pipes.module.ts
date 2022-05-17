@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TruncatePipe } from './truncate.pipe';
+import { RemoveHyphenPipe } from './remove-hyphen.pipe';
+import { SpaceAfterPipe } from './space-after.pipe';
 
 const pipes = [
-  TruncatePipe
+  TruncatePipe,
+  RemoveHyphenPipe,
+  SpaceAfterPipe
 ]
 
 @NgModule({

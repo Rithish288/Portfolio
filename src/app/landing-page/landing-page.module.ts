@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 //Modules
@@ -25,6 +25,7 @@ import { MaterialModule } from '../material/material.module';
   exports: [
     LandingPageComponent,
     SpaceComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LandingPageModule { }

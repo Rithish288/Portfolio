@@ -1,4 +1,4 @@
-<div [class]="defaultTheme" class="wrapper" #div >
-  <app-toolbar (toggleEvent)="receiveEvent($event)"></app-toolbar>
+<div [class]="'wrapper ' + defaultTheme" #div>
+  <top-navigation-toolbar (toggleEvent)="receiveEvent($event)"></top-navigation-toolbar>
   <router-outlet></router-outlet>
 </div>

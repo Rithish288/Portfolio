@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { MATH } from 'math-extended';
 import { primaryColor } from 'src/app/colors';
-import { WebglBoilerPlateService } from 'src/app/services/webgl-boiler-plate.service';
 import { DoublePendulum } from './double-pendulum';
 
 @Component({
@@ -26,9 +26,16 @@ export class DoublePendulumComponent implements AfterViewInit, OnDestroy {
       this.canvas.nativeElement,
       this.canvas.nativeElement.width / 95,
       primaryColor,
-      this.length.one,
-      this.length.two
+      {length: this.length.one, angle: MATH.randomIntFromRange(-MATH.degToRad(90), MATH.degToRad(90)), mass: 10},
+      {length: this.length.two, angle: MATH.randomIntFromRange(-MATH.degToRad(90), MATH.degToRad(90)), mass: 10}
     );
+    // this.pendulum2 = new DoublePendulum(
+    //   this.canvas.nativeElement,
+    //   this.canvas.nativeElement.width / 95,
+    //   primaryColor,
+    //   {length: this.length.one + 10, angle: Math.PI / 2 + 1, mass: 10},
+    //   {length: this.length.two - 10, angle: Math.PI / 2, mass: 10}
+    // );
     this.animate();
   }
 
@@ -46,12 +53,17 @@ export class DoublePendulumComponent implements AfterViewInit, OnDestroy {
     this.pendulum.length.bob1 = this.length.one = this.canvas.nativeElement.width / 6.5;
     this.pendulum.length.bob2 = this.length.two = this.canvas.nativeElement.width / 6.5;
     this.pendulum.radius = this.canvas.nativeElement.width / 95;
+
+    // this.pendulum2.length.bob1 = this.length.one = this.canvas.nativeElement.width / 6.5;
+    // this.pendulum2.length.bob2 = this.length.two = this.canvas.nativeElement.width / 6.5;
+    // this.pendulum2.radius = this.canvas.nativeElement.width / 95;
   }
 
   private animate() {
     this.animation = requestAnimationFrame(this.animate.bind(this));
     this.c.clearRect(0, -500, this.canvas.nativeElement.width, this.canvas.nativeElement.height * 4);
     this.pendulum.update();
+    // this.pendulum2.update();
   }
 
   ngOnDestroy(): void {

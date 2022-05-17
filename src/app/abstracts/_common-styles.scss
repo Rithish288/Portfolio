@@ -1,3 +1,6 @@
+$full-width: 100vw;
+$full-height: 100vh;
+
 @mixin content-container-styles {
   position: relative;
   width: 100%;
@@ -5,3 +8,19 @@
   padding: 5vh 5vw;
 }
 
+@mixin center-v-h {
+  display: grid;
+  place-items: center;
+}
+
+@mixin pill {
+  border-radius: 100vw;
+}
+
+@mixin full-width-height {
+  min-width: $full-width;
+  min-height: $full-height;
+  width: $full-width;
+  height: $full-height;
+  overflow: hidden;
+}

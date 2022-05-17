@@ -3,7 +3,7 @@ import { ShaderService } from 'src/app/services/shader.service';
 import { Attractor } from '../attractor';
 
 @Component({
-  selector: 'app-lorenz',
+  selector: 'lorenz-attractor',
   templateUrl: './lorenz.component.html',
   styleUrls: ['./lorenz.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

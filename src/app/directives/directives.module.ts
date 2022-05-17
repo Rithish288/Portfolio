@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { TypeAnimationDirective } from './type-animation.directive';
 import { FullScreenDirective } from './full-screen.directive';
 import { CanvasResizeDirective } from './canvas-resize.directive';
+import { HoverClassDirective } from './hover-class.directive';
+import { IntersectionObserverDirective } from './intersection-observer.directive';
 
 const directives = [
   TypeAnimationDirective,
   FullScreenDirective,
-  CanvasResizeDirective
+  CanvasResizeDirective,
+  HoverClassDirective,
+  IntersectionObserverDirective
 ]
 
 @NgModule({

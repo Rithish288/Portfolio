@@ -3,7 +3,7 @@ import { ShaderService } from 'src/app/services/shader.service';
 import { Attractor } from '../attractor';
 
 @Component({
-  selector: 'app-thomas',
+  selector: 'thomas-attractor',
   templateUrl: './thomas.component.html',
   styleUrls: ['./thomas.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

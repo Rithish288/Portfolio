@@ -1,10 +1,11 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { fadeIn } from '../animations';
+import { CommonVariablesService } from '../services/common-variables.service';
 import { NavbarService } from '../services/navbar.service';
 
 @Component({
-  selector: 'app-toolbar',
+  selector: 'top-navigation-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
@@ -21,13 +22,13 @@ export class ToolbarComponent implements OnInit {
   private isLightTheme = true;
   public navigations = [
     {route: '/landing-page', text: 'Home'},
-    {route: '/#', text: 'Projects'},
+    {route: '/projects', text: 'Projects'},
     {route: '/canvas-projects', text: 'Canvas'},
     {route: '/#', text: 'Contact'}
   ]
 
   @Output() toggleEvent = new EventEmitter<string>();
-  constructor(public nav: NavbarService, private observer: BreakpointObserver, private detector: ChangeDetectorRef) {}
+  constructor(private globalTheme: CommonVariablesService, public nav: NavbarService, private observer: BreakpointObserver, private detector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     if (this.theme === 'lightTheme') {
@@ -62,6 +63,7 @@ export class ToolbarComponent implements OnInit {
     this.theme = "lightTheme";
     this.themeIcon = "dark_mode";
     this.switchTheme = 'dark theme';
+    this.globalTheme.updateTheme('lightTheme')
   }
 
   private enableDarkTheme() {
@@ -70,6 +72,7 @@ export class ToolbarComponent implements OnInit {
     this.theme = "darkTheme";
     this.themeIcon = "light_mode";
     this.switchTheme = 'light theme';
+    this.globalTheme.updateTheme('darkTheme')
   }
 
   public emitEvent() {

@@ -25,6 +25,9 @@ $mat-light-theme-foreground: (
   accent-text:   $dark-accent-text,
   icon:          $dark-accent-text,
   text:          $dark-primary-text,
+  slider-min:        $dark-primary-text,
+  slider-off:        rgba($dark-primary-text, 0.26),
+  slider-off-active: $dark-disabled-text,
 );
 $mat-dark-theme-foreground: (
   base:          $light-primary-text,
@@ -35,6 +38,9 @@ $mat-dark-theme-foreground: (
   accent-text:   $light-accent-text,
   icon:          $light-primary-text,
   text:          $light-primary-text,
+  slider-min:        $light-primary-text,
+  slider-off:        rgba($light-primary-text, 0.3),
+  slider-off-active: rgba($light-primary-text, 0.3),
 );
 /* #endregion */
 
@@ -173,6 +179,8 @@ body {
   @include mat.progress-spinner-theme($light-theme);
   @include mat.tooltip-theme($light-theme);
   @include mat.card-theme($light-theme);
+  @include mat.tabs-theme($light-theme);
+  @include mat.slider-theme($light-theme);
   mat-spinner {
     will-change: stroke-dashoffset;
   }
@@ -209,6 +217,8 @@ body {
   .darkTheme {
     @include mat.sidenav-color($dark-theme);
     @include mat.card-color($dark-theme);
+    @include mat.tabs-color($dark-theme);
+    @include mat.slider-color($dark-theme);
     background-color: mat.get-color-from-palette($mat-dark-theme-background, 'background');
     color: mat.get-color-from-palette($mat-dark-theme-foreground, 'text');
     svg {
@@ -238,6 +248,14 @@ div.wrapper {
   max-height: 100vh;
   width: 100vw;
   overflow: hidden auto;
+  scrollbar-color: var(--primary-color) transparent;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+  }
 }
 
 canvas { display: block; }

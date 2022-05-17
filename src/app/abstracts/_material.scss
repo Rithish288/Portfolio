@@ -1,0 +1,86 @@
+@use "breakpoints";
+@use "@angular/material" as mat;
+
+$mat-list-item-height: 40px;
+$hover-bg-color: lighten($color: rgb(78, 78, 78, 0.3), $amount: 30%);
+$max-sidenav-width: 200px;
+$light-primary-color: var(--primary-lighter-color);
+$toolbar-h2-width: calc(100vw - 32px - 40px - 15px);
+
+@mixin active-mat-list-item {
+  color: darken($color: #1a66e7, $amount: 10%);
+  background-color: $light-primary-color;
+}
+
+@mixin cdk-accordion-expansion {
+  cdk-accordion-item {
+    & > mat-list-item {
+      mat-icon {
+        margin-left: auto;
+      }
+    }
+    div.expansion-panel {
+      overflow: hidden;
+      will-change: height;
+      a {
+        white-space: nowrap;
+      }
+      span.spacer {
+        width: 1rem;
+        height: inherit;
+      }
+    }
+  }
+}
+
+@mixin list-item-hover {
+  &:hover, &:focus-visible {
+    background-color: lighten($color: rgb(78, 78, 78, 0.3), $amount: 30%);
+  }
+}
+
+@mixin mat-sidenav {
+  mat-sidenav.mat-sidenav {
+    max-width: $max-sidenav-width;
+    mat-nav-list.mat-nav-list {
+      .mat-list-item {
+        height: $mat-list-item-height;
+        @include list-item-hover();
+      }
+      mat-list-item.mat-list-item {
+        display: block;
+        &.active-project {
+          @include active-mat-list-item();
+        }
+      }
+      cdk-accordion {
+        @include cdk-accordion-expansion();
+      }
+    }
+  }
+}
+
+@mixin mat-toolbar {
+  mat-toolbar.mat-toolbar {
+    button.mat-button {
+      margin-right: 16px;
+      &:hover {
+        background-color: $light-primary-color;
+      }
+    }
+    h2 {
+      text-overflow: ellipsis;
+      width: $toolbar-h2-width;
+      height: fit-content;
+      overflow: hidden;
+      font-size: large;
+      @include breakpoints.mobile-lg-landscape {
+        font-size: medium;
+      }
+    }
+  }
+}
+
+@mixin custom-box-shadow($elevation, $color) {
+  @include mat.elevation($elevation, $color);
+}

@@ -2,7 +2,13 @@
   'height': '100%',
   'overflow-x': 'hidden'
 }">
-  <mat-sidenav autoFocus="false" #sidenav mode="over" autoFocus="false" fixedInViewport="true" [fixedTopGap]="window.innerWidth > 650? 55.927 : 55.927+25">
+  <mat-sidenav
+    autoFocus="false"
+    #sidenav
+    mode="over"
+    autoFocus="false"
+    fixedInViewport="true"
+    [fixedTopGap]="offsetTop">
     <mat-nav-list>
       <mat-list-item routerLink="main-content" routerLinkActive="active-project">Main</mat-list-item>
       <cdk-accordion>
@@ -13,7 +19,7 @@
             expand_less</mat-icon>
           </mat-list-item>
           <div class="expansion-panel" [attr.aria-expanded]="accordionItem.expanded" [style.transition]="'height '+dropdown.length/10+'s'" [style.height]="accordionItem.expanded ? dropdown.length * 40 + 'px' : '0px'">
-            <mat-list-item *ngFor="let listItem of dropdown" role="link" routerLinkActive="active-project" routerLink="{{listItem.path}}">
+            <mat-list-item *ngFor="let listItem of dropdown" role="link" routerLinkActive="active-project" [routerLink]="listItem.path">
               <span class="spacer"></span>
               {{listItem.name | truncate: listItem.name.length - listItem.truncateLength}}
             </mat-list-item>
@@ -25,7 +31,7 @@
   <mat-sidenav-content>
     <mat-toolbar color="primary" [ngStyle]="{height: '55.927px'}">
       <button mat-icon-button aria-label="open menu" (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-      <h2 [style.font-weight]="400">Canvas Projects {{breadcrumb | titlecase}}</h2>
+      <h2 [style.margin-left]="'16px'" [style.font-weight]="400">Canvas Projects {{breadcrumb | removeHyphen | titlecase}}</h2>
     </mat-toolbar>
     <h1
       class="mat-h1"

@@ -7,7 +7,8 @@ const routes: Routes = [
   {path: '', component: ToolbarComponent},
   {path: '', loadChildren: () => import('./spinner/spinner.module').then(m => m.SpinnerModule)},
   {path: 'landing-page', loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule)},
-  {path: 'canvas-projects', loadChildren: () => import('./canvas-projects/canvas-projects.module').then(m => m.CanvasProjectsModule)}
+  {path: 'canvas-projects', loadChildren: () => import('./canvas-projects/canvas-projects.module').then(m => m.CanvasProjectsModule)},
+  {path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule)}
 ];
 
 @NgModule({

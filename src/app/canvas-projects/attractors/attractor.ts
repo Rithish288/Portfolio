@@ -39,6 +39,7 @@ export class Attractor implements OnDestroy {
   private fragShader: string = '';
   private touch: boolean;
   private previousTouch: Touch;
+  private currentAngle: number = 0;
 
   constructor(
     private canvas: HTMLCanvasElement,
@@ -46,12 +47,12 @@ export class Attractor implements OnDestroy {
     @Inject(Number) private zScale: number,
     @Inject(String) private drawMode: WebGL2RenderingContext["TRIANGLES"] | WebGL2RenderingContext["LINES"] | WebGL2RenderingContext["POINTS"] | WebGL2RenderingContext["LINE_STRIP"],
     private shader: ShaderService,
-    @Inject(Array) private color?: number[],
-    @Inject(Array) private indices?: number[]
+    @Inject(Array) private color?: number[]
   ) {
     this.gl = this.canvas.getContext('webgl2', {preserveDrawingBuffer: false});
     this.buffer = this.gl.createBuffer();
   }
+
   ngOnDestroy(): void {
     this.vertices = [];
   }
@@ -69,7 +70,11 @@ export class Attractor implements OnDestroy {
     this.getShaders().then(this.initGL.bind(this)).then(() => {
       this.canvas.onmousemove = this.onMouseMove.bind(this);
       this.canvas.ontouchmove = this.onTouchMove.bind(this);
-      this.canvas.ontouchend = () => this.previousTouch = null;
+      this.canvas.onmouseup = this.onMouseUp.bind(this);
+      this.canvas.ontouchend = (ev: TouchEvent) => {
+        this.previousTouch = null;
+        this.onMouseUp(ev);
+      };
     });
   }
 
@@ -103,11 +108,9 @@ export class Attractor implements OnDestroy {
       resolution: this.gl.getUniformLocation(this.program, 'u_resolution'),
       color: this.gl.getUniformLocation(this.program, 'color')
     }
-    if(this.color) {
-    this.gl.uniform3fv(this.unifs.color, this.color, 0);
-    } else {
+    this.color?
+      this.gl.uniform3fv(this.unifs.color, this.color, 0) :
       this.gl.uniform3fv(this.unifs.color, primaryMappedArr, 0);
-    }
     this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix)
     this.gl.uniformMatrix4fv(this.unifs.matView, false, this.matrices.viewMatrix)
     this.gl.uniformMatrix4fv(this.unifs.matProj, false, this.matrices.projMatrix)
@@ -154,37 +157,44 @@ export class Attractor implements OnDestroy {
     }
   }
 
+  private onMouseUp(e: MouseEvent | TouchEvent) {
+    setTimeout(() => {
+      if(this.touch === true) this.touch = false;
+      this.currentAngle = this.angleX;
+    }, 1000);
+  }
+
   private onTouchMove(e: TouchEvent) {
     let touch = e.touches[0];
+    e.stopPropagation();
     this.touch = true;
     if(this.previousTouch) {
       e["movementX"] = touch.pageX - this.previousTouch.pageX;
       e["movementY"] = touch.pageY - this.previousTouch.pageY;
-      this.angleX += e["movementX"]
-      this.angleY -= e["movementY"]
+      this.angleX += e["movementX"];
+      this.angleY -= e["movementY"];
     }
     this.previousTouch = touch;
   }
 
-  private animate(time?: number): void {
+  private rotation() {
     if(!this.touch) {
-      mat4.rotate(this.matrices.yrotation, this.matrices.identityMatrix, this.angleX, [0, 1, 0]);
-      this.angleX = time/1000;
-    }
-    else {
-      mat4.rotate(this.matrices.yrotation, this.matrices.identityMatrix, this.angleX / 300, [0, 1, 0]);
-    }
-    mat4.rotate(this.matrices.xrotation, this.matrices.identityMatrix, this.angleY / 300, [1, 0, 0]);
+      this.currentAngle += 5;
+      this.angleX = this.currentAngle;
+      mat4.rotate(this.matrices.yrotation, this.matrices.identityMatrix, this.angleX/300, [0, 1, 0]);
+    } else
+      mat4.rotate(this.matrices.yrotation, this.matrices.identityMatrix, this.angleX/300, [0, 1, 0]);
+    mat4.rotate(this.matrices.xrotation, this.matrices.identityMatrix, this.angleY/300, [1, 0, 0]);
+  }
+
+  private animate(time?: number): void {
+    this.rotation();
     mat4.mul(this.matrices.worldMatrix, this.matrices.xrotation, this.matrices.yrotation);
     this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix);
     this.gl.uniform1f(this.unifs.timePeriod, time / 1000.0);
     this.gl.clearColor(0, 0, 0, 0);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-    if(this.indices) {
-      this.gl.drawElements(this.gl.TRIANGLES, this.indices.length, this.gl.UNSIGNED_SHORT, 0);
-    } else {
-      this.gl.drawArrays(this.drawMode, 0, this.vertices.length/3)
-    }
+    this.gl.drawArrays(this.drawMode, 0, this.vertices.length/3)
     this.animation = requestAnimationFrame(this.animate.bind(this));
   }
 }

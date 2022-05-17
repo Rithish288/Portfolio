@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 //Modules
 import { PendulumsRoutingModule } from './pendulums-routing.module';
-import { MaterialModule } from 'src/app/material/material.module';
 import { DirectivesModule } from 'src/app/directives/directives.module';
+import { MaterialModule } from 'src/app/material/material.module';
 
 //Components
 import { SimplePendulumComponent } from './simple-pendulum/simple-pendulum.component';
@@ -21,13 +21,14 @@ import { TriplePendulumComponent } from './triple-pendulum/triple-pendulum.compo
   imports: [
     CommonModule,
     PendulumsRoutingModule,
+    DirectivesModule,
     MaterialModule,
-    DirectivesModule
   ],
   exports: [
     SimplePendulumComponent,
     DoublePendulumComponent,
     TriplePendulumComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PendulumsModule { }

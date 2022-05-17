@@ -1,0 +1,8 @@
+@use "../abstracts";
+
+mat-sidenav-container {
+  @include abstracts.mat-sidenav();
+  mat-sidenav-content {
+    @include abstracts.mat-toolbar();
+  }
+}

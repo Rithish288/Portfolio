@@ -11,9 +11,8 @@
   mat-icon-button
 ><mat-icon>south</mat-icon></button>
 <div class="main-content">
-
   <section>
-    <h1 class="mat-title" >Hey! I'm Rithish K R.</h1><br/><br/>
+    <h1 class="mat-title" >Hey! I'm Rithish.</h1><br/><br/>
     <p [style.font-size]="'1.1em'">
       I'm an experienced self-taught front-end developer from India, Tamil Nadu.<br/>
       I have upto {{calcHTMLCSSexp()}} years of experience with HTML and CSS
@@ -35,42 +34,24 @@
     <div class="mat-card-container">
       <mat-card *ngFor="let library of libraries" ngClass="mat-elevation-z3">
         <mat-card-header>
-          <mat-card-title>
-            <h3 mat-card-title>{{library.title | titlecase}}</h3>
+          <mat-card-title class="header">
+            <h2 mat-card-title>{{library.title | titlecase}}</h2>
           </mat-card-title>
+          <img
+            [@fadeIn]
+            [width]="calculateLibraryImgWidth()"
+            mat-card-image
+            loading="lazy"
+            [src]="library.imageUrl"
+            [alt]="library.imageUrl"
+          >
         </mat-card-header>
-        <img
-          [@fadeIn]
-          [width]="calculateLibraryImgWidth()"
-          mat-card-image
-          loading="lazy"
-          (load)="setDimensions(this)"
-          [src]="library.imageUrl"
-          [alt]="library.imageUrl"
-          [style.shape-outside]="'url('+library.imageUrl+')'"
-        >
-        <mat-card-content>{{library.description}}</mat-card-content>
-      </mat-card>
-    </div>
-  </section>
-  <br/>
-  <br/>
-  <section class="languages">
-    <h2 class="mat-h2">
-      Programming and coding languages that I know:
-    </h2>
-    <div class="mat-card-container">
-      <mat-card *ngFor="let language of languages">
-        <mat-card-header>
-          <mat-card-title>
-            <h3 class="mat-h3">{{language.title | titlecase}}</h3>
-          </mat-card-title>
-        </mat-card-header>
-        <img mat-card-image loading="lazy" [src]="language.imageUrl" [alt]="language.imageUrl">
         <mat-card-content>
-          {{language.description}}
+          {{library.description}}
         </mat-card-content>
       </mat-card>
     </div>
   </section>
+  <br/>
+  <br/>
 </div>

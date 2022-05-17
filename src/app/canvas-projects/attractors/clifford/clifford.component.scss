@@ -1,0 +1,12 @@
+:host {
+  display: block;
+
+  div.controls {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    mat-slider {
+      display: block;
+    }
+  }
+}

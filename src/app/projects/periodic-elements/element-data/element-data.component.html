@@ -1,0 +1,70 @@
+<h2 @expandIn class="mat-display-1 mat-elevation-z4 mat-card">{{element.name}}</h2>
+<ng-container>
+  <section class="element-general-properties" data-name="General Properties">
+    <h1 class="mat-h1">General Properties</h1>
+    <div class="semi-container">
+      <mat-card class="element-notation mat-elevation-z3">
+        <span class="mat-h2 atomic-mass">{{toPrecision(element.atomicMass, 1)}}</span>
+        <span class="mat-display-4 symbol">{{element.symbol}}</span>
+        <span class="mat-h2 atomic-number">{{element.atomicNumber}}</span>
+      </mat-card>
+      <mat-list>
+        <!-- <mat-list-item><span class="LHS">Symbol:</span> &nbsp; {{element.symbol}}</mat-list-item> -->
+        <!-- <mat-list-item><span class="LHS">Atomic Number:</span> &nbsp; {{element.atomicNumber}}</mat-list-item> -->
+        <mat-list-item><span class="LHS">Atomic Mass:</span> &nbsp; {{element.atomicMass + ' amu'}}</mat-list-item>
+        <mat-list-item><span class="LHS">Appearance:</span> &nbsp; {{element.appearance}}</mat-list-item>
+        <mat-list-item><span class="LHS">Melting Point:</span> &nbsp; {{element.meltingPoint}}°C</mat-list-item>
+        <mat-list-item><span class="LHS">Boiling Point:</span> &nbsp; {{element.boilingPoint}}°C</mat-list-item>
+      </mat-list>
+    </div>
+    <p [innerHTML]="element.description"></p>
+  </section>
+  <mat-divider></mat-divider>
+  <section class="image discovery-physicals" data-name="Disvovery">
+    <img loading="lazy" [src]="elementImage" [width]="window.innerWidth/3" [alt]="'image of ' + element.name">
+    <mat-list disableRipple="">
+      <h1 class="mat-h1">Discovery</h1>
+      <mat-list-item><span class="LHS" [style.white-space]="'nowrap'">Discovered by:</span> &nbsp; {{element.discoveredBy}}</mat-list-item>
+      <mat-list-item><span class="LHS">Year discovered:</span> &nbsp; {{element.discovered}}</mat-list-item>
+      <mat-list-item><span class="LHS">Category:</span> &nbsp; {{element.category | removeHyphen}}</mat-list-item>
+      <mat-list-item><span class="LHS">State(<span matTooltip="Standard Temperature and Pressure">STP</span>):</span> &nbsp; {{element.state}}</mat-list-item>
+      <mat-list-item><span class="LHS">Density:</span> &nbsp;<span [innerHTML]="stringToHTML(element.density)"></span></mat-list-item>
+    </mat-list>
+  </section>
+  <mat-divider></mat-divider>
+  <section class="bohr-model particle-details" data-name="Bohr Model">
+    <mat-list>
+      <h1 class="mat-h1">Bohr Model of {{element.name}}</h1>
+      <mat-list-item><span class="LHS">Protons:</span>&nbsp;{{element.atomicNumber}}</mat-list-item>
+      <mat-list-item><span class="LHS">Neutrons:</span>&nbsp;{{Math.round(NumberConst.parseFloat(element.atomicMass) - element.atomicNumber)}}</mat-list-item>
+      <mat-list-item><span class="LHS">Electrons:</span>&nbsp;{{element.atomicNumber}}</mat-list-item>
+      <mat-list-item><span class="LHS">Electron Shells:</span>&nbsp;[{{element.shells | spaceAfter : ", "}}]</mat-list-item>
+    </mat-list>
+    <canvas #bohrModel></canvas>
+  </section>
+  <mat-divider></mat-divider>
+  <section class="model-3d position-details" data-name="3D Model">
+    <model-viewer [attr.src]="setElementModelImage()" autoplay camera-controls camera-orbit="-0.67deg 70.99deg auto" exposure="0.4" field-of-view="60deg"></model-viewer>
+    <mat-list>
+      <h1 class="mat-h1">3D Model of {{element.name}}</h1>
+      <mat-list-item><span class="LHS">Group:</span>&nbsp;{{element.group}}</mat-list-item>
+      <mat-list-item><span class="LHS">Block:</span>&nbsp;{{element.block}}-block</mat-list-item>
+      <mat-list-item><span class="LHS">Period:</span>&nbsp;{{element.shells.length}}</mat-list-item>
+      <mat-list-item><span class="LHS">Electron Configuration:</span>&nbsp;{{element.electronConfig}}</mat-list-item>
+    </mat-list>
+  </section>
+  <mat-divider></mat-divider>
+  <section class="history" data-name="History">
+    <h1 class="mat-h1">Hisotry of {{element.name}}</h1>
+    <mat-list>
+      <mat-list-item *ngFor="let event of element.history">{{event}}</mat-list-item>
+    </mat-list>
+  </section>
+  <mat-divider></mat-divider>
+  <section class="applications" data-name="Applications">
+    <h1 class="mat-h1">Uses of {{element.name}}</h1>
+    <mat-list>
+      <mat-list-item disableRipple="" *ngFor="let use of element.uses">{{use}}</mat-list-item>
+    </mat-list>
+  </section>
+</ng-container>

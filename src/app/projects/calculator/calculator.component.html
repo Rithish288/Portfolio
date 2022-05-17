@@ -1,0 +1,40 @@
+<ng-container>
+  <div class="calculator-container">
+    <div class="calculator-input-container">
+      <div class="calculator-quick-operation">0</div>
+      <div class="calculator-input">{{display}}</div>
+    </div>
+    <div class="calculator-buttons">
+      <div class="more-operations">
+        <button
+          class="button scientific"
+          mat-button
+          *ngFor="let i of
+            ['%', 'CE', 'C', '1/x', 'x²', '√x']">{{i}}</button>
+      </div>
+      <div class="numbers">
+        <number-key *ngFor="let i of
+          [7, 8, 9, 4, 5, 6, 1, 2, 3]"
+          [number]="i"
+          (key)="onNumberInput($event)">
+        </number-key>
+      </div>
+      <div class="operations">
+        <!--<button
+          class="button operation"
+          #operations
+          (click)="addOperationInput(i)"
+          *ngFor="let i of
+            ['⌦', '÷', '×', '-', '+', '=']"
+          mat-button
+        {{i}}</button> -->
+
+        <operation-key *ngFor="let i of
+          ['÷', '×', '-', '+']"
+          [operation]="i"
+          (key)="onOperInput($event)"
+        ></operation-key>
+      </div>
+    </div>
+  </div>
+</ng-container>
