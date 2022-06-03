@@ -43,7 +43,8 @@
             ],
             "scripts": [
               "./node_modules/@google/model-viewer/dist/model-viewer-umd.min.js"
-            ]
+            ],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -85,12 +86,11 @@
               "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": false,
+              "sourceMap": true,
               "namedChunks": true,
               "outputHashing": "bundles",
               "allowedCommonJsDependencies": [
-                "mathjs",
-                "math-extended"
+                "mathjs"
               ]
             }
           },
@@ -131,7 +131,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           }
         }
       }

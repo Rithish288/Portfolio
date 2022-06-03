@@ -26,14 +26,23 @@ export class AppComponent implements AfterViewInit {
         case e instanceof NavigationEnd || e instanceof NavigationError: {
           this.spinnerOverlay.hide();
           break;
-        }
-        default:
-          break;
+        } default: break;
       }
     })
   }
 
   ngAfterViewInit(): void {
+    if (typeof Worker !== 'undefined') {
+      // Create a new
+      const worker = new Worker(new URL('./app.worker', import.meta.url));
+      worker.onmessage = ({ data }) => {
+        console.log(`page got message: ${data}`);
+      };
+      worker.postMessage('hello');
+    } else {
+      // Web workers are not supported in this environment.
+      // You should add a fallback so that your program still executes correctly.
+    }
     this.detector.detectChanges();
     this.positionScroll();
     this.setParentDiv()
@@ -61,4 +70,16 @@ export class AppComponent implements AfterViewInit {
   receiveEvent($event: string) {
     this.defaultTheme = $event;
   }
+}
+
+if (typeof Worker !== 'undefined') {
+  // Create a new
+  const worker = new Worker(new URL('./app.worker', import.meta.url));
+  worker.onmessage = ({ data }) => {
+    console.log(`page got message: ${data}`);
+  };
+  worker.postMessage('hello');
+} else {
+  // Web Workers are not supported in this environment.
+  // You should add a fallback so that your program still executes correctly.
 }

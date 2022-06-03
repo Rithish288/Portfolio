@@ -15,7 +15,7 @@ export class TriplePendulumComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    let n = 10;
+    let n = 3;
     this.pendulum = new PendulumService(n, Array(n).fill(Math.PI/2), Array(n).fill(0), -9.8)
     this.canvas.nativeElement.width = Math.min(window.innerHeight, window.innerWidth);
     this.canvas.nativeElement.height = Math.min(window.innerHeight, window.innerWidth);

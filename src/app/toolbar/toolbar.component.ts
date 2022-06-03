@@ -23,8 +23,8 @@ export class ToolbarComponent implements OnInit {
   public navigations = [
     {route: '/landing-page', text: 'Home'},
     {route: '/projects', text: 'Projects'},
-    {route: '/canvas-projects', text: 'Canvas'},
-    {route: '/#', text: 'Contact'}
+    {route: '/canvas-projects', text: 'Canvas'}
+    // {route: '/#', text: 'Contact'}
   ]
 
   @Output() toggleEvent = new EventEmitter<string>();

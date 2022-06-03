@@ -4,6 +4,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 import { fadeIn } from '../animations';
 import { NavbarService } from '../services/navbar.service';
+import { MATH } from 'math-extended';
 
 @Component({
   selector: 'app-canvas-projects',

@@ -136,7 +136,5 @@ export class CliffordComponent implements AfterViewInit, OnDestroy {
     cancelAnimationFrame(this.animation);
     this.gl.deleteBuffer(this.buffer);
     this.gl.deleteProgram(this.program);
-    this.gl.deleteShader(this.vertShader)
-    this.gl.deleteShader(this.fragShader)
   }
 }
