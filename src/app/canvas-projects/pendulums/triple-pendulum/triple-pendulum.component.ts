@@ -59,7 +59,7 @@ export class TriplePendulumComponent implements AfterViewInit {
 
   animate() {
     requestAnimationFrame(this.animate.bind(this));
-    this.c.clearRect(0, 0, this.c.canvas.width, this.c.canvas.height);
+    this.c.clearRect(0, -this.c.canvas.height, this.c.canvas.width, this.c.canvas.height*2);
     this.draw();
     this.pendulum.tick(1/60)
   }

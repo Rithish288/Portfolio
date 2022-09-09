@@ -63,7 +63,7 @@ export class PeriodicTableComponent implements AfterViewInit {
             .reduce((acc, [number, letterFrequencyObj]) =>
               [...acc, ...Object.entries(letterFrequencyObj)
             .map(([letter, frequency]) =>
-              [number, letter,frequency])],[]
+              [number, letter, frequency])],[]
             );
     configurationArray.forEach(config => {
       this.configuration += config.join('') + ' ';

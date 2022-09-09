@@ -21,17 +21,6 @@ import { Subscription } from 'rxjs';
         transform: 'translateX(5vw)'
       })),
       transition('hidden => visible', animate('1000ms cubic-bezier(0.62, 0.05, 0.36, 0.99)'))
-    ]),
-    trigger('writeName', [
-      state('empty', style({
-        strokeDasharray: 776.5869750976562 / 7,
-        strokeDashoffset: 776.5869750976562 / 7,
-      })),
-      state('written', style({
-        strokeDasharray: 776.5869750976562,
-        strokeDashoffset: 0,
-      })),
-      transition('empty => written', animate('0s cubic-bezier(0.15, 0.92, 1, 1)'))
     ])
   ]
 })

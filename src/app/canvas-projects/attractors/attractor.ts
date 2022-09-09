@@ -198,3 +198,4 @@ export class Attractor implements OnDestroy {
     this.animation = requestAnimationFrame(this.animate.bind(this));
   }
 }
+

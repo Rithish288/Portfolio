@@ -14,6 +14,7 @@ interface Uniforms {
   resolution?: WebGLUniformLocation
 }
 
+
 @Component({
   selector: 'app-space',
   template: `
@@ -35,12 +36,12 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
   private vertices: number[] = [];
   private program: WebGLProgram;
   private matrices = {
-    xrotation: new Float32Array(16),
-    yrotation: new Float32Array(16),
-    identityMatrix: new Float32Array(16),
-    worldMatrix: new Float32Array(16),
-    viewMatrix: new Float32Array(16),
-    projMatrix: new Float32Array(16)
+    xrotation: mat4.create(),
+    yrotation: mat4.create(),
+    identityMatrix: mat4.create(),
+    worldMatrix: mat4.create(),
+    viewMatrix: mat4.create(),
+    projMatrix: mat4.create()
   }
   private buffer: WebGLBuffer;
   private angleX: number = 0;

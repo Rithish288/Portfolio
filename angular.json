@@ -49,7 +49,6 @@
           "configurations": {
             "production": {
               "allowedCommonJsDependencies": [
-                "math-extended",
                 "mathjs"
               ],
               "aot": true,
@@ -137,6 +136,5 @@
         }
       }
     }
-  },
-  "defaultProject": "Portfolio"
+  }
 }

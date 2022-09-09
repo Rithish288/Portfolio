@@ -22,7 +22,10 @@ export class SpinnerService {
 
   public show() {
     if(!this.overlayRef) this.overlayRef = this.overlay.create({
-      positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
+      positionStrategy:
+        this.overlay.position().global()
+          .centerHorizontally()
+          .centerVertically(),
       scrollStrategy: this.overlay.scrollStrategies.block(),
       hasBackdrop: true,
     });

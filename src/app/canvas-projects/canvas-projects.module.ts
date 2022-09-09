@@ -11,7 +11,6 @@ import { DirectivesModule } from '../directives/directives.module';
 //Components
 import { CanvasProjectsComponent } from './canvas-projects.component';
 import { MainContentComponent } from './main-content/main-content.component';
-import { Attractor } from './attractors/attractor';
 
 
 @NgModule({
@@ -32,8 +31,6 @@ import { Attractor } from './attractors/attractor';
     CanvasProjectsComponent,
     MainContentComponent
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [
-  ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CanvasProjectsModule { }

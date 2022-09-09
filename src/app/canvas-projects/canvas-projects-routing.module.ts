@@ -5,7 +5,7 @@ import { MainContentComponent } from './main-content/main-content.component';
 
 const routes: Routes = [
   {path: '', component: CanvasProjectsComponent, children: [
-    {path: '', redirectTo: 'main-content', component: MainContentComponent},
+    {path: '', redirectTo: 'main-content', pathMatch: 'full'},
     {path: 'main-content', component: MainContentComponent},
     {path: 'attractors', loadChildren: () => import('./attractors/attractors.module').then(m => m.AttractorsModule)},
     {path: 'pendulums', loadChildren: () => import('./pendulums/pendulums.module').then(m => m.PendulumsModule)}
