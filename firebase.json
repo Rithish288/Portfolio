@@ -6,7 +6,7 @@
     "rules": "storage.rules"
   },
   "hosting": {
-    "public": "dist/Portfolio",
+    "public": "dist/portfolio",
     "ignore": [
       "firebase.json",
       "**/.*",
