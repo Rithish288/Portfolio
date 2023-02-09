@@ -1,55 +1,34 @@
 <app-space></app-space>
-<h1
-  class="mat-display-1" [@fadeIn]
-  style="position: absolute; top: 40vh; background-image: linear-gradient(90deg, var(--primary-color), var(--accent-color)); background-size: 100% 3px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 0.2em; left: 50%; transform: translate(-50%, -50%);"
->WELCOME</h1>
-<button
-  aria-label="Scroll to main content"
-  accesskey="arrow_down"
-  (click)="scrollToMainContent()"
-  style="position: absolute; top: 50vh; left: 50%; transform: translate(-50%, -50%);"
-  mat-icon-button
-><mat-icon>south</mat-icon></button>
+<div id="quick-intro" style="position: absolute; top: 50vh; left: 50%; transform: translate(-50%, -50%);">
+  <h1
+    class="mat-display-2" [@fadeIn]
+    style="background-image: linear-gradient(90deg, var(--primary-color), var(--accent-color)); background-size: 100% 3px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 0.2em"
+  >Welcome to my portfolio !</h1>
+  <button
+    aria-label="Scroll to main content"
+    accesskey="arrow_down"
+    (click)="scrollToMainContent()"
+    style="position: relative; margin-inline: auto; display: block;"
+    mat-icon-button
+  ><mat-icon>south</mat-icon></button>
+</div>
 <div class="main-content">
   <section>
     <h1 class="mat-title" >Hey! I'm Rithish.</h1><br/><br/>
-    <p [style.font-size]="'1.1em'">
-      I'm an experienced self-taught front-end developer from India, Tamil Nadu.<br/>
-      I have upto {{calcHTMLCSSexp()}} years of experience with HTML and CSS
-      and {{calcJSexp()}} years of experience with JavaScript.
+    <p [style.font-size]="'1.3em'">
+      I'm a high school student from India currently studying my A Levels at APL GLobal School and I would like to share some of my projects on this website.
+      I have keen interest in Mathematics, Computer Science and Physics.
     </p>
     <br/>
-    <p [style.font-size]="'1.1em'">
-      I chose to learn web development because I was fascinated when I was first introduced to html5.
-      I was given a chance to be part of the web. Where my friends saw only 'code', I saw opportunity.
-      Since then I've been practicing a lot and have become proficient in web development.
-    </p>
   </section>
   <br/>
   <br/>
-  <section class="libraries">
+  <section class="skills">
     <h2 class="mat-h2">
-      Frameworks and libraries that I'm proficient in:
+      Languages and Frameworks I'm familiar with:
     </h2>
-    <div class="mat-card-container">
-      <mat-card *ngFor="let library of libraries" ngClass="mat-elevation-z3">
-        <mat-card-header>
-          <mat-card-title class="header">
-            <h2 mat-card-title>{{library.title | titlecase}}</h2>
-          </mat-card-title>
-          <img
-            [@fadeIn]
-            [width]="calculateLibraryImgWidth()"
-            mat-card-image
-            loading="lazy"
-            [src]="library.imageUrl"
-            [alt]="library.imageUrl"
-          >
-        </mat-card-header>
-        <mat-card-content>
-          {{library.description}}
-        </mat-card-content>
-      </mat-card>
+    <div>
+      <img [matTooltip]="skill.title" *ngFor="let skill of skills" [src]="skill.imageUrl">
     </div>
   </section>
   <br/>

@@ -43,7 +43,7 @@ export class Attractor implements OnDestroy {
 
   constructor(
     private canvas: HTMLCanvasElement,
-    @Inject(Array) private vertices: number[],
+    @Inject(Array) public vertices: number[],
     @Inject(Number) private zScale: number,
     @Inject(String) private drawMode: WebGL2RenderingContext["TRIANGLES"] | WebGL2RenderingContext["LINES"] | WebGL2RenderingContext["POINTS"] | WebGL2RenderingContext["LINE_STRIP"],
     private shader: ShaderService,
@@ -192,6 +192,7 @@ export class Attractor implements OnDestroy {
     mat4.mul(this.matrices.worldMatrix, this.matrices.xrotation, this.matrices.yrotation);
     this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix);
     this.gl.uniform1f(this.unifs.timePeriod, time / 1000.0);
+
     this.gl.clearColor(0, 0, 0, 0);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
     this.gl.drawArrays(this.drawMode, 0, this.vertices.length/3)

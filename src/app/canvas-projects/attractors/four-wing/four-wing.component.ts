@@ -31,7 +31,7 @@ export class FourWingComponent implements AfterViewInit, OnDestroy {
   pushVertices() {
     let x = this.coords.x, y = this.coords.y, z = this.coords.z;
     let dx: number, dy: number, dz: number, dt = 0.009;
-    for (let i = 10000; i > 0; i -= 0.01) {
+    for (let i = 1e4; i > 0; i -= 0.01) {
       dx = this.params.a * x + this.params.c * y * z;
       dy = this.params.b * x + this.params.d * y - x * z;
       dz = this.params.e * z + this.params.f * x * y;

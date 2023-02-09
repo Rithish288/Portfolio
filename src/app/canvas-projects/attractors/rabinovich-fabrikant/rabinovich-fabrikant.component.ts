@@ -33,7 +33,7 @@ export class RabinovichFabrikantComponent implements AfterViewInit {
   pushVertices() {
     let x: number = this.coords.x, y: number = this.coords.y, z: number = this.coords.z;
     let dx: number, dy: number, dz: number, dt = 0.00035;
-    for (let i = 50000; 1 < i; i--) {
+    for (let i = 1e5; 1 < i; i--) {
       dx = y * (z - 1 + x ** 2) + this.variables.gamma * x;
       dy = x * (3 * z + 1 - x ** 2) + this.variables.gamma * y;
       dz = -2 * z * (this.variables.alpha + x * y);

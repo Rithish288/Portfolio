@@ -32,7 +32,8 @@ export class LorenzComponent implements AfterViewInit, OnDestroy {
   pushVertices() {
     let x: number = this.coords.x, y: number = this.coords.y, z: number = this.coords.z;
     let dx: number, dy: number, dz: number, dt = 0.009;
-    for (let i = 10000; i > 0; i--) {
+
+    for (let i = 1e4; i > 0; i--) {
       dx = this.sigma * (y - x) * dt;
       dy = (x * (this.rho - z) - y) * dt;
       dz = (x * y - this.beta * z) * dt;
