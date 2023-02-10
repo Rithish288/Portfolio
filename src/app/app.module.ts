@@ -21,11 +21,13 @@ import { Overlay } from '@angular/cdk/overlay';
 //Components
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { DirectivesModule } from './directives/directives.module';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

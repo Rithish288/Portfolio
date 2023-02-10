@@ -13,16 +13,14 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: stretch;
-        gap: 1em;
         img {
           display: block;
-          max-width:7em;
-          max-height:7em;
+          max-width:5em;
+          max-height:5em;
           width: auto;
           height: auto;
-          // aspect-ratio: 0.89;
         }
       }
   }

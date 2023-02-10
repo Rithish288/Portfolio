@@ -254,14 +254,6 @@ div.wrapper {
   max-height: 100vh;
   width: inherit;
   overflow: hidden auto;
-  scrollbar-color: var(--primary-color) transparent;
-  scrollbar-width: thin;
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
-  }
 }
 
 canvas { display: block; }
