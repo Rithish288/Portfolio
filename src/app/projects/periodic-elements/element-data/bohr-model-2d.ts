@@ -1,6 +1,6 @@
 import { accentColor, primaryGrey } from "src/app/colors";
 
-export class BohrModel {
+export class BohrModel2d {
   private c: CanvasRenderingContext2D;
   public runAnimation: boolean = true;
   public animation: number;
@@ -10,7 +10,7 @@ export class BohrModel {
   public symbolColor: string = '';
   private counter: number = 0;
 
-  constructor(private canvas: HTMLCanvasElement, private electronShells: number[], private spin: boolean, private symbol: string) {
+  constructor(private canvas: HTMLCanvasElement, private electronShells: number[], private symbol: string) {
     this.c = canvas.getContext('2d');
     this.radius = this.canvas.height / 2.5 / this.electronShells.length;
     this.cx = this.canvas.width/2;

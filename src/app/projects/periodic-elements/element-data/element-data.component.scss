@@ -49,10 +49,10 @@ $flex-direction: row-reverse;
           }
         }
       }
-      p::first-letter {
-        font-size: 3em;
-        line-height: 1;
-      }
+      // p::first-letter {
+      //   font-size: 3em;
+      //   line-height: 1;
+      // }
     }
     &.image.discovery-physicals {
       display: flex;

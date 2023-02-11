@@ -9,8 +9,6 @@
         <span class="mat-h2 atomic-number">{{element.atomicNumber}}</span>
       </mat-card>
       <mat-list>
-        <!-- <mat-list-item><span class="LHS">Symbol:</span> &nbsp; {{element.symbol}}</mat-list-item> -->
-        <!-- <mat-list-item><span class="LHS">Atomic Number:</span> &nbsp; {{element.atomicNumber}}</mat-list-item> -->
         <mat-list-item><span class="LHS">Atomic Mass:</span> &nbsp; {{element.atomicMass + ' amu'}}</mat-list-item>
         <mat-list-item><span class="LHS">Appearance:</span> &nbsp; {{element.appearance}}</mat-list-item>
         <mat-list-item><span class="LHS">Melting Point:</span> &nbsp; {{element.meltingPoint}}°C</mat-list-item>
@@ -40,7 +38,11 @@
       <mat-list-item><span class="LHS">Electrons:</span>&nbsp;{{element.atomicNumber}}</mat-list-item>
       <mat-list-item><span class="LHS">Electron Shells:</span>&nbsp;[{{element.shells | spaceAfter : ", "}}]</mat-list-item>
     </mat-list>
-    <canvas #bohrModel></canvas>
+    <div class="model">
+      <canvas #bohrModel></canvas>
+      <label for="spin">Spin: </label>
+      <input type="checkbox" [checked]="true" (change)="spinCheck($event)" name="spin">
+    </div>
   </section>
   <mat-divider></mat-divider>
   <section class="model-3d position-details" data-name="3D Model">

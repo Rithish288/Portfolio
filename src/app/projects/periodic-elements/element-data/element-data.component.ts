@@ -1,12 +1,11 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MATH } from 'math-extended';
 import { Subscription } from 'rxjs';
 import { CommonVariablesService } from 'src/app/services/common-variables.service';
 import { ElementDataService } from 'src/app/services/element-data.service';
 import { ElementDetails } from '../element-details';
-import { BohrModel } from './bohr-model';
+import { BohrModel2d } from './bohr-model-2d';
 
 @Component({
   selector: 'element-data',
@@ -25,7 +24,7 @@ import { BohrModel } from './bohr-model';
 export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
-  private elementModel2d: BohrModel;
+  private elementModel2d: BohrModel2d;
 
   public element: ElementDetails;
   public Math = Math;
@@ -35,6 +34,7 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   public elementImage: string;
   public currentBanner: string = 'General Properties';
   public parent: HTMLDivElement;
+  public isSpin: boolean = true;
 
   @ViewChild('bohrModel') bohrModel: ElementRef<HTMLCanvasElement>;
   constructor(private host: ElementRef<HTMLElement>, public commonStuff: CommonVariablesService, private elementData: ElementDataService, private domSanitizer: DomSanitizer, private detector: ChangeDetectorRef) {
@@ -58,8 +58,13 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private stopAnimation() {
-    this.elementModel2d.runAnimation = this.commonStuff.isInViewport(this.bohrModel.nativeElement).visible
+    this.elementModel2d.runAnimation = this.commonStuff.isInViewport(this.bohrModel.nativeElement).visible && (this.isSpin === true);
     this.detector.detectChanges();
+  }
+
+  public spinCheck($event) {
+    this.isSpin = $event.target.checked
+    this.elementModel2d.runAnimation = this.isSpin;
   }
 
   private setBanner() {
@@ -77,7 +82,7 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   private initBohrModel() {
     this.bohrModel.nativeElement.width = Math.exp(Math.E * 2.1);
     this.bohrModel.nativeElement.height = this.bohrModel.nativeElement.width;
-    this.elementModel2d = new BohrModel(this.bohrModel.nativeElement, this.element.shells, true, this.element.symbol);
+    this.elementModel2d = new BohrModel2d(this.bohrModel.nativeElement, this.element.shells, this.element.symbol);
     this.subscriptions.push(
       this.commonStuff.currentTheme.subscribe(theme =>
         this.elementModel2d.symbolColor = theme
