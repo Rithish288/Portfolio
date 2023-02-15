@@ -4,8 +4,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { CommonVariablesService } from 'src/app/services/common-variables.service';
 import { ElementDataService } from 'src/app/services/element-data.service';
+import { ShaderService } from 'src/app/services/shader.service';
 import { ElementDetails } from '../element-details';
 import { BohrModel2d } from './bohr-model-2d';
+import { BohrModel3d } from './bohr-model-3d';
 
 @Component({
   selector: 'element-data',
@@ -25,6 +27,7 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
   private elementModel2d: BohrModel2d;
+  private elementModel3d: BohrModel3d;
 
   public element: ElementDetails;
   public Math = Math;
@@ -36,8 +39,9 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   public parent: HTMLDivElement;
   public isSpin: boolean = true;
 
-  @ViewChild('bohrModel') bohrModel: ElementRef<HTMLCanvasElement>;
-  constructor(private host: ElementRef<HTMLElement>, public commonStuff: CommonVariablesService, private elementData: ElementDataService, private domSanitizer: DomSanitizer, private detector: ChangeDetectorRef) {
+  @ViewChild('bohrModel2d') bohrModel2d: ElementRef<HTMLCanvasElement>;
+  @ViewChild('bohrModel3d') bohrModel3d: ElementRef<HTMLCanvasElement>;
+  constructor(private host: ElementRef<HTMLElement>, public commonStuff: CommonVariablesService, private elementData: ElementDataService, private domSanitizer: DomSanitizer, private detector: ChangeDetectorRef, private shader: ShaderService) {
     this.elementData.currentElement.subscribe(elem => this.element = elem);
     if(sessionStorage.getItem('element-details')) {
       this.element = JSON.parse(sessionStorage.getItem('element-details'));
@@ -50,7 +54,8 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.parent = this.commonStuff.parentDiv.nativeElement;
-    this.initBohrModel();
+    this.initBohrModel2d();
+    this.initBohrModel3d();
     this.parent.onscroll = () => {
       this.setBanner();
       this.stopAnimation();
@@ -58,7 +63,7 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private stopAnimation() {
-    this.elementModel2d.runAnimation = this.commonStuff.isInViewport(this.bohrModel.nativeElement).visible && (this.isSpin === true);
+    this.elementModel2d.runAnimation = this.commonStuff.isInViewport(this.bohrModel2d.nativeElement).visible && (this.isSpin === true);
     this.detector.detectChanges();
   }
 
@@ -79,10 +84,10 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private initBohrModel() {
-    this.bohrModel.nativeElement.width = Math.exp(Math.E * 2.1);
-    this.bohrModel.nativeElement.height = this.bohrModel.nativeElement.width;
-    this.elementModel2d = new BohrModel2d(this.bohrModel.nativeElement, this.element.shells, this.element.symbol);
+  private initBohrModel2d() {
+    this.bohrModel2d.nativeElement.width = Math.exp(Math.E * 2.1);
+    this.bohrModel2d.nativeElement.height = this.bohrModel2d.nativeElement.width;
+    this.elementModel2d = new BohrModel2d(this.bohrModel2d.nativeElement, this.element.shells, this.element.symbol);
     this.subscriptions.push(
       this.commonStuff.currentTheme.subscribe(theme =>
         this.elementModel2d.symbolColor = theme
@@ -91,6 +96,11 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
     this.elementModel2d.animate();
   }
 
+  private initBohrModel3d(): void {
+    this.elementModel3d = new BohrModel3d(this.bohrModel3d.nativeElement, this.element.shells, this.shader);
+    this.elementModel3d.setCanvas();
+    this.elementModel3d.start();
+  }
   public toPrecision(value: number | string, precision: number): string | void {
     return (typeof value === "string")?
     Number.parseFloat(value).toFixed(precision) : value.toFixed(precision);

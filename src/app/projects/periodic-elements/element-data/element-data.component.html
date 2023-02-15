@@ -39,7 +39,7 @@
       <mat-list-item><span class="LHS">Electron Shells:</span>&nbsp;[{{element.shells | spaceAfter : ", "}}]</mat-list-item>
     </mat-list>
     <div class="model">
-      <canvas #bohrModel></canvas>
+      <canvas #bohrModel2d></canvas>
       <label for="spin">Spin: </label>
       <input type="checkbox" [checked]="true" (change)="spinCheck($event)" name="spin">
     </div>
@@ -69,4 +69,5 @@
       <mat-list-item disableRipple="" *ngFor="let use of element.uses">{{use}}</mat-list-item>
     </mat-list>
   </section>
+  <canvas #bohrModel3d></canvas>
 </ng-container>

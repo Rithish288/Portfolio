@@ -23,6 +23,14 @@ export class ShaderService {
     };
   }
 
+  public getBohrModelShaders(): Shaders {
+    if(this.space) return this.space;
+    else return this.space = {
+      vertex: this.http.get('assets/shaders/bohrModel-3d/vertex.vert', {responseType: 'text'}).pipe(shareReplay()),
+      fragment: this.http.get('assets/shaders/bohrModel-3d/fragment.frag', {responseType: 'text'}).pipe(shareReplay())
+    };
+  }
+
   public getAttractorShaders(): Shaders {
     if(this.attractor) return this.attractor
     else return this.attractor = {
