@@ -5,19 +5,7 @@ import { lastValueFrom } from "rxjs";
 import { indices, normals, vertices } from "src/assets/icosphere";
 import { mat3, mat4 } from "gl-matrix";
 import { MATH } from "math-extended";
-
-interface Uniforms {
-  matWorld: WebGLUniformLocation
-  matView: WebGLUniformLocation
-  matProj: WebGLUniformLocation
-  timePeriod: WebGLUniformLocation
-  resolution: WebGLUniformLocation
-  color: WebGLUniformLocation
-  mNormal: WebGLUniformLocation
-  ambientColor: WebGLUniformLocation
-  directColor: WebGLUniformLocation
-}
-
+import { Matrices, Uniforms } from "src/app/interfaces";
 @Injectable()
 export class BohrModel3d implements OnDestroy {
   private gl: WebGL2RenderingContext;
@@ -28,32 +16,25 @@ export class BohrModel3d implements OnDestroy {
   private translation: number[] = [];
   private animation: number ;
   private normalMatrix: mat3;
-  private matrices = {
-    xrotation: new Float32Array(16),
-    yrotation: new Float32Array(16),
-    identityMatrix: new Float32Array(16),
-    worldMatrix: new Float32Array(16),
-    viewMatrix: new Float32Array(16),
-    projMatrix: new Float32Array(16),
-  }
+  private matrices: Matrices;
   private angleX: number = 0;
   private angleY: number = 0;
   private unifs: Uniforms;
-  private touch: boolean;
-  private previousTouch: Touch;
-  private currentAngle: number = 0;
-
+  private atomicNumber: number;
+  public zScale: number = 100;
   private attribs = {
     position: 0, normal: 1, translation: 2
   };
   private p: {x: number, y: number} = {x: 0, y: 0};
   private angle: number;
-  constructor(private canvas: HTMLCanvasElement, @Inject(Number) private electronShells: number[], private shader: ShaderService) {
+  constructor(private canvas: HTMLCanvasElement, @Inject(Number) private electronShells: number[], @Inject(Number) publicZScale: number, private shader: ShaderService) {
     this.gl = this.canvas.getContext("webgl2");
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.cullFace(this.gl.BACK);
-    this.gl.frontFace(this.gl.CCW)
+    this.gl.frontFace(this.gl.CCW);
+    this.atomicNumber = electronShells.reduce((sum, current) => sum+current);
+    this.matrices = WebglBoilerPlateService.generateMatrices();
   }
   ngOnDestroy(): void {
     throw new Error("Method not implemented.");
@@ -79,7 +60,6 @@ export class BohrModel3d implements OnDestroy {
 
   private onMouseMove(e: MouseEvent): void {
     if (e.buttons) {
-      // this.touch = true;
       this.angleX += e.movementX;
       this.angleY -= e.movementY;
     }
@@ -88,10 +68,6 @@ export class BohrModel3d implements OnDestroy {
   public start(): void {
     this.getShaders().then(this.initGL.bind(this)).then(() => {
       this.canvas.onmousemove = this.onMouseMove.bind(this);
-      // this.canvas.ontouchmove = this.onTouchMove.bind(this);
-      // this.canvas.ontouchend = (ev: TouchEvent) => {
-      //   this.previousTouch = null;
-      // };
     });
   }
 
@@ -121,8 +97,8 @@ export class BohrModel3d implements OnDestroy {
       i++;
       this.angle = (Math.PI * 2) / shell;
       for (let j = 0; j < shell; j++) {
-        this.p.x = Math.cos(this.angle * j + (this.animation * 0.005)/ i) * i * 7;
-        this.p.y = Math.sin(this.angle * j + (this.animation * 0.005)/ i) * i * 7;
+        this.p.x = Math.cos(this.angle * j + (this.animation * 0.009)/i) * (i/2+1) * 10;
+        this.p.y = Math.sin(this.angle * j + (this.animation * 0.009)/i) * (i/2+1) * 10;
         this.translation.push(this.p.x, 0, this.p.y);
       }
     })
@@ -144,7 +120,6 @@ export class BohrModel3d implements OnDestroy {
     this.gl.uniformMatrix4fv(this.unifs.matView, false, this.matrices.viewMatrix)
     this.gl.uniformMatrix4fv(this.unifs.matProj, false, this.matrices.projMatrix)
     this.gl.uniform2fv(this.unifs.resolution, [this.canvas.width, this.canvas.height], 0);
-    // this.gl.uniform3fv(this.unifs.color, [MATH.map(255, 0, 255, 0, 1), MATH.map(30, 0, 255, 0, 1), MATH.map(20, 0, 255, 0, 1)], 0);
     this.gl.uniform3fv(this.unifs.color, [0.9, 0.9, 0.1], 0);
     this.gl.uniform3fv(this.unifs.ambientColor, [0.4, 0.4, 0.2], 0);
     this.gl.uniform3fv(this.unifs.directColor, [0.1, 0.2, 0.1], 0);
@@ -155,7 +130,7 @@ export class BohrModel3d implements OnDestroy {
 
   private matrixMults() {
     mat4.identity(this.matrices.worldMatrix);
-    mat4.lookAt(this.matrices.viewMatrix, [60, 20, 40], [0, 0, 0], [0, 1, 0]);
+    mat4.lookAt(this.matrices.viewMatrix, [60, 20, 200-this.zScale], [0, 0, 0], [0, 1, 0]);
     mat4.perspective(this.matrices.projMatrix, MATH.degToRad(45), this.aspect, 0.1, MATH.arithmetics.pow(10, 10));
     mat4.identity(this.matrices.identityMatrix);
   }
@@ -192,17 +167,14 @@ export class BohrModel3d implements OnDestroy {
   }
 
   private rotation() {
-    // if(!this.touch) {
-    //   this.currentAngle += 5;
-    //   this.angleX = this.currentAngle;
-    //   mat4.rotate(this.matrices.yrotation, this.matrices.identityMatrix, this.angleX/300, [0, 1, 0]);
-    // } else
     mat4.rotate(this.matrices.yrotation, this.matrices.identityMatrix, this.angleX/300, [0, 1, 0]);
     mat4.rotate(this.matrices.xrotation, this.matrices.identityMatrix, -this.angleY/300, [1, 0, 0]);
   }
 
   private animate(time?: number):void {
     this.rotation();
+    mat4.lookAt(this.matrices.viewMatrix, [0, (200-this.zScale)/4 +1  , 200-this.zScale + 1], [0, 0, 0], [0, 1, 0]);
+    this.gl.uniformMatrix4fv(this.unifs.matView, false, this.matrices.viewMatrix);
     mat4.mul(this.matrices.worldMatrix, this.matrices.xrotation, this.matrices.yrotation);
     this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix);
     this.gl.uniformMatrix3fv(this.unifs.mNormal, false, this.normalMatrix)
@@ -214,7 +186,7 @@ export class BohrModel3d implements OnDestroy {
     this.translation = [];
     this.gl.clearColor(0, 0, 0, 0);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-    this.gl.drawElementsInstanced(this.gl.TRIANGLES, indices.length, this.gl.UNSIGNED_SHORT, 0, 47);
+    this.gl.drawElementsInstanced(this.gl.TRIANGLES, indices.length, this.gl.UNSIGNED_SHORT, 0, this.atomicNumber);
     this.animation = requestAnimationFrame(this.animate.bind(this));
   }
 }

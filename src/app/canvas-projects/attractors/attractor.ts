@@ -5,16 +5,7 @@ import { lastValueFrom } from "rxjs";
 import { primaryMappedArr } from "src/app/colors";
 import { ShaderService } from "src/app/services/shader.service";
 import { WebglBoilerPlateService } from "src/app/services/webgl-boiler-plate.service";
-
-
-interface Uniforms {
-  matWorld: WebGLUniformLocation
-  matView: WebGLUniformLocation
-  matProj: WebGLUniformLocation
-  timePeriod: WebGLUniformLocation
-  resolution: WebGLUniformLocation
-  color: WebGLUniformLocation
-}
+import { Uniforms } from "src/app/interfaces";
 
 @Injectable()
 

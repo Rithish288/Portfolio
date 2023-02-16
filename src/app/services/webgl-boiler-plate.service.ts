@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Matrices } from '../interfaces';
 
 @Injectable({
   providedIn: 'any'
@@ -54,5 +55,17 @@ export class WebglBoilerPlateService {
       console.error("could not compile shader:" + gl.getShaderInfoLog(shader));
     }
     return shader;
+  }
+
+  public static generateMatrices(): Matrices {
+    const matrices = {
+      xrotation: new Float32Array(16),
+      yrotation: new Float32Array(16),
+      identityMatrix: new Float32Array(16),
+      worldMatrix: new Float32Array(16),
+      viewMatrix: new Float32Array(16),
+      projMatrix: new Float32Array(16)
+    };
+    return matrices;
   }
 }
