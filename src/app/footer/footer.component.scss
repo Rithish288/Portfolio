@@ -1,23 +1,25 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 2em;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--primary-darker-color));
-  div.external-contact {
-    display: block;
-    max-width: fit-content;
-    * {
-      margin-block: 2em;
-    }
-    a img {
-      display: inline;
-      margin-inline: 2em;
-      max-width:2.5em;
-      max-height:2.5em;
-      width: auto;
-      height: auto;
+  div.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 2em;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--primary-darker-color));
+    div.external-contact {
+      display: block;
+      max-width: fit-content;
+      * {
+        margin-block: 2em;
+      }
+      a img {
+        display: inline;
+        margin-inline: 2em;
+        max-width:2.5em;
+        max-height:2.5em;
+        width: auto;
+        height: auto;
+      }
     }
   }
 }

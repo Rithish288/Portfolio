@@ -1,5 +1,5 @@
 <div [class]="'wrapper ' + defaultTheme" #div>
-  <top-navigation-toolbar (toggleEvent)="receiveEvent($event)"></top-navigation-toolbar>
+  <top-navigation-toolbar *ngIf="nav.present" (toggleEvent)="receiveEvent($event)"></top-navigation-toolbar>
   <router-outlet></router-outlet>
-  <footer></footer>
+  <app-footer *ngIf="nav.present"></app-footer>
 </div>

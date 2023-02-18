@@ -4,10 +4,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class NavbarService {
-  present: boolean;
-  constructor() {
-    this.present = true;
+  public present: boolean = true;
+  constructor() {}
+  public hide(){
+    setTimeout(() => {
+      this.present = false;
+    }, 0)
+  };
+  public show(){
+    setTimeout(() => {
+      this.present = true;
+    }, 0)
   }
-  hide = () => this.present = false;
-  show = () => this.present = true;
 }

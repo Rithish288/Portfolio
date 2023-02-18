@@ -13,6 +13,7 @@ export class ShaderService {
   private attractor: Shaders;
   private cliffordAttractor: Shaders;
   private space: Shaders;
+  private bohratom: Shaders;
   constructor(private http: HttpClient) { }
 
   public getSpaceShaders(): Shaders {
@@ -24,8 +25,8 @@ export class ShaderService {
   }
 
   public getBohrModelShaders(): Shaders {
-    if(this.space) return this.space;
-    else return this.space = {
+    if(this.bohratom) return this.bohratom;
+    else return this.bohratom = {
       vertex: this.http.get('assets/shaders/bohrModel-3d/vertex.vert', {responseType: 'text'}).pipe(shareReplay()),
       fragment: this.http.get('assets/shaders/bohrModel-3d/fragment.frag', {responseType: 'text'}).pipe(shareReplay())
     };

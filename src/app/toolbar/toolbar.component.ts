@@ -2,7 +2,6 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { fadeIn } from '../animations';
 import { CommonVariablesService } from '../services/common-variables.service';
-import { NavbarService } from '../services/navbar.service';
 
 @Component({
   selector: 'top-navigation-toolbar',
@@ -28,7 +27,7 @@ export class ToolbarComponent implements OnInit {
   ]
 
   @Output() toggleEvent = new EventEmitter<string>();
-  constructor(private globalTheme: CommonVariablesService, public nav: NavbarService, private observer: BreakpointObserver, private detector: ChangeDetectorRef) {}
+  constructor(private globalTheme: CommonVariablesService, private observer: BreakpointObserver, private detector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     if (this.theme === 'lightTheme') {

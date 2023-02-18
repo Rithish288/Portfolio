@@ -2,6 +2,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
 import { CommonVariablesService } from './services/common-variables.service';
+import { NavbarService } from './services/navbar.service';
 import { SpinnerService } from './services/spinner.service';
 
 @Component({
@@ -14,9 +15,10 @@ import { SpinnerService } from './services/spinner.service';
 export class AppComponent implements AfterViewInit {
   public title = 'Portfolio';
   public defaultTheme: string = 'lightTheme' || 'darkTheme';
+  public present: boolean;
 
   @ViewChild('div') div: ElementRef<HTMLDivElement>;
-  constructor(private common: CommonVariablesService, private router: Router, private spinnerOverlay: SpinnerService, private detector: ChangeDetectorRef) {
+  constructor(private common: CommonVariablesService, private router: Router, private spinnerOverlay: SpinnerService, private detector: ChangeDetectorRef, public nav: NavbarService) {
     this.router.events.subscribe((e: RouterEvent) => {
       switch (true) {
         case e instanceof NavigationStart: {
@@ -32,9 +34,8 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.detector.detectChanges();
     this.positionScroll();
-    this.setParentDiv()
+    this.setParentDiv();
   }
 
   public positionScroll(): void {
@@ -57,6 +58,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   receiveEvent($event: string) {
-    this.defaultTheme = $event;
+    setTimeout(() => this.defaultTheme = $event, 0)
   }
 }

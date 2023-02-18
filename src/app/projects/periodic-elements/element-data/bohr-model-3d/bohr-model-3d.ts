@@ -22,7 +22,7 @@ export class BohrModel3d implements OnDestroy {
   private unifs: Uniforms;
   private atomicNumber: number;
   public zScale: number = 100;
-  private attribs = {
+  private attr = {
     position: 0, normal: 1, translation: 2
   };
   private p: {x: number, y: number} = {x: 0, y: 0};
@@ -136,30 +136,24 @@ export class BohrModel3d implements OnDestroy {
   }
 
   private enableAttribs(): void {
-    this.attribs.position = this.gl.getAttribLocation(this.program, 'aPosition');
-    this.attribs.translation = this.gl.getAttribLocation(this.program, 'aTranslation');
-    this.attribs.normal = this.gl.getAttribLocation(this.program, 'aNormal');
-
     const pBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, pBuffer);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
-    this.gl.vertexAttribPointer(this.attribs.position, 3, this.gl.FLOAT, false, 0, 0);
-    this.gl.enableVertexAttribArray(this.attribs.position);
+    this.gl.vertexAttribPointer(this.attr.position, 3, this.gl.FLOAT, false, 0, 0);
+    this.gl.enableVertexAttribArray(this.attr.position);
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
 
     const nBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, nBuffer);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(normals), this.gl.STATIC_DRAW);
-    this.gl.vertexAttribPointer(this.attribs.normal, 3, this.gl.FLOAT, false, 0, 0);
-    this.gl.enableVertexAttribArray(this.attribs.normal);
+    this.gl.vertexAttribPointer(this.attr.normal, 3, this.gl.FLOAT, false, 0, 0);
+    this.gl.enableVertexAttribArray(this.attr.normal);
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
 
     const tBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, tBuffer);
-    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.translation), this.gl.STATIC_DRAW);
-    this.gl.vertexAttribPointer(this.attribs.translation, 3, this.gl.FLOAT, false, 0, 0);
-    this.gl.enableVertexAttribArray(this.attribs.translation);
-    this.gl.vertexAttribDivisor(this.attribs.translation, 1);
+    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.translation), this.gl.DYNAMIC_DRAW);
+
 
     const iBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, iBuffer);
@@ -180,9 +174,10 @@ export class BohrModel3d implements OnDestroy {
     this.gl.uniformMatrix3fv(this.unifs.mNormal, false, this.normalMatrix)
     this.gl.uniform1f(this.unifs.timePeriod, time / 1000.0);
     this.setTranslationLocation();
-    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.translation), this.gl.STATIC_DRAW)
-    this.gl.vertexAttribPointer(this.attribs.translation, 3, this.gl.FLOAT, false, 0, 0);
-    this.gl.enableVertexAttribArray(this.attribs.translation);
+    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.translation), this.gl.DYNAMIC_DRAW)
+    this.gl.vertexAttribPointer(this.attr.translation, 3, this.gl.FLOAT, false, 0, 0);
+    this.gl.enableVertexAttribArray(this.attr.translation);
+    this.gl.vertexAttribDivisor(this.attr.translation, 1);
     this.translation = [];
     this.gl.clearColor(0, 0, 0, 0);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);

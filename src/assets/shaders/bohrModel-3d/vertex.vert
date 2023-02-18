@@ -13,9 +13,9 @@ out vec3 vLighting;
 
 void main() {
     gl_Position = mProjection * mView * mWorld * vec4(
-        aPosition.x + aTranslation.x,
-        aPosition.y + aTranslation.y,
-        aPosition.z + aTranslation.z,
+        aPosition.x * 0.7 + aTranslation.x,
+        aPosition.y * 0.7 + aTranslation.y,
+        aPosition.z * 0.7 + aTranslation.z,
     1.0);
     vec3 directionalVector = vec3(1.0, 0.9, 0.72);
 

@@ -5,14 +5,7 @@ import { WebglBoilerPlateService } from 'src/app/services/webgl-boiler-plate.ser
 import { lastValueFrom } from 'rxjs';
 import { ShaderService } from 'src/app/services/shader.service';
 import { CommonVariablesService } from 'src/app/services/common-variables.service';
-
-interface Uniforms {
-  matWorld?: WebGLUniformLocation
-  matView?: WebGLUniformLocation
-  matProj?: WebGLUniformLocation
-  timePeriod?: WebGLUniformLocation
-  resolution?: WebGLUniformLocation
-}
+import { Matrices, Uniforms } from 'src/app/interfaces';
 
 
 @Component({
@@ -35,25 +28,20 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
   private aspect: number;
   private vertices: number[] = [];
   private program: WebGLProgram;
-  private matrices = {
-    xrotation: mat4.create(),
-    yrotation: mat4.create(),
-    identityMatrix: mat4.create(),
-    worldMatrix: mat4.create(),
-    viewMatrix: mat4.create(),
-    projMatrix: mat4.create()
-  }
+  private matrices: Matrices
   private buffer: WebGLBuffer;
   private angleX: number = 0;
   private angleY: number = 0;
-  private unifs: Uniforms = {};
+  private unifs: Uniforms;
   private vertShader: string = '';
   private fragShader: string = '';
   private animation: number = 0;
   private runAnimation: boolean = true;
   public previousTouch: Touch;
 
-  constructor(private shader: ShaderService, private common: CommonVariablesService, private detector: ChangeDetectorRef) { }
+  constructor(private shader: ShaderService, private common: CommonVariablesService, private detector: ChangeDetectorRef) {
+    this.matrices = WebglBoilerPlateService.generateMatrices();
+  }
 
   ngAfterViewInit(): void {
     this.gl = this.canvas.nativeElement.getContext('webgl2');
@@ -107,7 +95,8 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
       matView: this.gl.getUniformLocation(this.program, 'mView'),
       matProj: this.gl.getUniformLocation(this.program, 'mProjection'),
       timePeriod: this.gl.getUniformLocation(this.program, 'u_time'),
-      resolution: this.gl.getUniformLocation(this.program, 'u_resolution')
+      resolution: this.gl.getUniformLocation(this.program, 'u_resolution'),
+      color: 0
     };
     this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix);
     this.gl.uniformMatrix4fv(this.unifs.matView, false, this.matrices.viewMatrix);

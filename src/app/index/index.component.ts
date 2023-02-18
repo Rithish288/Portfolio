@@ -29,9 +29,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   public mainContent = {
     subHead: 'Hello there',
     content: "My name's Rithish and I'm a front-end developer from India."
-  }
+  };
   public imageState: string = 'hidden';
-  public pathState: string = 'empty';
   public margin: string;
   public contentHeight: string;
   public noImage: boolean = true;
@@ -43,11 +42,8 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.nav.hide();
+    this.detector.detectChanges();
     this.responsive();
-    setTimeout(() => {
-      this.pathState = 'written';
-      this.detector.detectChanges();
-    }, 0)
   }
 
   goToHome() {
@@ -63,7 +59,6 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.observer.observe(['(max-height: 250px)']).subscribe((state: BreakpointState) => {
         if(state.matches) this.titleDisplay = 'none'
         else this.titleDisplay = 'block';
-        this.detector.detectChanges();
       }),
       this.observer.observe(['(max-height: 375px)']).subscribe((state: BreakpointState) => {
         if(state.matches) {
@@ -94,7 +89,6 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.pathState = 'empty';
     for (let i = this.subs.length - 1; i >= 0; i--) {
       this.subs[i].unsubscribe();
     }
