@@ -13,7 +13,8 @@ export class ShaderService {
   private attractor: Shaders;
   private cliffordAttractor: Shaders;
   private space: Shaders;
-  private bohratom: Shaders;
+  private bohrElectrons: Shaders;
+  private bohrShells: Shaders;
   constructor(private http: HttpClient) { }
 
   public getSpaceShaders(): Shaders {
@@ -24,11 +25,19 @@ export class ShaderService {
     };
   }
 
-  public getBohrModelShaders(): Shaders {
-    if(this.bohratom) return this.bohratom;
-    else return this.bohratom = {
-      vertex: this.http.get('assets/shaders/bohrModel-3d/vertex.vert', {responseType: 'text'}).pipe(shareReplay()),
-      fragment: this.http.get('assets/shaders/bohrModel-3d/fragment.frag', {responseType: 'text'}).pipe(shareReplay())
+  public getBohrModelElectronShaders(): Shaders {
+    if(this.bohrElectrons) return this.bohrElectrons;
+    else return this.bohrElectrons = {
+      vertex: this.http.get('assets/shaders/bohrModel-3d/electron-spheres/vertex.vert', {responseType: 'text'}).pipe(shareReplay()),
+      fragment: this.http.get('assets/shaders/bohrModel-3d/electron-spheres/fragment.frag', {responseType: 'text'}).pipe(shareReplay())
+    };
+  }
+
+  public getBohrModelShellShaders(): Shaders {
+    if(this.bohrShells) return this.bohrShells;
+    else return this.bohrShells = {
+      vertex: this.http.get('assets/shaders/bohrModel-3d/shells/vertex.vert', {responseType: 'text'}).pipe(shareReplay()),
+      fragment: this.http.get('assets/shaders/bohrModel-3d/shells/fragment.frag', {responseType: 'text'}).pipe(shareReplay())
     };
   }
 

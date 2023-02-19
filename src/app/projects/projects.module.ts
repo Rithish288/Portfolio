@@ -6,12 +6,14 @@ import { Material2Module } from '../material/material-2.module';
 import { MaterialModule } from '../material/material.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { CdkModule } from '../cdk/cdk.module';
+import { MainContentComponent } from './main-content/main-content.component';
 
 
 
 @NgModule({
   declarations: [
-    ProjectsComponent
+    ProjectsComponent,
+    MainContentComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,9 @@ import { CdkModule } from '../cdk/cdk.module';
     MaterialModule,
     PipesModule,
     CdkModule
+  ],
+  exports: [
+    MainContentComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

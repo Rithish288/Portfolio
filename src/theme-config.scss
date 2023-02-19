@@ -3,7 +3,7 @@
 $font-family: 'Roboto';
 $font-400: 400;
 $sub-2: clamp(12px, 2vw, 16px);
-$body-1: clamp(12px, 1.18vw, 20px);
+$body-1: clamp(16px, 1.18vw, 20px);
 
 $font-config: (
   display-4:    mat.define-typography-level(112px, 112px, 300, $font-family, -0.0134em),
