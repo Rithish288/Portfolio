@@ -25,11 +25,17 @@ export class CliffordComponent implements AfterViewInit, OnDestroy {
   private buffer: WebGLBuffer;
   private time: WebGLUniformLocation;
   public shaderVars: Partial<{a: WebGLUniformLocation, b: WebGLUniformLocation, c: WebGLUniformLocation, d: WebGLUniformLocation}> = {};
+  // public variables = {
+  //   a: parseFloat((MATH.randomIntFromRange(-3, 3)).toPrecision(2)),
+  //   b: parseFloat((MATH.randomIntFromRange(-3, 3)).toPrecision(2)),
+  //   c: parseFloat((MATH.randomIntFromRange(-3, 3)).toPrecision(2)),
+  //   d: parseFloat((MATH.randomIntFromRange(-3, 3)).toPrecision(2))
+  // }
   public variables = {
-    a: parseFloat((MATH.randomIntFromRange(-3, 3)).toPrecision(2)),
-    b: parseFloat((MATH.randomIntFromRange(-3, 3)).toPrecision(2)),
-    c: parseFloat((MATH.randomIntFromRange(-3, 3)).toPrecision(2)),
-    d: parseFloat((MATH.randomIntFromRange(-3, 3)).toPrecision(2))
+    a: -1.24,
+    b: -1.25,
+    c: -1.81,
+    d: -1.90
   }
 
   constructor(private shader: ShaderService) { }
@@ -98,7 +104,7 @@ export class CliffordComponent implements AfterViewInit, OnDestroy {
   private setVertices(): void {
     let x: number = this.vertices[0], y: number = this.vertices[0];
     if(this.variables.a !== 0)
-    for (let i = 0; i < 200000 ; i++) {
+    for (let i = 0; i < 1e5 ; i++) {
       x = Math.sin(this.variables.a*y) + this.variables.c * Math.cos(this.variables.a*x)
       y = Math.sin(this.variables.b*x) + this.variables.d * Math.cos(this.variables.b*y)
       this.vertices.push(x, y);

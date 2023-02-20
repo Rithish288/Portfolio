@@ -10,9 +10,12 @@ import { Attractor } from '../attractor';
 })
 export class LorenzComponent implements AfterViewInit, OnDestroy {
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
-  private rho = 0.1 + Math.floor(Math.random() * 50);
-  private sigma = 0.1 + Math.floor(Math.random() * 50);
-  private beta = 0.1 + Math.random() * 5;
+  // private rho = 0.1 + Math.floor(Math.random() * 50);
+  // private sigma = 0.1 + Math.floor(Math.random() * 50);
+  // private beta = 0.1 + Math.random() * 5;
+  private rho = 28;
+  private sigma = 10;
+  private beta = 8/3;
   private coords = {
     x: 0.1,
     y: 0,
