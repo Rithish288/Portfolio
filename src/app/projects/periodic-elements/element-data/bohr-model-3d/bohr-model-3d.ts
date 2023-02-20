@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnDestroy } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { WebglBoilerPlateService } from "src/app/services/webgl-boiler-plate.service";
 import { ShaderService } from "src/app/services/shader.service";
 import { lastValueFrom } from "rxjs";
@@ -7,7 +7,7 @@ import { mat3, mat4 } from "gl-matrix";
 import { MATH } from "math-extended";
 import { Matrices, Uniforms } from "src/app/interfaces";
 @Injectable()
-export class BohrModel3d implements OnDestroy {
+export class BohrModel3d {
   private gl: WebGL2RenderingContext;
   private vertShader: string = '';
   private fragShader: string = '';
@@ -27,7 +27,9 @@ export class BohrModel3d implements OnDestroy {
   };
   private p: {x: number, y: number} = {x: 0, y: 0};
   private angle: number;
-  constructor(private canvas: HTMLCanvasElement, @Inject(Number) private electronShells: number[], @Inject(Number) publicZScale: number, private shader: ShaderService) {
+  // private shellProgram: {program: WebGLProgram, verts: number};
+  // private rings: ElectronRings;
+  constructor(private canvas: HTMLCanvasElement, @Inject(Number) private electronShells: number[], private shader: ShaderService) {
     this.gl = this.canvas.getContext("webgl2");
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.enable(this.gl.CULL_FACE);
@@ -35,9 +37,7 @@ export class BohrModel3d implements OnDestroy {
     this.gl.frontFace(this.gl.CCW);
     this.atomicNumber = electronShells.reduce((sum, current) => sum+current);
     this.matrices = WebglBoilerPlateService.generateMatrices();
-  }
-  ngOnDestroy(): void {
-    throw new Error("Method not implemented.");
+    // this.rings = new ElectronRings(this.gl, electronShells, this.shader, {zScale: this.zScale, aspect: this.aspect});
   }
 
   public setCanvas(): void {
@@ -51,6 +51,7 @@ export class BohrModel3d implements OnDestroy {
 
   private initGL(): void {
     this.initProgram();
+    // this.shellProgram = this.rings.start();
     this.enableAttribs();
     this.matrixMults();
     this.setUniforms();
@@ -79,8 +80,8 @@ export class BohrModel3d implements OnDestroy {
   }
 
   private async getShaders(): Promise<void> {
-    this.fragShader = await lastValueFrom(this.shader.getBohrModelShaders().fragment);
-    this.vertShader = await lastValueFrom(this.shader.getBohrModelShaders().vertex);
+    this.fragShader = await lastValueFrom(this.shader.getBohrModelElectronShaders().fragment);
+    this.vertShader = await lastValueFrom(this.shader.getBohrModelElectronShaders().vertex);
   }
 
   private initProgram(): void {
@@ -167,21 +168,32 @@ export class BohrModel3d implements OnDestroy {
 
   private animate(time?: number):void {
     this.rotation();
+
     mat4.lookAt(this.matrices.viewMatrix, [0, (200-this.zScale)/4 +1  , 200-this.zScale + 1], [0, 0, 0], [0, 1, 0]);
     this.gl.uniformMatrix4fv(this.unifs.matView, false, this.matrices.viewMatrix);
     mat4.mul(this.matrices.worldMatrix, this.matrices.xrotation, this.matrices.yrotation);
     this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix);
     this.gl.uniformMatrix3fv(this.unifs.mNormal, false, this.normalMatrix)
     this.gl.uniform1f(this.unifs.timePeriod, time / 1000.0);
+
     this.setTranslationLocation();
     this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.translation), this.gl.DYNAMIC_DRAW)
     this.gl.vertexAttribPointer(this.attr.translation, 3, this.gl.FLOAT, false, 0, 0);
     this.gl.enableVertexAttribArray(this.attr.translation);
     this.gl.vertexAttribDivisor(this.attr.translation, 1);
     this.translation = [];
+
     this.gl.clearColor(0, 0, 0, 0);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+
+
+    this.gl.useProgram(this.program);
     this.gl.drawElementsInstanced(this.gl.TRIANGLES, indices.length, this.gl.UNSIGNED_SHORT, 0, this.atomicNumber);
+    // this.gl.useProgram(this.shellProgram.program);
+    // this.rings.setBuffers()
+    // this.rings.uniformMatrices();
+    // this.gl.drawArraysInstanced(this.gl.LINES, 0, this.shellProgram.verts, this.electronShells.length);
+
     this.animation = requestAnimationFrame(this.animate.bind(this));
   }
 }
