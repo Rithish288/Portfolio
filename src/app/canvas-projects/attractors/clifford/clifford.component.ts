@@ -118,13 +118,13 @@ export class CliffordComponent implements AfterViewInit, OnDestroy {
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, null);
   }
 
-  onResize() {
-    window.onresize = () => {
-      this.canvas.nativeElement.width = window.innerWidth;
-      this.canvas.nativeElement.height = window.innerHeight;
-      this.gl.viewport(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-    }
-  }
+  // onResize() {
+  //   window.onresize = () => {
+  //     this.canvas.nativeElement.width = window.innerWidth;
+  //     this.canvas.nativeElement.height = window.innerHeight;
+  //     this.gl.viewport(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+  //   }
+  // }
 
   public onValueChange(value: MatSliderChange, param: string) {
     this.gl.uniform1f(this.shaderVars[param], value.value);

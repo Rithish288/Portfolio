@@ -74,6 +74,8 @@ export class Attractor implements OnDestroy {
     this.canvas.height = window.innerHeight;
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
     this.aspect = this.canvas.width / this.canvas.height;
+    mat4.perspective(this.matrices.projMatrix, MATH.degToRad(45), this.aspect, 0.1, MATH.arithmetics.pow(10, 100));
+    this.gl.uniformMatrix4fv(this.unifs.matProj, false, this.matrices.projMatrix)
   }
 
   private async getShaders(): Promise<void> {
@@ -181,6 +183,7 @@ export class Attractor implements OnDestroy {
   private animate(time?: number): void {
     this.rotation();
     mat4.mul(this.matrices.worldMatrix, this.matrices.xrotation, this.matrices.yrotation);
+
     this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix);
     this.gl.uniform1f(this.unifs.timePeriod, time / 1000.0);
 
