@@ -4,6 +4,7 @@ uniform mat4 mWorld;
 uniform mat4 mView;
 uniform mat4 mProjection;
 uniform vec3 translation;
+uniform vec2 u_resolution;
 
 void main() {
   gl_PointSize = 3.0;

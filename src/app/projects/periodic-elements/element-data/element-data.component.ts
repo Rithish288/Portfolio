@@ -7,7 +7,7 @@ import { ElementDataService } from 'src/app/services/element-data.service';
 import { ShaderService } from 'src/app/services/shader.service';
 import { ElementDetails } from '../element-details';
 import { BohrModel2d } from './bohr-model-2d';
-// import { BohrModel3d } from './bohr-model-3d/bohr-model-3d';
+import { BohrModel3d } from './bohr-model-3d';
 
 @Component({
   selector: 'element-data',
@@ -27,7 +27,7 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
   private elementModel2d: BohrModel2d;
-  // private elementModel3d: BohrModel3d;
+  private elementModel3d: BohrModel3d;
 
   public element: ElementDetails;
   public Math = Math;
@@ -55,7 +55,7 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.parent = this.commonStuff.parentDiv.nativeElement;
     this.initBohrModel2d();
-    // this.initBohrModel3d();
+    this.initBohrModel3d();
     this.parent.onscroll = () => {
       this.setBanner();
       this.stopAnimation();
@@ -96,15 +96,15 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
     this.elementModel2d.animate();
   }
 
-  // private initBohrModel3d(): void {
-  //   this.elementModel3d = new BohrModel3d(this.bohrModel3d.nativeElement, this.element.shells, this.shader);
-  //   this.elementModel3d.setCanvas();
-  //   this.elementModel3d.start();
-  // }
+  private initBohrModel3d(): void {
+    this.elementModel3d = new BohrModel3d(this.bohrModel3d.nativeElement, this.element.shells, this.shader);
+    this.elementModel3d.setCanvas();
+    this.elementModel3d.start();
+  }
 
-  // public onSliderChange($event) {
-  //   this.elementModel3d.zScale = $event.value;
-  // }
+  public onSliderChange($event) {
+    this.elementModel3d.zScale = $event.value;
+  }
   public toPrecision(value: number | string, precision: number): string | void {
     return (typeof value === "string")?
     Number.parseFloat(value).toFixed(precision) : value.toFixed(precision);
