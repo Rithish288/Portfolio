@@ -116,7 +116,7 @@ export class DoublePendulum {
     this.bob1.angle += this.bob1.velocity;
     this.bob2.angle += this.bob2.velocity;
 
-    if(this.bob1.acc && this.bob2.acc !== NaN) {
+    if(this.bob1.acc && !Number.isNaN(this.bob2.acc)) {
       this.bob1.x = this.length.bob1 * (Math.sin( this.bob1.angle)) + this.canvas.width/2;
       this.bob1.y = this.length.bob2 * (Math.cos( this.bob1.angle));
       this.bob2.x = this.bob1.x + this.length.bob2 * Math.sin( this.bob2.angle);
