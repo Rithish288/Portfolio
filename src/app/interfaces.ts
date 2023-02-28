@@ -1,3 +1,5 @@
+import { mat3 } from "gl-matrix"
+
 export interface Uniforms {
   matWorld: WebGLUniformLocation
   matView: WebGLUniformLocation
@@ -8,6 +10,7 @@ export interface Uniforms {
   mNormal?: WebGLUniformLocation
   ambientColor?: WebGLUniformLocation
   directColor?: WebGLUniformLocation
+  scale?: WebGLUniformLocation
 }
 
 export interface Matrices {
@@ -16,5 +19,12 @@ export interface Matrices {
   identityMatrix: Float32Array,
   worldMatrix: Float32Array,
   viewMatrix: Float32Array,
-  projMatrix: Float32Array
+  projMatrix: Float32Array,
+  normalMatrix?: mat3
+}
+
+export interface Angle {
+  x: number;
+  y: number;
+  z?: number;
 }
