@@ -103,6 +103,7 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public onSliderChange($event) {
+    //control zoom of 3d model
     this.elementModel3d.zScale = $event.value;
   }
   public toPrecision(value: number | string, precision: number): string | void {
