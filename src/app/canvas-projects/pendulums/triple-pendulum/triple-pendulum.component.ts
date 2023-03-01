@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { primaryColor, primaryGrey } from 'src/app/colors';
-import { PendulumService } from 'src/app/services/pendulum.service';
+import { primaryColor, primaryGrey } from 'app/colors';
+import { PendulumService } from 'app/services/pendulum.service';
 
 @Component({
   selector: 'app-triple-pendulum',

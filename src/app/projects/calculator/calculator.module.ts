@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CalculatorRoutingModule } from './calculator-routing.module';
 import { CalculatorComponent } from './calculator.component';
-import { MaterialModule } from 'src/app/material/material.module';
+import { MaterialModule } from 'app/material/material.module';
 import { NumberKeyComponent } from './number-key/number-key.component';
 import { OperationKeyComponent } from './operation-key/operation-key.component';
 

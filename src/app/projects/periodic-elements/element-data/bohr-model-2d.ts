@@ -1,5 +1,5 @@
 import { OnDestroy, Injectable, Inject } from "@angular/core";
-import { accentColor, primaryGrey } from "src/app/colors";
+import { accentColor, primaryGrey } from "app/colors";
 
 @Injectable()
 export class BohrModel2d implements OnDestroy {

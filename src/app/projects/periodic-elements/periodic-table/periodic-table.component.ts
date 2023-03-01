@@ -1,7 +1,7 @@
-import elementData from 'src/assets/json/element-data.json';
+import elementData from 'assets/json/element-data.json';
 import { Component, ChangeDetectionStrategy, ViewChildren, QueryList, AfterViewInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { ElementDataService } from 'src/app/services/element-data.service';
+import { ElementDataService } from 'app/services/element-data.service';
 import { ElementDetails } from '../element-details';
 
 @Component({

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 //Modules
 import { PendulumsRoutingModule } from './pendulums-routing.module';
-import { DirectivesModule } from 'src/app/directives/directives.module';
-import { MaterialModule } from 'src/app/material/material.module';
+import { DirectivesModule } from 'app/directives/directives.module';
+import { MaterialModule } from 'app/material/material.module';
 
 //Components
 import { SimplePendulumComponent } from './simple-pendulum/simple-pendulum.component';

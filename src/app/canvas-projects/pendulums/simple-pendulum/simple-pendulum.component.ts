@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { primaryColor } from 'src/app/colors';
+import { primaryColor } from 'app/colors';
 import { Pendulum } from './simple-pendulum';
 
 @Component({

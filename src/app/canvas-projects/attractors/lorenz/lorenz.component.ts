@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { ShaderService } from 'src/app/services/shader.service';
+import { ShaderService } from 'app/services/shader.service';
 import { Attractor } from '../attractor';
 
 @Component({

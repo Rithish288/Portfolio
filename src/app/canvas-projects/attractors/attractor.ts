@@ -2,10 +2,10 @@ import { Inject, Injectable, OnDestroy } from "@angular/core";
 import { mat4 } from "gl-matrix";
 import { MATH } from "math-extended";
 import { lastValueFrom } from "rxjs";
-import { primaryMappedArr } from "src/app/colors";
-import { ShaderService } from "src/app/services/shader.service";
-import { WebglBoilerPlateService } from "src/app/services/webgl-boiler-plate.service";
-import { Uniforms } from "src/app/interfaces";
+import { primaryMappedArr } from "app/colors";
+import { ShaderService } from "app/services/shader.service";
+import { WebglBoilerPlateService } from "app/services/webgl-boiler-plate.service";
+import { Uniforms } from "app/interfaces";
 
 @Injectable()
 

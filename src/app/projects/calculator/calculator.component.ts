@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
-import { CalculatorService } from 'src/app/services/calculator.service';
-import { CommonVariablesService } from 'src/app/services/common-variables.service';
+import { CalculatorService } from 'app/services/calculator.service';
+import { CommonVariablesService } from 'app/services/common-variables.service';
 
 @Component({
   selector: 'simple-calculator',

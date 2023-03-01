@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { MATH } from 'math-extended';
-import { primaryColor } from 'src/app/colors';
+import { primaryColor } from 'app/colors';
 import { DoublePendulum } from './double-pendulum';
 
 @Component({

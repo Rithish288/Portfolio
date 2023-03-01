@@ -1,11 +1,11 @@
 import { Inject, Injectable } from "@angular/core";
-import { WebglBoilerPlateService } from "src/app/services/webgl-boiler-plate.service";
-import { ShaderService } from "src/app/services/shader.service";
+import { WebglBoilerPlateService } from "app/services/webgl-boiler-plate.service";
+import { ShaderService } from "app/services/shader.service";
 import { lastValueFrom } from "rxjs";
-import { indices, normals, vertices } from "src/assets/icosphere";
+import { indices, normals, vertices } from "assets/icosphere";
 import { mat3, mat4 } from "gl-matrix";
 import { MATH } from "math-extended";
-import { Angle, Matrices, Uniforms } from "src/app/interfaces";
+import { Angle, Matrices, Uniforms } from "app/interfaces";
 @Injectable()
 export class BohrModel3d {
   private gl: WebGL2RenderingContext;

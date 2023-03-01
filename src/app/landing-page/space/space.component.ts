@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { glMatrix, mat4 } from 'gl-matrix';
 import { MATH } from 'math-extended';
-import { WebglBoilerPlateService } from 'src/app/services/webgl-boiler-plate.service';
+import { WebglBoilerPlateService } from 'app/services/webgl-boiler-plate.service';
 import { lastValueFrom } from 'rxjs';
-import { ShaderService } from 'src/app/services/shader.service';
-import { CommonVariablesService } from 'src/app/services/common-variables.service';
-import { Matrices, Uniforms } from 'src/app/interfaces';
+import { ShaderService } from 'app/services/shader.service';
+import { CommonVariablesService } from 'app/services/common-variables.service';
+import { Matrices, Uniforms } from 'app/interfaces';
 
 
 @Component({

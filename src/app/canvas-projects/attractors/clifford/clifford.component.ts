@@ -2,9 +2,9 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestro
 import { MatSliderChange } from '@angular/material/slider';
 import { MATH } from 'math-extended';
 import { lastValueFrom } from 'rxjs';
-import { primaryMappedArr } from 'src/app/colors';
-import { ShaderService } from 'src/app/services/shader.service';
-import { WebglBoilerPlateService } from 'src/app/services/webgl-boiler-plate.service';
+import { primaryMappedArr } from 'app/colors';
+import { ShaderService } from 'app/services/shader.service';
+import { WebglBoilerPlateService } from 'app/services/webgl-boiler-plate.service';
 
 @Component({
   selector: 'clifford-attractor',

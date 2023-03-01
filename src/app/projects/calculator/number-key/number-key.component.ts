@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { CalculatorService } from 'src/app/services/calculator.service';
+import { CalculatorService } from 'app/services/calculator.service';
 
 @Component({
   selector: 'number-key',

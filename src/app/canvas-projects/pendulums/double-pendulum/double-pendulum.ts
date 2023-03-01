@@ -1,4 +1,4 @@
-import { accentColor } from "src/app/colors";
+import { accentColor } from "app/colors";
 
 interface Bob {
   mass: number;
