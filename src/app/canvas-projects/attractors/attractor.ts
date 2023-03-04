@@ -40,7 +40,7 @@ export class Attractor implements OnDestroy {
     private shader: ShaderService,
     @Inject(Array) private color?: number[]
   ) {
-    this.gl = this.canvas.getContext('webgl2', {preserveDrawingBuffer: false});
+    this.gl = this.canvas.getContext("webgl2", {preserveDrawingBuffer: false});
     this.buffer = this.gl.createBuffer();
   }
 
@@ -86,28 +86,30 @@ export class Attractor implements OnDestroy {
   private initProgram(): void {
     this.program = WebglBoilerPlateService.createProgram(
       this.gl,
-      WebglBoilerPlateService.createShader(this.gl, this.vertShader, 'vertex'),
-      WebglBoilerPlateService.createShader(this.gl, this.fragShader, 'fragment')
+      WebglBoilerPlateService.createShader(this.gl, this.vertShader, "vertex"),
+      WebglBoilerPlateService.createShader(this.gl, this.fragShader, "fragment")
     );
     this.gl.useProgram(this.program);
   }
 
   private setUniforms(): void {
     this.unifs = {
-      matWorld: this.gl.getUniformLocation(this.program, 'mWorld'),
-      matView: this.gl.getUniformLocation(this.program, 'mView'),
-      matProj: this.gl.getUniformLocation(this.program, 'mProjection'),
-      timePeriod: this.gl.getUniformLocation(this.program, 'u_time'),
-      resolution: this.gl.getUniformLocation(this.program, 'u_resolution'),
-      color: this.gl.getUniformLocation(this.program, 'color')
+      matWorld: this.gl.getUniformLocation(this.program, "mWorld"),
+      matView: this.gl.getUniformLocation(this.program, "mView"),
+      matProj: this.gl.getUniformLocation(this.program, "mProjection"),
+      timePeriod: this.gl.getUniformLocation(this.program, "u_time"),
+      resolution: this.gl.getUniformLocation(this.program, "u_resolution"),
+      color: this.gl.getUniformLocation(this.program, "color"),
+      scale: this.gl.getUniformLocation(this.program, "scale")
     }
     this.color?
       this.gl.uniform3fv(this.unifs.color, this.color, 0) :
       this.gl.uniform3fv(this.unifs.color, primaryMappedArr, 0);
-    this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix)
-    this.gl.uniformMatrix4fv(this.unifs.matView, false, this.matrices.viewMatrix)
-    this.gl.uniformMatrix4fv(this.unifs.matProj, false, this.matrices.projMatrix)
+    this.gl.uniformMatrix4fv(this.unifs.matWorld, false, this.matrices.worldMatrix);
+    this.gl.uniformMatrix4fv(this.unifs.matView, false, this.matrices.viewMatrix);
+    this.gl.uniformMatrix4fv(this.unifs.matProj, false, this.matrices.projMatrix);
     this.gl.uniform2fv(this.unifs.resolution, [this.canvas.width, this.canvas.height], 0);
+    this.gl.uniform1f(this.unifs.scale, 1);
   }
 
   private setBuffers(): void {

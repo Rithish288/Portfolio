@@ -8,6 +8,7 @@ import { ShaderService } from 'app/services/shader.service';
 import { ElementDetails } from '../element-details';
 import { BohrModel2d } from './bohr-model-2d';
 import { BohrModel3d } from './bohr-model-3d';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'element-data',
@@ -41,7 +42,7 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('bohrModel2d') bohrModel2d: ElementRef<HTMLCanvasElement>;
   @ViewChild('bohrModel3d') bohrModel3d: ElementRef<HTMLCanvasElement>;
-  constructor(private host: ElementRef<HTMLElement>, public commonStuff: CommonVariablesService, private elementData: ElementDataService, private domSanitizer: DomSanitizer, private detector: ChangeDetectorRef, private shader: ShaderService) {
+  constructor(private host: ElementRef<HTMLElement>, public commonStuff: CommonVariablesService, private elementData: ElementDataService, private domSanitizer: DomSanitizer, private detector: ChangeDetectorRef, private shader: ShaderService, private router: Router) {
     this.elementData.currentElement.subscribe(elem => this.element = elem);
     if(sessionStorage.getItem('element-details')) {
       this.element = JSON.parse(sessionStorage.getItem('element-details'));
@@ -102,6 +103,10 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
     this.elementModel3d.start();
   }
 
+  public goBack(): void {
+    this.router.navigateByUrl('/projects/periodic-elements/periodic-table');
+  }
+
   public onSliderChange($event) {
     //control zoom of 3d model
     this.elementModel3d.zScale = $event.value;
@@ -109,23 +114,6 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   public toPrecision(value: number | string, precision: number): string | void {
     return (typeof value === "string")?
     Number.parseFloat(value).toFixed(precision) : value.toFixed(precision);
-  }
-
-  public setElementModelImage() {
-    const padWithZeroes = (int: number | string): string => {
-      return int.toString().padStart(3, '0');
-    }
-    let modelURL: string = '';
-    switch (this.element.name) {
-      case "Aluminium" :
-        modelURL = `https://storage.googleapis.com/search-ar-edu/periodic-table/element_${padWithZeroes(this.element.atomicNumber)}_aluminum/element_${padWithZeroes(this.element.atomicNumber)}_aluminum.glb`;
-        break;
-      case "Caesium":
-        modelURL = `https://storage.googleapis.com/search-ar-edu/periodic-table/element_${padWithZeroes(this.element.atomicNumber)}_cesium/element_${padWithZeroes(this.element.atomicNumber)}_cesium.glb`;
-        break;
-      default:
-        modelURL =`https://storage.googleapis.com/search-ar-edu/periodic-table/element_${padWithZeroes(this.element.atomicNumber)}_${this.element.name.toLowerCase()}/element_${padWithZeroes(this.element.atomicNumber)}_${this.element.name.toLowerCase()}.glb`;
-    } return modelURL;
   }
 
   public stringToHTML(string: string) {
