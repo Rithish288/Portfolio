@@ -28,7 +28,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   @ViewChild('path') path: ElementRef<SVGPathElement>;
   public mainContent = {
     subHead: 'Hello there',
-    content: "My name's Rithish and I'm a front-end developer from India."
+    content: "My name's Rithish and I'm a student who can create websites."
   };
   public imageState: string = 'hidden';
   public margin: string;
