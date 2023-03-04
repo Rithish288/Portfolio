@@ -33,9 +33,14 @@ export class BohrModel3d implements OnDestroy {
     this.matrices = WebglBoilerPlateService.generateMatrices();
   }
 
-  public setCanvas(): void {
+  private setCanvasDimensions(): void {
     this.canvas.width = parseFloat(window.getComputedStyle(this.canvas.parentElement, null).getPropertyValue("width"))/2 - 2 * parseFloat(window.getComputedStyle(this.canvas.parentElement, null).getPropertyValue("padding"));
-    this.canvas.height = parseFloat(window.getComputedStyle(this.canvas.parentElement, null).getPropertyValue("height"));
+    if(window.innerWidth > 650)
+      this.canvas.height = parseFloat(window.getComputedStyle(this.canvas.parentElement, null).getPropertyValue("height"));
+  }
+
+  public setCanvas(): void {
+    this.setCanvasDimensions();
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE)
@@ -69,8 +74,7 @@ export class BohrModel3d implements OnDestroy {
   }
 
   private onResize(): void {
-    this.canvas.width = parseFloat(window.getComputedStyle(this.canvas.parentElement, null).getPropertyValue("width")) - 2 * parseFloat(window.getComputedStyle(this.canvas.parentElement, null).getPropertyValue("padding"));
-    this.canvas.height = window.innerHeight;
+   this.setCanvasDimensions();
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
     this.aspect = this.canvas.width/this.canvas.height;
     mat4.perspective(this.matrices.projMatrix, MATH.degToRad(45), this.aspect, 0.1, MATH.arithmetics.pow(10, 10));

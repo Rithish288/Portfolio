@@ -42,7 +42,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/@google/model-viewer/dist/model-viewer-umd.min.js"
             ],
             "webWorkerTsConfig": "tsconfig.worker.json"
           },

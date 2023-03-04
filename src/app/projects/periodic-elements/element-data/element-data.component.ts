@@ -46,6 +46,8 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
     this.elementData.currentElement.subscribe(elem => this.element = elem);
     if(sessionStorage.getItem('element-details')) {
       this.element = JSON.parse(sessionStorage.getItem('element-details'));
+      if(!isNaN(parseInt(this.element.boilingPoint))) this.element.boilingPoint += "°C";
+      if(!isNaN(parseInt(this.element.meltingPoint))) this.element.meltingPoint += "°C";
     }
   }
 
