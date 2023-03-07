@@ -1,3 +1,16 @@
-<h1 class="mat-title">Under Construction</h1>
-You can still check out my projects by clicking the hamburger menu above.
-The 3d element model in the periodic table is under construction.
+<p>
+  Many of the projects I have made make use of 3d graphics with Webgl-2. The projects present in this Portfolio were either migrated from another project or were built completely new.
+</p>
+<br/>
+<p>
+  One such example is the <a routerLink="../periodic-elements/periodic-table">Periodic table</a> which was I originally made without the use of a framework. Here is the link original periodic table site: <a href="https://rithish288.github.io/Periodic-Table/" target="_blank">Original Periodic Table</a>.
+  The 3d graphics and simulations that are in the Canvas page were built simultaneously with this site.
+</p>
+<br/>
+<h2 class="mat-h2">A list of all the projects I've made so far:</h2>
+<mat-list>
+  <mat-list-item *ngFor="let link of links"><a target="_blank" [href]="link.link">{{link.title}}</a> - <span [innerHTML]="link.descr"></span></mat-list-item>
+</mat-list>
+<br/>
+<p>You can check out more of my projects by clicking the <mat-icon style="vertical-align: middle;">menu</mat-icon> icon above.</p>
+

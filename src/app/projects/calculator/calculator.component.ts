@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
-import { CalculatorService } from 'app/services/calculator.service';
 import { CommonVariablesService } from 'app/services/common-variables.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { CommonVariablesService } from 'app/services/common-variables.service';
 export class CalculatorComponent implements OnInit, AfterViewInit {
   private numOperNumRegEx: RegExp = /\d+ (\+|\-|\*|\/) \d+/g;
   public display: string = '';
-  constructor(private common: CommonVariablesService, private calc: CalculatorService) { }
+  constructor(private common: CommonVariablesService) { }
 
   ngOnInit(): void {
   }

@@ -1,3 +1,6 @@
+@use "../../abstracts";
+
 :host {
-  display: block;
+  position: relative;
+  @include abstracts.content-container-styles;
 }
