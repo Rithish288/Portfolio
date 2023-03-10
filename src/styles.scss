@@ -227,6 +227,9 @@ body {
     @include mat.slider-color($dark-theme);
     background-color: mat.get-color-from-palette($mat-dark-theme-background, 'background');
     color: mat.get-color-from-palette($mat-dark-theme-foreground, 'text');
+    a {
+      color: #c58af9;
+    }
     svg {
       stroke: mat.get-color-from-palette($mat-dark-theme-foreground, 'text');
     }
@@ -254,6 +257,12 @@ div.wrapper {
   max-height: 100vh;
   width: inherit;
   overflow: hidden auto;
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 canvas { display: block; }
