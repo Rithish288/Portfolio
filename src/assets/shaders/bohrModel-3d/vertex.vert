@@ -1,5 +1,5 @@
 #version 300 es
-precision lowp float;
+precision highp float;
 in vec3 aPosition;
 in vec3 aNormal;
 in vec3 aTranslation;
