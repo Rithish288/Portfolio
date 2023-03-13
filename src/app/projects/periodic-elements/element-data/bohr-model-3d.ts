@@ -56,6 +56,7 @@ export class BohrModel3d implements OnDestroy {
     this.initProgram();
     this.setBuffersAndAttribs();
     this.matrixMults();
+    this.setAttribLoc();
     this.setUniforms();
     this.animate();
     window.onresize = this.onResize.bind(this);
@@ -141,6 +142,12 @@ export class BohrModel3d implements OnDestroy {
   //   })
   //   this.protranslation = new Float32Array(translation);
   // }
+
+  private setAttribLoc(): void {
+    this.attr.position = this.gl.getAttribLocation(this.program, "aPosition");
+    this.attr.normal = this.gl.getAttribLocation(this.program, "aNormal");
+    this.attr.translation = this.gl.getAttribLocation(this.program, "aTranslation");
+  }
 
   private setUniforms(): void {
     this.unifs = {
