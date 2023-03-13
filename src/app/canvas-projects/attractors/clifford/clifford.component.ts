@@ -40,7 +40,7 @@ export class CliffordComponent implements AfterViewInit, OnDestroy {
 
   constructor(private shader: ShaderService) { }
   ngAfterViewInit(): void {
-    this.gl = this.canvas.nativeElement.getContext('webgl2', {desynchronized: true});
+    this.gl = this.canvas.nativeElement.getContext('webgl2');
     this.canvas.nativeElement.width = window.innerWidth;
     this.canvas.nativeElement.height = window.innerHeight;
     this.gl.viewport(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
