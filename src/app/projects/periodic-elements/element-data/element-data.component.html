@@ -1,6 +1,7 @@
+<button [style]="{'margin-bottom': '1em', 'display': 'inline'}" color="accent" mat-raised-button (click)="goBack()">Back to Periodic Table</button>
 <h2 @expandIn class="mat-display-1 mat-elevation-z4 mat-card">{{element.name}}</h2>
 <ng-container>
-  <section class="element-general-properties" data-name="General Properties">
+  <section class="element-general-properties">
     <h1 class="mat-h1">General Properties</h1>
     <div class="semi-container">
       <mat-card class="element-notation mat-elevation-z3">
@@ -18,7 +19,7 @@
     <p [innerHTML]="element.description"></p>
   </section>
   <mat-divider></mat-divider>
-  <section class="image discovery-physicals" data-name="Disvovery">
+  <section class="image discovery-physicals">
     <img loading="lazy" [src]="elementImage" [width]="window.innerWidth/3" [alt]="'image of ' + element.name">
     <mat-list disableRipple="">
       <h1 class="mat-h1">Discovery</h1>
@@ -30,7 +31,7 @@
     </mat-list>
   </section>
   <mat-divider></mat-divider>
-  <section class="bohr-model particle-details" data-name="Bohr Model">
+  <section class="bohr-model particle-details">
     <mat-list>
       <h1 class="mat-h1">Bohr Model of {{element.name}}</h1>
       <mat-list-item><span class="LHS">Protons:</span>&nbsp;{{element.atomicNumber}}</mat-list-item>
@@ -45,7 +46,7 @@
     </div>
   </section>
   <mat-divider></mat-divider>
-  <section class="model-3d position-details" data-name="3D Model">
+  <section class="model-3d position-details">
     <!-- <model-viewer [attr.src]="setElementModelImage()" autoplay camera-controls camera-orbit="-0.67deg 70.99deg auto" exposure="0.4" field-of-view="60deg"></model-viewer> -->
     <canvas #bohrModel3d></canvas>
     <mat-list>
@@ -59,18 +60,17 @@
   <span>Zoom: </span><mat-slider min="10" max="195" value="120"  (input)="onSliderChange($event)">
   </mat-slider>
   <mat-divider></mat-divider>
-  <section class="history" data-name="History">
+  <section class="history">
     <h1 class="mat-h1">History of {{element.name}}</h1>
     <mat-list>
       <mat-list-item *ngFor="let event of element.history">{{event}}</mat-list-item>
     </mat-list>
   </section>
   <mat-divider></mat-divider>
-  <section class="applications" data-name="Applications">
+  <section class="applications">
     <h1 class="mat-h1">Uses of {{element.name}}</h1>
     <mat-list>
       <mat-list-item disableRipple="" *ngFor="let use of element.uses">{{use}}</mat-list-item>
     </mat-list>
   </section>
-  <button [style]="{'margin-inline': 'auto', 'display': 'block'}" color="accent" mat-raised-button (click)="goBack()">Back to Periodic Table</button>
 </ng-container>
