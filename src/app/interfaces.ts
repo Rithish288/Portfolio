@@ -1,6 +1,6 @@
 import { mat3 } from "gl-matrix"
 
-export interface Uniforms {
+interface Uniforms {
   matWorld: WebGLUniformLocation;
   matView: WebGLUniformLocation;
   matProj: WebGLUniformLocation;
@@ -14,7 +14,7 @@ export interface Uniforms {
   scale?: WebGLUniformLocation;
 }
 
-export interface Matrices {
+interface Matrices {
   xrotation: Float32Array;
   yrotation: Float32Array;
   identityMatrix: Float32Array;
@@ -24,8 +24,17 @@ export interface Matrices {
   normalMatrix?: mat3;
 }
 
-export interface Angle {
+interface Angle {
   x: number;
   y: number;
   z?: number;
 }
+
+interface Buffers {
+  position: WebGLBuffer;
+  normal?: WebGLBuffer;
+  translation?: WebGLBuffer;
+  indices?: WebGLBuffer;
+}
+
+export {Uniforms, Matrices, Buffers, Angle}

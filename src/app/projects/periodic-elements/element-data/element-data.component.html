@@ -47,8 +47,9 @@
   </section>
   <mat-divider></mat-divider>
   <section class="model-3d position-details">
-    <!-- <model-viewer [attr.src]="setElementModelImage()" autoplay camera-controls camera-orbit="-0.67deg 70.99deg auto" exposure="0.4" field-of-view="60deg"></model-viewer> -->
-    <canvas #bohrModel3d></canvas>
+    <canvas #bohrModel3d>
+      <button>hello</button>
+    </canvas>
     <mat-list>
       <h1 class="mat-h1">3D Model of {{element.name}}</h1>
       <mat-list-item><span class="LHS">Group:</span>&nbsp;{{element.group}}</mat-list-item>

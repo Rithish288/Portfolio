@@ -5,7 +5,7 @@ import { lastValueFrom } from "rxjs";
 import { primaryMappedArr } from "app/colors";
 import { ShaderService } from "app/services/shader.service";
 import { WebglBoilerPlateService } from "app/services/webgl-boiler-plate.service";
-import { Uniforms } from "app/interfaces";
+import { Matrices, Uniforms } from "app/interfaces";
 
 @Injectable()
 
@@ -15,14 +15,7 @@ export class Attractor implements OnDestroy {
   private gl: WebGL2RenderingContext;
   private aspect: number;
   private program: WebGLProgram;
-  private matrices = {
-    xrotation: new Float32Array(16),
-    yrotation: new Float32Array(16),
-    identityMatrix: new Float32Array(16),
-    worldMatrix: new Float32Array(16),
-    viewMatrix: new Float32Array(16),
-    projMatrix: new Float32Array(16)
-  }
+  private matrices: Matrices;
   private angleX: number = 0;
   private angleY: number = 0;
   private unifs: Uniforms;
@@ -42,10 +35,12 @@ export class Attractor implements OnDestroy {
   ) {
     this.gl = this.canvas.getContext("webgl2", {preserveDrawingBuffer: false});
     this.buffer = this.gl.createBuffer();
+    this.matrices = WebglBoilerPlateService.generateMatrices();
   }
 
   ngOnDestroy(): void {
     this.vertices = [];
+    this.deleteBuffer();
   }
 
   public setCanvas(): void {
@@ -93,15 +88,7 @@ export class Attractor implements OnDestroy {
   }
 
   private setUniforms(): void {
-    this.unifs = {
-      matWorld: this.gl.getUniformLocation(this.program, "mWorld"),
-      matView: this.gl.getUniformLocation(this.program, "mView"),
-      matProj: this.gl.getUniformLocation(this.program, "mProjection"),
-      timePeriod: this.gl.getUniformLocation(this.program, "u_time"),
-      resolution: this.gl.getUniformLocation(this.program, "u_resolution"),
-      color: this.gl.getUniformLocation(this.program, "color"),
-      scale: this.gl.getUniformLocation(this.program, "scale")
-    }
+    this.unifs = WebglBoilerPlateService.setUniforms(this.gl, this.program);
     this.color?
       this.gl.uniform3fv(this.unifs.color, this.color, 0) :
       this.gl.uniform3fv(this.unifs.color, primaryMappedArr, 0);

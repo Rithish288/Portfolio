@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Matrices } from '../interfaces';
+import { Buffers, Matrices, Uniforms } from '../interfaces';
 
 @Injectable({
   providedIn: 'any'
@@ -11,7 +11,7 @@ export class WebglBoilerPlateService {
    * @param {WebGLRenderingContext | WebGL2RenderingContext} gl The WebGL context.
    * @param {WebGLShader} vertexShader A vertex shader.
    * @param {WebGLShader} fragmentShader A fragment shader.
-   * @return {WebGLProgram} A program.
+   * @returns {WebGLProgram} A program.
    */
   public static createProgram(gl: WebGL2RenderingContext | WebGLRenderingContext, vertexShader: WebGLShader, fragmentShader: WebGLShader): WebGLProgram {
     let program: WebGLProgram = gl.createProgram();
@@ -40,7 +40,7 @@ export class WebglBoilerPlateService {
    * @param {WebGLRenderingContext} gl The WebGL Context.
    * @param {string} source The GLSL source code for the shader.
    * @param {number} type The type of shader, VERTEX_SHADER or FRAGMENT_SHADER.
-   * @return {WebGLShader} The shader.
+   * @returns {WebGLShader} The shader.
    */
   public static createShader(gl: WebGL2RenderingContext, source: string, type: "fragment" | "vertex" | WebGL2RenderingContext["VERTEX_SHADER" | "FRAGMENT_SHADER"]): WebGLShader {
     let shader: WebGLShader;
@@ -57,6 +57,10 @@ export class WebglBoilerPlateService {
     return shader;
   }
 
+  /**
+   * Generates the set of matrices required for rendering.
+   * @returns {Matrices} The set of matrices
+   */
   public static generateMatrices(): Matrices {
     const matrices = {
       xrotation: new Float32Array(16),
@@ -67,5 +71,30 @@ export class WebglBoilerPlateService {
       projMatrix: new Float32Array(16)
     };
     return matrices;
+  }
+
+  public static setUniforms(gl: WebGL2RenderingContext, program: WebGLProgram): Uniforms {
+    return {
+      matWorld: gl.getUniformLocation(program, 'mWorld'),
+      matView: gl.getUniformLocation(program, 'mView'),
+      matProj: gl.getUniformLocation(program, 'mProjection'),
+      timePeriod: gl.getUniformLocation(program, 'u_time'),
+      resolution: gl.getUniformLocation(program, 'u_resolution'),
+      color: gl.getUniformLocation(program, 'color'),
+      mNormal: gl.getUniformLocation(program, 'mNormal'),
+      ambientColor: gl.getUniformLocation(program, 'ambientColor'),
+      directColor: gl.getUniformLocation(program, 'directColor'),
+      scale: gl.getUniformLocation(program, 'scale'),
+      opacity: gl.getUniformLocation(program, 'opacity')
+    }
+  }
+
+  public static genbuffers(gl: WebGL2RenderingContext): Buffers {
+    return {
+      position: gl.createBuffer(),
+      normal: gl.createBuffer(),
+      translation: gl.createBuffer(),
+      indices: gl.createBuffer()
+    }
   }
 }

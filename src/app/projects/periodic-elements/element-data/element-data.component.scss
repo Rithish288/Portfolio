@@ -12,7 +12,6 @@ $flex-direction: row-reverse;
     border-radius: 5px;
   }
   section {
-    padding-inline: 8vmin;
     margin-block: 2.5vmax;
 
     h1 {
@@ -49,14 +48,10 @@ $flex-direction: row-reverse;
           }
         }
       }
-      // p::first-letter {
-      //   font-size: 3em;
-      //   line-height: 1;
-      // }
     }
     &.image.discovery-physicals {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       img {
         width: 40%;
       };
@@ -77,7 +72,7 @@ $flex-direction: row-reverse;
     }
     &.bohr-model.particle-details {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       canvas {
         margin-inline-end: 10vmin;
         @include abstracts.tablet-landscape() {
@@ -91,7 +86,7 @@ $flex-direction: row-reverse;
     }
     &.model-3d.position-details {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       $small-dim: 300px;
       model-viewer {
         $dimension: 30vw;
