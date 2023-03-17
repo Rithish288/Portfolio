@@ -15,6 +15,10 @@ export class ProjectsComponent implements OnInit {
   private subscriptions: Subscription[] = [];
   public breadcrumb: string = '';
   public projectHeading: string= '';
+  public sidenavItems = [
+    {innerText: "Main", routerLink: "main-content"},
+    {innerText: "Periodic Table", routerLink: "periodic-elements/periodic-table"},
+  ]
   constructor(private nav: NavbarService, private router: Router, private actRoute: ActivatedRoute, public detector: ChangeDetectorRef, private observer: BreakpointObserver) {
     this.nav.show();
   }

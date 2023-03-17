@@ -1,8 +1,13 @@
 <mat-sidenav-container>
   <mat-sidenav autoFocus="false" #sidenav mode="over" autoFocus="false" fixedInViewport="true" [fixedTopGap]="window.innerWidth > 650? 55.927 : 55.927+25">
     <mat-nav-list>
-      <mat-list-item routerLink="main-content" routerLinkActive="active-project">Main</mat-list-item>
-      <mat-list-item role="link" routerLink="periodic-elements/periodic-table" routerLinkActive="active-project">Periodic Table</mat-list-item>
+      <mat-list-item
+        *ngFor="let item of sidenavItems"
+        (click)="sidenav.toggle()"
+        role="link"
+        [routerLink]="item.routerLink"
+        routerLinkActive="active-project"
+      >{{item.innerText}}</mat-list-item>
       <!-- <mat-list-item role="link" routerLink="calculator" routerLinkActive="active-project">Calculator</mat-list-item> -->
       <!-- <mat-list-item role="link" routerLink="prime-numbers" routerLinkActive="active-project">Prime Numbers</mat-list-item> -->
     </mat-nav-list>
