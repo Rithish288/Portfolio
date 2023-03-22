@@ -183,6 +183,7 @@ body {
   @include mat.card-theme($light-theme);
   @include mat.tabs-theme($light-theme);
   @include mat.slider-theme($light-theme);
+  @include mat.snack-bar-theme($light-theme);
   width: 100vw;
   max-width: 39.6875cm;
   display: block;

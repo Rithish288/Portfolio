@@ -1,5 +1,6 @@
 import elementData from 'assets/json/element-data.json';
 import { Component, ChangeDetectionStrategy, ViewChildren, QueryList, AfterViewInit, ElementRef } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ElementDataService } from 'app/services/element-data.service';
 import { ElementDetails } from '../element-details';
@@ -8,14 +9,23 @@ import { ElementDetails } from '../element-details';
   selector: 'app-periodic-table',
   templateUrl: './periodic-table.component.html',
   styleUrls: ['./periodic-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [MatSnackBar]
 })
 export class PeriodicTableComponent implements AfterViewInit {
   public elements: ElementDetails[] = elementData.elementData as ElementDetails[];
   private configuration: string = '';
   private breakPoints: HTMLDivElement[];
+  private firstVisit: string;
   @ViewChildren('periodicElement') components: QueryList<ElementRef<HTMLDivElement>>;
-  constructor(private router: Router, private elementDetails: ElementDataService) { }
+  constructor(private router: Router, private elementDetails: ElementDataService, private _snackBar: MatSnackBar) {
+    this.firstVisit = localStorage.getItem("firstVisit");
+    if(localStorage.getItem("firstVisit") == null || localStorage.getItem("firstVisit") == undefined) {
+      this.firstVisit = "true";
+      localStorage.setItem("firstVisit", "true");
+    } else
+      localStorage.setItem("firstVisit", "false");
+  }
 
   ngAfterViewInit(): void {
     this.breakPoints = [
@@ -26,6 +36,13 @@ export class PeriodicTableComponent implements AfterViewInit {
       this.components.get(54-1).nativeElement,
       this.components.get(86-1).nativeElement
     ];
+    this.openSnackBar();
+  }
+  private openSnackBar(): void {
+    if(localStorage.getItem("firstVisit") != "true") return;
+    setTimeout(() => {
+      this._snackBar.open("Try clicking an element!", "Ok");
+    }, 2e3);
   }
 
   public getElementDetails(x: number) {
