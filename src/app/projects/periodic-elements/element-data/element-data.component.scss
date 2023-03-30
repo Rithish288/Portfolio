@@ -87,20 +87,7 @@ $flex-direction: row-reverse;
     &.model-3d.position-details {
       display: flex;
       justify-content: space-around;
-      $small-dim: 300px;
-      model-viewer {
-        $dimension: 30vw;
-        --poster-color: transparent;
-        margin-top: -1em;
-        width: $dimension;
-        height: $dimension;
-      }
       @include abstracts.mobile-lg-landscape() {
-        model-viewer {
-          width: $small-dim;
-          height: $small-dim;
-          margin-inline: auto;
-        }
         flex-direction: column;
       }
     }

@@ -36,9 +36,8 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   public NumberConst = Number;
   public String = String;
   public elementImage: string;
-  public currentBanner: string = 'General Properties';
   public parent: HTMLDivElement;
-  public isSpin: boolean = true;
+  public isSpin: {s2d: boolean, s3d: boolean} = {s2d: true, s3d: true};
 
   @ViewChild('bohrModel2d') bohrModel2d: ElementRef<HTMLCanvasElement>;
   @ViewChild('bohrModel3d') bohrModel3d: ElementRef<HTMLCanvasElement>;
@@ -66,13 +65,16 @@ export class ElementDataComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private stopAnimation() {
-    this.elementModel2d.runAnimation = this.commonStuff.isInViewport(this.bohrModel2d.nativeElement).visible && (this.isSpin === true);
+    this.elementModel2d.runAnimation = this.commonStuff.isInViewport(this.bohrModel2d.nativeElement).visible && (this.isSpin.s2d === true);
     this.detector.detectChanges();
   }
 
-  public spinCheck($event) {
-    this.isSpin = $event.target.checked
-    this.elementModel2d.runAnimation = this.isSpin;
+  public spinCheck($event, dim : "2d" | "3d") {
+    this.isSpin.s2d = $event.target.checked;
+    this.isSpin.s3d = $event.target.checked;
+    if(dim == "2d")
+      this.elementModel2d.runAnimation = this.isSpin.s2d;
+    else this.elementModel3d.runAnimation = this.isSpin.s3d;
   }
 
   private setBanner() {

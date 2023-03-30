@@ -42,14 +42,24 @@
     <div class="model">
       <canvas #bohrModel2d></canvas>
       <label for="spin">Spin: </label>
-      <input type="checkbox" [checked]="true" (change)="spinCheck($event)" name="spin">
+      <input type="checkbox" [checked]="true" (change)="spinCheck($event, '2d')" name="spin">
     </div>
   </section>
   <mat-divider></mat-divider>
   <section class="model-3d position-details">
-    <canvas #bohrModel3d>
-      <button>hello</button>
-    </canvas>
+    <div class="model" style="max-height: 300px; width: fit-content">
+      <canvas #bohrModel3d></canvas>
+      <div class="model-3d-controls" [style]="{'display': 'flex', 'flex-direction': 'row', 'justify-content': 'space-around'}">
+        <div class="model-3d-spin-control" style="margin-block: auto">
+          <label for="spin">Spin: </label>
+          <input type="checkbox" [checked]="true" (change)="spinCheck($event, '3d')" name="spin">
+        </div>
+        <div class="model-3d-spin-control">
+          <span>Zoom: </span><mat-slider min="10" max="195" value="120"  (input)="onSliderChange($event)">
+          </mat-slider>
+        </div>
+      </div>
+    </div>
     <mat-list>
       <h1 class="mat-h1">3D Model of {{element.name}}</h1>
       <mat-list-item><span class="LHS">Group:</span>&nbsp;{{element.group}}</mat-list-item>
@@ -58,8 +68,6 @@
       <mat-list-item><span class="LHS">Electron Configuration:</span>&nbsp;{{element.electronConfig}}</mat-list-item>
     </mat-list>
   </section>
-  <span>Zoom: </span><mat-slider min="10" max="195" value="120"  (input)="onSliderChange($event)">
-  </mat-slider>
   <mat-divider></mat-divider>
   <section class="history">
     <h1 class="mat-h1">History of {{element.name}}</h1>

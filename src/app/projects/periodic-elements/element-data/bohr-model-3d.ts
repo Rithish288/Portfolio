@@ -17,11 +17,13 @@ export class BohrModel3d implements OnDestroy {
   private nucTranslation: Float32Array = new Float32Array([0, 0, 0]);
   private animation: number;
   private matrices: Matrices;
+  private ticker: number = 0;
   private buffers: Buffers;
   private angle: Angle = {x: 0, y: 0};
   private unifs: Uniforms;
   private atomicNumber: number;
   public zScale: number = 120;
+  public runAnimation: boolean = true;
   private attr = {position: 0, normal: 0, translation: 0};
   private p: {x: number, y: number, z: number} = {x: 0, y: 0, z: 0};
   constructor(private canvas: HTMLCanvasElement, @Inject(Number) private electronShells: number[], private shader: ShaderService) {
@@ -32,10 +34,8 @@ export class BohrModel3d implements OnDestroy {
   }
 
   private setCanvasDimensions(): void {
-    const getProp = (property: string) => window.getComputedStyle(this.canvas.parentElement, null).getPropertyValue(property);
-    this.canvas.width = Math.round(parseFloat(getProp("width"))/2 - 2 * parseFloat(getProp("padding-inline")) * window.devicePixelRatio);
-    if(window.innerWidth > 650)
-      this.canvas.height = parseFloat(getProp("height"));
+    this.canvas.width = this.canvas.parentElement.clientWidth;
+    this.canvas.height = this.canvas.parentElement.clientHeight - 48;
   }
 
   public setCanvas(): void {
@@ -102,8 +102,8 @@ export class BohrModel3d implements OnDestroy {
       i++;
       angle = (Math.PI * 2) / shell;
       for (let j = 0; j < shell; j++) {
-        this.p.x = Math.cos(angle * j + (t * 0.001)/i) * (i/2+1) * 10;
-        this.p.y = Math.sin(angle * j + (t * 0.001)/i) * (i/2+1) * 10;
+        this.p.x = Math.cos(angle * j + (t*0.01)/i) * (i/2+1) * 10;
+        this.p.y = Math.sin(angle * j + (t*0.01)/i) * (i/2+1) * 10;
         this.translation[c] = this.p.x;
         this.translation[c+1] = this.p.z;
         this.translation[c+2] = this.p.y;
@@ -178,8 +178,9 @@ export class BohrModel3d implements OnDestroy {
 
   private animate(time?: number):void {
     //basically mouse rotation and informing the shader about the rotation
-    this.rotation();
     time++;
+    this.animation = requestAnimationFrame(this.animate.bind(this));
+    this.rotation();
     this.gl.uniform1f(this.unifs.opacity, 1);
 
     //drawing the nucleus
@@ -191,11 +192,13 @@ export class BohrModel3d implements OnDestroy {
     //drawing the electrons
     this.gl.uniform1f(this.unifs.scale, 0.6);
     this.gl.uniform3fv(this.unifs.color, [0.9, 0.9, 0.1], 0);
-    this.setElectronTranslationLocation(time);
+    if(this.runAnimation) {
+      this.ticker++;
+      this.setElectronTranslationLocation(this.ticker);
+    }
     this.gl.bufferData(this.gl.ARRAY_BUFFER, this.translation, this.gl.DYNAMIC_DRAW);
     this.gl.drawElementsInstanced(this.gl.TRIANGLES, indices.length, this.gl.UNSIGNED_SHORT, 0, this.atomicNumber);
 
-    this.animation = requestAnimationFrame(this.animate.bind(this));
   }
 
   ngOnDestroy(): void {
