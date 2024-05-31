@@ -1,16 +1,12 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
-import { fadeIn } from '../animations';
 import { CommonVariablesService } from '../services/common-variables.service';
 
 @Component({
   selector: 'top-navigation-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
-  animations: [
-    fadeIn
-  ]
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class ToolbarComponent implements OnInit {
   public themeIcon = "dark_mode";

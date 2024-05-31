@@ -13,7 +13,7 @@ $font-config: (
   subheading-2: mat.define-typography-level(16px, 28px, $font-400, $font-family, 0.0094em),
   subheading-1: mat.define-typography-level(14px, 24px, 500, $font-family, 0.0067em),
   body-2:       mat.define-typography-level(14px, 20px, $font-400, $font-family, 0.0179em),
-  body-1:       mat.define-typography-level(0.8125rem, 1.6, $font-400, $font-family, 0.0179em),
+  body-1:       mat.define-typography-level(14px, 1.6, $font-400, $font-family, 0.0179em),
   button:       mat.define-typography-level(14px, 14px, 500, $font-family, 0.0893em),
   caption:      mat.define-typography-level(12px, 20px, $font-400, $font-family, 0.0333em),
   input:        mat.define-typography-level(inherit, 1.125, $font-400, $font-family, 1.5px)

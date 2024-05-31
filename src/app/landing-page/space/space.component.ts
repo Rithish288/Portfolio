@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { glMatrix, mat4 } from 'gl-matrix';
+import { glMatrix, mat4, vec3 } from 'gl-matrix';
 import { MATH } from 'math-extended';
 import { WebglBoilerPlateService } from 'app/services/webgl-boiler-plate.service';
 import { lastValueFrom } from 'rxjs';
@@ -41,6 +41,12 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
 
   constructor(private shader: ShaderService, private common: CommonVariablesService, private detector: ChangeDetectorRef) {
     this.matrices = WebglBoilerPlateService.generateMatrices();
+    this.matrices.viewMatrix = new Float32Array([
+      10, 0, 0, 0,
+      0, 10, 0, 0,
+      0, 0, -10, 0,
+      0, 0, 0, 1
+    ])
   }
 
   ngAfterViewInit(): void {
@@ -81,10 +87,22 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
   }
 
   private pushVerts(): void {
+    const twopi = 2*MATH.PI;
+    const radius = 6;
     for (let i = 10000; i >= 1; i--) {
-      this.vertices.push(MATH.randomIntFromRange(-6, 6));
-      this.vertices.push(MATH.randomIntFromRange(-6, 6));
-      this.vertices.push(MATH.randomIntFromRange(-6, 6));
+      const phi = MATH.random()*twopi;
+      const azimuth = MATH.random()*twopi;
+      const [x, y, z] = [
+        radius*MATH.trig.cos(phi)*MATH.trig.cos(azimuth),
+        radius*MATH.trig.cos(phi)*MATH.trig.sin(azimuth),
+        radius*MATH.trig.sin(phi)
+      ];
+      const distance = Math.hypot(x, y, z);
+      if(distance < radius)
+        this.vertices.push(x, y, z);
+      // this.vertices.push(MATH.randomIntFromRange(-6, 6));
+      // this.vertices.push(MATH.randomIntFromRange(-6, 6));
+      // this.vertices.push(MATH.randomIntFromRange(-6, 6));
     }
   }
 
@@ -131,7 +149,10 @@ export class SpaceComponent implements AfterViewInit, OnDestroy {
 
   private matrixMults(): void {
     mat4.identity(this.matrices.worldMatrix);
-    mat4.lookAt(this.matrices.viewMatrix, [0, 0, 0], [0, 0, 0], [0, 0, 0]);
+    // console.log(this.matrices.viewMatrix);
+    // let look = mat4.lookAt(this.matrices.viewMatrix, vec3.fromValues(0, 0, -0), [0, 0, 0], [0, 0, 0]);
+    console.log(this.matrices.viewMatrix);
+
     mat4.perspective(this.matrices.projMatrix, glMatrix.toRadian(45), this.aspect, 0.1, 1000.0);
     mat4.identity(this.matrices.identityMatrix);
   }

@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, ElementRef, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { trigger, state, style, transition, animate } from "@angular/animations";
+import { trigger, transition, useAnimation } from "@angular/animations";
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { NavbarService } from '../services/navbar.service';
 import { Subscription } from 'rxjs';
+import { transitionFadeIn } from 'app/animations';
 
 @Component({
   selector: 'app-index',
@@ -12,15 +13,7 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('fadeIn', [
-      state('hidden', style({
-        opacity: 0,
-        transform: 'translateX(5px)'
-      })),
-      state('visible', style({
-        opacity: 1,
-        transform: 'translateX(5vw)'
-      })),
-      transition('hidden => visible', animate('1000ms cubic-bezier(0.62, 0.05, 0.36, 0.99)'))
+      transition('hidden => visible', useAnimation(transitionFadeIn('x')))
     ])
   ]
 })
@@ -30,7 +23,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     subHead: 'Hello there',
     content: "My name's Rithish and I'm a student who can create websites."
   };
-  public imageState: string = 'hidden';
+  public imageState: "hidden" | "visible" = 'hidden';
   public margin: string;
   public contentHeight: string;
   public noImage: boolean = true;

@@ -8,7 +8,7 @@ const routes: Routes = [
     {path: '', redirectTo: 'main-content', pathMatch: 'full'},
     {path: 'main-content', component: MainContentComponent},
     {path: 'periodic-elements', loadChildren: () => import('./periodic-elements/periodic-elements.module').then(m => m.PeriodicElementsModule)},
-    // {path: 'calculator', loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)},
+    {path: 'calculator', loadChildren: () => import('./calculator/calculator.module').then(m => m.CalculatorModule)},
     // {path: 'prime-numbers', loadChildren: () => import('./prime-numbers/prime-numbers.module').then(m => m.PrimeNumbersModule)}
   ]},
 ];

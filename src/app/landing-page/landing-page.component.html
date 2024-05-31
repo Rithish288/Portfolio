@@ -1,10 +1,11 @@
 <app-space></app-space>
 <div id="quick-intro" style="position: absolute; top: 50vh; left: 50%; transform: translate(-50%, -50%);">
   <h1
-    class="mat-display-2" [@fadeIn]
+    class="mat-display-2" @fadeIn
     style="background-image: linear-gradient(90deg, var(--primary-color), var(--accent-color)); background-size: 100% 3px; background-repeat: no-repeat; background-position: left bottom; padding-bottom: 0.2em"
   >Welcome to my portfolio !</h1>
   <button
+    @fadeInArrow
     aria-label="Scroll to main content"
     accesskey="arrow_down"
     (click)="scrollToMainContent()"

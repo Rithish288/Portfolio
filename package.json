@@ -23,8 +23,6 @@
     "@angular/router": "^15.1.5",
     "@google/model-viewer": "^1.10.1",
     "gl-matrix": "^3.4.3",
-    "gulp": "^4.0.2",
-    "gulp-gzip": "^1.4.2",
     "math-extended": "^2.1.1",
     "mathjs": "^10.1.0",
     "rxjs": "~7.4.0",

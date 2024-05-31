@@ -14,7 +14,7 @@ const modules = [
 ]
 
 @NgModule({
-  imports: [CommonModule, ...modules],
+  imports: [CommonModule],
   exports: [...modules]
 })
 export class Material2Module { }

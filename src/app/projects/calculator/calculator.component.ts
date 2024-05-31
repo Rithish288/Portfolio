@@ -1,27 +1,25 @@
-import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { CommonVariablesService } from 'app/services/common-variables.service';
+import { validator } from './validator';
 
 @Component({
   selector: 'simple-calculator',
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CalculatorComponent implements OnInit, AfterViewInit {
-  private numOperNumRegEx: RegExp = /\d+ (\+|\-|\*|\/) \d+/g;
-  public display: string = '';
+export class CalculatorComponent implements OnInit {
+  public display: FormControl = new FormControl('', {
+    validators: validator()
+  });
   constructor(private common: CommonVariablesService) { }
 
   ngOnInit(): void {
+    console.log(this.display.errors["consecutive-operator"])
   }
 
-  ngAfterViewInit(): void {
-  }
-
-  onNumberInput(number: number) {
-    this.display += number;
-  }
-  onOperInput(oper: string) {
-    console.log(oper)
+  public addValue(value: string): void {
+    if(value === 'del' && value.length > 0) return this.display.setValue(this.display.value.slice(0, -1))
+    return this.display.setValue(this.display.value + value);
   }
 }

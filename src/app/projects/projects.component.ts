@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, RouterEvent, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NavbarService } from '../services/navbar.service';
@@ -8,7 +8,6 @@ import { NavbarService } from '../services/navbar.service';
   selector: 'web-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsComponent implements OnInit {
   public window: Window & typeof globalThis = window;
@@ -18,8 +17,9 @@ export class ProjectsComponent implements OnInit {
   public sidenavItems = [
     {innerText: "Main", routerLink: "main-content"},
     {innerText: "Periodic Table", routerLink: "periodic-elements/periodic-table"},
+    {innerText: "Calculator", routerLink: "calculator"},
   ]
-  constructor(private nav: NavbarService, private router: Router, private actRoute: ActivatedRoute, public detector: ChangeDetectorRef, private observer: BreakpointObserver) {
+  constructor(private nav: NavbarService, private router: Router, private actRoute: ActivatedRoute, private observer: BreakpointObserver) {
     this.nav.show();
   }
 
@@ -29,7 +29,6 @@ export class ProjectsComponent implements OnInit {
       this.observer.observe('(max-width: 400px)').subscribe(state => {
         if(state.matches) this.setProjectHeading();
         else this.projectHeading = null;
-        this.detector.detectChanges();
       })
     )
   }

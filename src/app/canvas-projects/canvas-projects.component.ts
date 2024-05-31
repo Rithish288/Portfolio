@@ -2,15 +2,13 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRe
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
-import { fadeIn } from '../animations';
 import { NavbarService } from '../services/navbar.service';
 
 @Component({
   selector: 'app-canvas-projects',
   templateUrl: './canvas-projects.component.html',
   styleUrls: ['./canvas-projects.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CanvasProjectsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];

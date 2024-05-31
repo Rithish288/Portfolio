@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { fadeIn } from '../animations';
+import { transitionFadeIn } from '../animations';
 import { NavbarService } from '../services/navbar.service';
 import { skills} from './libraries';
+import { transition, trigger, useAnimation } from '@angular/animations';
 
 @Component({
   selector: 'app-landing-page',
@@ -9,7 +10,8 @@ import { skills} from './libraries';
   styleUrls: ['./landing-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    fadeIn
+    trigger('fadeIn', [transition(':enter', useAnimation(transitionFadeIn('y')))]),
+    trigger('fadeInArrow', [transition(':enter', useAnimation(transitionFadeIn('y', '500ms')))])
   ]
 })
 export class LandingPageComponent implements OnInit {

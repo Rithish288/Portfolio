@@ -251,6 +251,11 @@ body {
       }
     }
   }
+
+  & mat-sidenav.mat-drawer.mat-sidenav {
+    // border-right: solid 0px;
+    min-width: 200px;
+  }
 }
 
 div.wrapper {

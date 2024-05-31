@@ -5,7 +5,6 @@
     </span>
     <div class="links" *ngIf="!isWindowSmall">
       <a
-        [@fadeIn]
         matRipple
         *ngFor="let navigation of navigations"
         routerLink="{{navigation.route}}"

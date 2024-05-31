@@ -1,9 +1,8 @@
 <mat-sidenav-container>
-  <mat-sidenav autoFocus="false" #sidenav mode="over" autoFocus="false" fixedInViewport="true" [fixedTopGap]="window.innerWidth > 650? 55.927 : 55.927+25">
+  <mat-sidenav autoFocus="false" [mode]="'side'" opened fixedInViewport="true" [fixedTopGap]="window.innerWidth > 650? 55.927 : 55.927+25">
     <mat-nav-list>
       <mat-list-item
         *ngFor="let item of sidenavItems"
-        (click)="sidenav.toggle()"
         role="link"
         [routerLink]="item.routerLink"
         routerLinkActive="active-project"
@@ -14,7 +13,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary" [ngStyle]="{height: '55.927px'}">
-      <button mat-icon-button aria-label="open menu" (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+      <button mat-icon-button aria-label="open menu"><mat-icon>menu</mat-icon></button>
       <h2 [style.margin-left]="'16px'" [style.font-weight]="400">Projects {{breadcrumb | removeHyphen | titlecase}}</h2>
     </mat-toolbar>
     <h1

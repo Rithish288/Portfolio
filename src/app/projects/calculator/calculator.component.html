@@ -1,29 +1,27 @@
 <ng-container>
-  <div class="calculator-container">
-    <div class="calculator-input-container">
-      <div class="calculator-quick-operation">0</div>
-      <div class="calculator-input">{{display}}</div>
-    </div>
-    <div class="calculator-buttons">
-      <div class="more-operations">
-        <button
-          class="button scientific"
-          mat-button
-          *ngFor="let i of
-            ['%', 'CE', 'C', '1/x', 'x²', '√x']">{{i}}</button>
+  <mat-card [ngStyle]="{width: 'fit-content', margin: '3vmax auto'}" ngClass="mat-elevation-z8">
+    <mat-form-field>
+      <mat-label>Enter expression</mat-label>
+      <input name="calculator-display" [formControl]="display" matInput type="text" placeholder="try (3+2)*(6-4)...">
+    </mat-form-field>
+    <mat-card-content>
+      <div class="calculator-input-panel">
+        <button ngClass="mat-h3" (click)="addValue('^')" mat-button>&and;</button>
+        <button ngClass="mat-h3" (click)="addValue('1')" mat-button>&#x43;</button>
+        <button ngClass="mat-h3" (click)="addValue('1')" mat-button>&#x41;&#x43;</button>
+        <button ngClass="mat-h3" (click)="addValue('del')" mat-button><mat-icon inline>backspace</mat-icon></button>
+        <button ngClass="mat-h3" (click)="addValue('1')" mat-button>1</button>
+        <button ngClass="mat-h3" (click)="addValue('2')" mat-button>2</button>
+        <button ngClass="mat-h3" (click)="addValue('3')" mat-button>3</button>
+        <button ngClass="mat-h3" (click)="addValue('+ ')" mat-button>&divide;</button>
+        <button ngClass="mat-h3" (click)="addValue('4')" mat-button>4</button>
+        <button ngClass="mat-h3" (click)="addValue('5')" mat-button>5</button>
+        <button ngClass="mat-h3" (click)="addValue('6')" mat-button>6</button>
+        <button ngClass="mat-h3" (click)="addValue('6')" mat-button>&times;</button>
+        <button ngClass="mat-h3" (click)="addValue('7')" mat-button>7</button>
+        <button ngClass="mat-h3" (click)="addValue('8')" mat-button>8</button>
+        <button ngClass="mat-h3" (click)="addValue('9')" mat-button>9</button>
       </div>
-      <div class="numbers">
-      </div>
-      <div class="operations">
-        <!--<button
-          class="button operation"
-          #operations
-          (click)="addOperationInput(i)"
-          *ngFor="let i of
-            ['⌦', '÷', '×', '-', '+', '=']"
-          mat-button
-        {{i}}</button> -->
-      </div>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
 </ng-container>

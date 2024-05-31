@@ -3,7 +3,7 @@
   <div class="blob" [ngStyle]="{'top': 0, 'left': 0, 'margin': '2em 1em', 'border-radius': '30% 70% 70% 30% / 33% 30% 70% 67%'}"></div>
   <div class="blob" [ngStyle]="{'right': 0, 'top': 0, 'margin': '30vh 1em 0 0', 'border-radius': '78% 22% 73% 27% / 61% 59% 41% 39%'}"></div>
   <div class="main" [ngStyle]="{'height': contentHeight,'padding': contentPadding}">
-    <section class="title" [ngStyle]="{'height': sectionHeight}">
+    <div class="title" [ngStyle]="{'height': sectionHeight}">
       <div class="myName" [ngStyle]="{display: titleDisplay, fontSize: '2em'}">
         Rithish
       </div>
@@ -12,8 +12,8 @@
         <span [appTypeAnimation]="mainContent.content" [style.min-height]="'51px'"></span>
       </div>
       <button mat-raised-button [ngStyle]="{'margin': margin}" (keyup.enter)="goToHome()" (click)="goToHome()" color="accent">{{'Dive in' | titlecase}}</button>
-    </section>
-    <section class="image" *ngIf="!noImage">
+    </div>
+    <div class="image" *ngIf="!noImage">
       <img
        (load)="onLoad()"
        [@fadeIn]="imageState"
@@ -25,6 +25,6 @@
          'clip-path': 'polygon(75% 0%, 87% 52%, 75% 100%, 0% 100%, 9% 53%, 0% 0%)'
         }"
       />
-    </section>
+    </div>
   </div>
 </div>
