@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { MatSliderChange } from '@angular/material/slider';
+import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
 import { MATH } from 'math-extended';
 import { lastValueFrom } from 'rxjs';
 import { primaryMappedArr } from 'app/colors';

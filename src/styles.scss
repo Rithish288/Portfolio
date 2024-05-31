@@ -175,15 +175,15 @@ html, body {
 }
 body {
   font-family: Roboto, sans-serif;
-  @include mat.button-theme($light-theme);
+  @include mat.legacy-button-theme($light-theme);
   @include mat.ripple-theme($light-theme);
   @include mat.toolbar-theme($light-theme);
-  @include mat.progress-spinner-theme($light-theme);
-  @include mat.tooltip-theme($light-theme);
-  @include mat.card-theme($light-theme);
-  @include mat.tabs-theme($light-theme);
-  @include mat.slider-theme($light-theme);
-  @include mat.snack-bar-theme($light-theme);
+  @include mat.legacy-progress-spinner-theme($light-theme);
+  @include mat.legacy-tooltip-theme($light-theme);
+  @include mat.legacy-card-theme($light-theme);
+  @include mat.legacy-tabs-theme($light-theme);
+  @include mat.legacy-slider-theme($light-theme);
+  @include mat.legacy-snack-bar-theme($light-theme);
   width: 100vw;
   max-width: 39.6875cm;
   display: block;
@@ -223,9 +223,9 @@ body {
   }
   .darkTheme {
     @include mat.sidenav-color($dark-theme);
-    @include mat.card-color($dark-theme);
-    @include mat.tabs-color($dark-theme);
-    @include mat.slider-color($dark-theme);
+    @include mat.legacy-card-color($dark-theme);
+    @include mat.legacy-tabs-color($dark-theme);
+    @include mat.legacy-slider-color($dark-theme);
     background-color: mat.get-color-from-palette($mat-dark-theme-background, 'background');
     color: mat.get-color-from-palette($mat-dark-theme-foreground, 'text');
     a {
