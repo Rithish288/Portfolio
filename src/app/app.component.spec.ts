@@ -37,7 +37,7 @@ describe('AppComponent', () => {
   it('should render the toolbar', () => {
     fixture = TestBed.createComponent(AppComponent);
     const app = fixture.nativeElement as HTMLElement;
-    expect(app.innerHTML).toContain('app-toolbar');
+    expect(app.innerHTML).toContain('app-toolbar') ;
   })
 
   it('should have a router-outlet', () => {

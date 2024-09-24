@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterEvent, Event } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Subscription } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { NavbarService } from '../services/navbar.service';
 
 @Component({
@@ -42,14 +42,21 @@ export class CanvasProjectsComponent implements OnInit, OnDestroy {
   }
 
   private setProjectHeading() {
-    let url: string[] = this.actRoute.snapshot['_routerState'].url.replace('/canvas-projects', '').split('/');
+    let url: string[] = this.actRoute.snapshot['_routerState'].url
+      .replace('/canvas-projects', '')
+      .split('/');
+
     this.projectHeading = url[url.length-1];
+
     this.subscriptions.push(
-      this.router.events.subscribe((event: RouterEvent) => {
-        if(event instanceof NavigationEnd) {
-          url = this.actRoute.snapshot['_routerState'].url.replace('/canvas-projects', '').split('/');
-          this.projectHeading = url[url.length-1];
-        }
+      this.router.events.pipe(
+        // Filter for only NavigationEnd events
+        filter((e: Event | RouterEvent): e is NavigationEnd => e instanceof NavigationEnd)
+      ).subscribe(() => {
+        url = this.actRoute.snapshot['_routerState'].url
+          .replace('/canvas-projects', '')
+          .split('/');
+        this.projectHeading = url[url.length-1];
       })
     );
   }
@@ -58,11 +65,14 @@ export class CanvasProjectsComponent implements OnInit, OnDestroy {
     let url = this.actRoute.snapshot['_routerState'].url.replace('/canvas-projects', '').replace(/\//g, ' / ');
     this.breadcrumb = url;
     this.subscriptions.push(
-      this.router.events.subscribe((event: RouterEvent) => {
-        if(event instanceof NavigationEnd) {
-          url = this.actRoute.snapshot['_routerState'].url.replace('/canvas-projects', '').replace(/\//g, ' / ');
-          this.breadcrumb = url;
-        }
+      this.router.events.pipe(
+        // Filter for only NavigationEnd events
+        filter((e: Event | RouterEvent): e is NavigationEnd => e instanceof NavigationEnd)
+      ).subscribe(() => {
+        url = this.actRoute.snapshot['_routerState'].url
+          .replace('/canvas-projects', '')
+          .replace(/\//g, ' / ');
+        this.breadcrumb = url;
       })
     );
   }

@@ -1,9 +1,10 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
-import { NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
+import { NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent, Event } from '@angular/router';
 import { CommonVariablesService } from './services/common-variables.service';
 import { NavbarService } from './services/navbar.service';
 import { SpinnerService } from './services/spinner.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,10 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild('div') div: ElementRef<HTMLDivElement>;
   constructor(private common: CommonVariablesService, private router: Router, private spinnerOverlay: SpinnerService, private detector: ChangeDetectorRef, public nav: NavbarService) {
-    this.router.events.subscribe((e: RouterEvent) => {
+    this.router.events.pipe(
+      // Filter for only NavigationEnd events
+      filter((e: Event | RouterEvent): e is RouterEvent => e instanceof RouterEvent)
+    ).subscribe((e: RouterEvent) => {
       switch (true) {
         case e instanceof NavigationStart: {
           this.spinnerOverlay.show();
